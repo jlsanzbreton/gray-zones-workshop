@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gray Zones Workshop – From Routine to Risk</title>
+  <style>
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #000206 0%, #1a1a1a 100%);
+      color: #FBEDD4;
+      overflow: hidden;
+    }
+    .cursor {
+      position: fixed; width: 20px; height: 20px;
+      background: #FBEDD4; border-radius: 50%;
+      pointer-events: none; z-index: 9999; mix-blend-mode: difference;
+      transition: transform 0.1s ease;
+    }
+    .presentation-container { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .slide { display: none; width: 90%; max-width: 1200px; min-height: 80vh; text-align: center; position: relative; animation: slideIn 0.6s ease-out; }
+    .slide.active { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .slide h1, .slide h2 { 
+      background: linear-gradient(45deg, #FBEDD4, #F5F1E8); 
+      -webkit-background-clip: text; 
+      background-clip: text;
+      -webkit-text-fill-color: transparent; 
+    }
+    .slide h1 { font-size: 3.5rem; margin-bottom: 2rem; line-height: 1.2; }
+    .slide h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+    .slide p { font-size: 1.3rem; line-height: 1.6; margin-bottom: 1.5rem; opacity: 0.9; max-width: 800px; }
+    .interactive-button { background: linear-gradient(45deg, #FBEDD4, #F5F1E8); color: #000206; border: none; padding: 15px 30px; border-radius: 25px; font-weight: 600; font-size: 1.1rem; cursor: pointer; margin: 1rem 0.5rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(251, 237, 212, 0.3); }
+    .interactive-button:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(251, 237, 212, 0.4); }
+    .slide-counter { position: fixed; top: 30px; right: 30px; font-size: 1.2rem; opacity: 0.7; }
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 4px; background: #FBEDD4; transition: width 0.3s ease; z-index: 1000; }
+    .navigation-hint { position: fixed; bottom: 20px; right: 30px; font-size: 0.9rem; opacity: 0.5; }
+    .gray-zones { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 30px; width: 100%; max-width: 800px; margin: 2rem auto; }
+    .zone-card { background: rgba(251, 237, 212, 0.1); border: 2px solid; border-radius: 15px; padding: 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; }
+    .zone-card:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .zone-uncertainty { border-color: #ff6b6b; }
+    .zone-ownership { border-color: #ffa726; }
+    .zone-overreliance { border-color: #42a5f5; }
+    .zone-constraints { border-color: #ab47bc; }
+    .zone-title { font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; }
+    .zone-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .go-deeper-panel { margin: 2rem auto 1rem auto; width: 90%; max-width: 700px; background: rgba(251,237,212,0.04); border-radius: 12px; padding: 20px; border-left: 6px solid #ffa726; }
+    .comparative-framework { width: 100%; max-width: 900px; margin: 2rem auto; }
+    .framework-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; margin: 2rem 0; }
+    .framework-card { background: rgba(251, 237, 212, 0.1); border: 1px solid rgba(251, 237, 212, 0.3); border-radius: 10px; padding: 20px; text-align: center; transition: all 0.3s ease; }
+    .framework-card:hover { background: rgba(251, 237, 212, 0.2); transform: translateY(-5px); }
+    .framework-name { font-weight: 600; margin-bottom: 10px; color: #F5F1E8; }
+    .framework-domain { font-size: 0.95rem; color: #FBEDD4; opacity: 0.7; margin-bottom: 10px; }
+    .framework-description { font-size: 1rem; margin-bottom: 8px; }
+    .framework-compare-score { font-size: 1.1rem; margin: 8px 0 6px 0; color: #ffb74d; font-weight: bold; }
+    .hidden { opacity: 0; pointer-events: none; }
+    .fade-in { animation: fadeIn 0.8s ease-out forwards; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .exercise { margin: 2rem auto; padding: 2rem; border-radius: 15px; background: rgba(251,237,212,0.08); max-width: 750px; border-left: 6px solid #42a5f5; }
+    .exercise-title { font-size: 1.4rem; font-weight: 700; color: #FBEDD4; margin-bottom: 1rem; }
+    .exercise-step { margin-bottom: 1rem; font-size: 1.1rem; }
+    .case-title { color: #ffb74d; font-weight: bold; }
+    .impact { color: #ff6b6b; font-weight: bold; }
+    .highlight { color: #42a5f5; }
+    a { color: #FBEDD4; text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="cursor" id="cursor"></div>
+  <div class="presentation-container" id="presentationContainer">
+
+    <!-- Slide 1: Title -->
+    <div class="slide active" id="slide1">
+      <h1>🎯 Gray Zones Workshop</h1>
+      <p style="font-size: 1.5rem; margin-bottom: 2rem;">From Routine to Risk</p>
+      <p>Discover the blind spots before disaster strikes.<br>
+        <span class="highlight">Interactivity. Real Cases. Framework comparison with the world’s top risk methods.</span></p>
+      <div class="interactive-button" onclick="nextSlide()">Start →</div>
+    </div>
+
+    <!-- Slide 2: What’s a Gray Zone? -->
+    <div class="slide" id="slide2">
+      <h2>What’s a Gray Zone?</h2>
+      <p>
+        <strong>Gray zone</strong> = the space where <span class="highlight">no one sees, no one acts, or everyone assumes “someone else” will do it</span>.<br>
+        The perfect blind spot for disasters.<br>
+        <span class="impact">Why do they exist?</span> Because <b>systems are imperfect</b> and <b>the brain is wired to save mental energy</b>.
+      </p>
+      <div class="interactive-button" onclick="nextSlide()">Next →</div>
+    </div>
+
+    <!-- Slide 3: Elevator Paradox -->
+    <div class="slide" id="slide3">
+      <h2>🚨 The Elevator Paradox</h2>
+      <p>If elevators have sensors and pass all safety checks...<br>
+        <span class="impact">Why do we still see danger signs?</span></p>
+      <p>Answer: <b>No system is perfect.</b> Blind trust <span class="highlight">creates gray zones</span>.</p>
+      <div class="interactive-button" onclick="nextSlide()">Next →</div>
+    </div>
+
+    <!-- Slide 4: The Four Canonical Gray Zones -->
+    <div class="slide" id="slide4">
+      <h2>The Four Gray Zones</h2>
+      <div class="gray-zones">
+        <div class="zone-card zone-uncertainty"><div class="zone-icon">🌫️</div><div class="zone-title">Uncertainty</div><p>What you don’t see can hurt you.</p></div>
+        <div class="zone-card zone-ownership"><div class="zone-icon">🤝</div><div class="zone-title">Ownership</div><p>What belongs to everyone, belongs to no one.</p></div>
+        <div class="zone-card zone-overreliance"><div class="zone-icon">⚙️</div><div class="zone-title">Over-Reliance</div><p>The more we trust, the less we think.</p></div>
+        <div class="zone-card zone-constraints"><div class="zone-icon">⏳</div><div class="zone-title">Constraints</div><p>Resource pressure kills reflection.</p></div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">See Them in Action →</div>
+    </div>
+
+    <!-- Slide 5: Interactive Exercise – Real Case -->
+    <div class="slide" id="slide5">
+      <h2>Exercise: Mapping a Gray Zone</h2>
+      <p class="case-title">Real Case: Cooling Tower Leak</p>
+      <div class="exercise">
+        <div class="exercise-title">What went wrong? (Group questions)</div>
+        <div class="exercise-step">1. What uncertainties existed and went unspoken?</div>
+        <div class="exercise-step">2. Who was truly responsible? Was it clear?</div>
+        <div class="exercise-step">3. What was assumed (technology/procedure) and not checked?</div>
+        <div class="exercise-step">4. What time/resource constraint forced the decision?</div>
+        <p><span class="impact">Discuss in groups and write down at least one gray zone for each category.</span></p>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">Go Deeper →</div>
+    </div>
+
+    <!-- Slide 6: Go Deeper – Multilevel Analysis -->
+    <div class="slide" id="slide6">
+      <h2>“Go Deeper”: The Second Layer</h2>
+      <div class="go-deeper-panel">
+        <b>Multilevel questions for each gray zone:</b><br><br>
+        <b>Uncertainty:</b> What do we REALLY not know? What variable could change everything?<br>
+        <b>Ownership:</b> Who pays if this goes wrong? Does the responsible person know?<br>
+        <b>Over-Reliance:</b> If the tech fails, what do we do?<br>
+        <b>Constraints:</b> Where are we trading quality for a deadline?
+      </div>
+      <p class="impact">At every level, you can ask: “Click Go Deeper” to change the angle of analysis.</p>
+      <div class="interactive-button" onclick="nextSlide()">Next →</div>
+    </div>
+
+    <!-- Slide 7: Tsunami Scenario -->
+    <div class="slide" id="slide7">
+      <h2>🌊 Scenario: Tsunami in Huelva</h2>
+      <p class="case-title">8.5 earthquake. ETA: 45 minutes. You’re on the emergency team at a coastal refinery. What’s your first decision?</p>
+      <div class="exercise">
+        <div class="exercise-step">1. Evacuate NOW</div>
+        <div class="exercise-step">2. Controlled shutdown</div>
+        <div class="exercise-step">3. Assess first</div>
+        <p>Which gray zone appears in each choice?</p>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">Framework Comparison →</div>
+    </div>
+
+    <!-- Slide 8: Framework Comparison (Part 1) -->
+    <div class="slide" id="slide8">
+      <h2>How Do Other Methods Solve This?</h2>
+      <div class="comparative-framework framework-grid">
+        <div class="framework-card">
+          <div class="framework-name">STAMP</div>
+          <div class="framework-domain">System Safety</div>
+          <div class="framework-description">Hierarchical control & decision analysis.<br><b>Pro:</b> Great for responsibility & boundaries.<br><b>Con:</b> Hard to use without training.</div>
+        </div>
+        <div class="framework-card">
+          <div class="framework-name">FRAM</div>
+          <div class="framework-domain">Socio-Technical</div>
+          <div class="framework-description">Functional variability, real work adaptation.<br><b>Pro:</b> Maps constraints & adaptations.<br><b>Con:</b> Complex for big groups.</div>
+        </div>
+        <div class="framework-card">
+          <div class="framework-name">Cynefin</div>
+          <div class="framework-domain">Decision-Making</div>
+          <div class="framework-description">Distinguishes simple, complicated, complex, chaotic.<br><b>Pro:</b> Amazing for uncertainty.<br><b>Con:</b> Demands deep reflection.</div>
+        </div>
+        <div class="framework-card">
+          <div class="framework-name">HAZOP</div>
+          <div class="framework-domain">Engineering/Industry</div>
+          <div class="framework-description">Systematic review of industrial process deviations.<br><b>Pro:</b> Superb in industrial settings and classic failures.<br><b>Con:</b> High time & resource consumption.</div>
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">Visual Comparison →</div>
+    </div>
+
+    <!-- Slide 9: Frameworks Visual Comparison -->
+    <div class="slide" id="slide9">
+      <h2>Visual Comparison: Simplicity vs. Depth</h2>
+      <img src="images/framework-map-en.png" alt="Frameworks Comparison Gray Zones" style="max-width:650px; margin:2rem auto;">
+      <p>Gray Zones sits in the <span class="highlight">sweet spot of simplicity and depth</span>: 4 zones, 2 minutes to use, no excuses for blind spots.</p>
+      <div class="interactive-button" onclick="nextSlide()">What Makes Gray Zones Unique? →</div>
+    </div>
+
+    <!-- Slide 10: What Makes Gray Zones Unique? -->
+    <div class="slide" id="slide10">
+      <h2>What Makes Gray Zones Unique?</h2>
+      <p>🔸 <b>Category simplicity:</b> 4 memorable zones.<br>
+         🔸 <b>Systemic depth:</b> Multilevel analysis.<br>
+         🔸 <b>Direct intervention:</b> Each zone injects “gray matter” as a micro-question.<br>
+         🔸 <b>Immediate application:</b> Any team can map and improve processes in minutes.<br>
+         🔸 <b>Compatible & complementary:</b> Integrates with STAMP, FRAM, HAZOP, Cynefin.</p>
+      <div class="interactive-button" onclick="nextSlide()">Closing Challenge →</div>
+    </div>
+
+    <!-- Slide 11: Final Challenge -->
+    <div class="slide" id="slide11">
+      <h2>Inject Gray Matter</h2>
+      <div class="exercise">
+        <div class="exercise-title">Challenge</div>
+        <div class="exercise-step">1. Pick a process in your daily work or life.</div>
+        <div class="exercise-step">2. Detect at least one gray zone in each category.</div>
+        <div class="exercise-step">3. Promise to ask “What am I NOT seeing?” at your next key meeting.</div>
+        <p class="impact">The real risk is <b>not seeing the risk</b>.<br>
+          <span class="highlight">Do you dare to look where no one else does?</span></p>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">Thanks! →</div>
+    </div>
+
+    <!-- Slide 12: Thank You & Contact -->
+    <div class="slide" id="slide12">
+      <h1>Thank you! 🧠</h1>
+      <p>Learn more at <a href="https://grayzonemapper.com" target="_blank">grayzonemapper.com</a></p>
+      <p class="highlight">"The biggest danger is believing danger is only for others."</p>
+    </div>
+  </div>
+  <!-- UI Elements -->
+  <div class="progress-bar" id="progressBar"></div>
+  <div class="slide-counter" id="slideCounter">1 / 12</div>
+  <div class="navigation-hint">Click or press Space/Arrow keys to advance</div>
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 12;
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'ArrowRight') { e.preventDefault(); nextSlide(); }
+      else if (e.code === 'ArrowLeft') { e.preventDefault(); previousSlide(); }
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.interactive-button') && !e.target.closest('.zone-card')) { nextSlide(); }
+    });
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        document.getElementById(`slide${currentSlide}`).classList.remove('active');
+        currentSlide++;
+        document.getElementById(`slide${currentSlide}`).classList.add('active');
+        updateProgress();
+      }
+    }
+    function previousSlide() {
+      if (currentSlide > 1) {
+        document.getElementById(`slide${currentSlide}`).classList.remove('active');
+        currentSlide--;
+        document.getElementById(`slide${currentSlide}`).classList.add('active');
+        updateProgress();
+      }
+    }
+    function updateProgress() {
+      const progress = (currentSlide / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
+    }
+    // Custom cursor
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.getElementById('cursor');
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    updateProgress();
+  </script>
+</body>
+</html>
