@@ -1,0 +1,180 @@
+{
+  "projectName": "Gray Zones & Catastrophes",
+  "version": "1.3.0",
+  "summary": "A dual-mode, offline-first app for reflecting on ambiguous systemic scenarios. One mode supports real-life mapping; the other is built for live workshops and training.",
+  "appModes": {
+    "GrayZonesMapperMode": {
+      "description": "Supports individual or group users in analyzing real-life gray zones in various contexts: personal, professional, group, or corporate.",
+      "contexts": [
+        "personal",
+        "professional",
+        "group",
+        "corporate"
+      ],
+      "groupLogic": {
+        "canCreateGroup": true,
+        "canJoinExisting": true,
+        "canMapAlone": true,
+        "teamSupportTables": [
+          "teams",
+          "team_members"
+        ]
+      },
+      "coreFlow": [
+        "WelcomePage",
+        "ScenarioMappingPage",
+        "ContextProfilePage",
+        "GrayZoneDashboardPage",
+        "LensReflectionPage",
+        "JournalPage",
+        "GraynessScorePage"
+      ]
+    },
+    "WorkshopMode": {
+      "description": "Facilitator-led interactive simulations of gray zone scenarios for training, onboarding, or collective insight building.",
+      "roles": [
+        "facilitator",
+        "participant"
+      ],
+      "facilitatorDashboard": {
+        "components": [
+          "Zone Selector",
+          "AI Reflection Panel",
+          "Participant Decisions",
+          "Workshop Controls"
+        ],
+        "databaseTables": [
+          "facilitator_dashboards",
+          "participant_decisions"
+        ]
+      },
+      "aftercareModule": {
+        "components": [
+          "Workshop Summary",
+          "Stats & Visuals",
+          "Downloadable Summary",
+          "Aftercare Actions"
+        ],
+        "summaryExport": [
+          "PDF",
+          "JSON"
+        ],
+        "followUpOptions": {
+          "users": [
+            "Start Your Own Map",
+            "30-day reminder"
+          ],
+          "facilitators": [
+            "Reuse Case",
+            "Create Custom Case"
+          ]
+        },
+        "summaryTables": [
+          "workshop_summary"
+        ]
+      },
+      "pages": [
+        "FacilitatorDashboardPage",
+        "WorkshopSummaryPage",
+        "AftercareModule"
+      ]
+    }
+  },
+  "sharedTechnicalStack": {
+    "frontend": "React + TypeScript (Vite)",
+    "styling": "Tailwind CSS + theme variables",
+    "state": "useAppContext + Reducer",
+    "ai": {
+      "provider": "Gemini 1.5 Flash",
+      "functions": [
+        "analyzeTone",
+        "generateReflectionPrompt",
+        "summarizeReflection",
+        "suggestActionSteps"
+      ],
+      "limits": {
+        "free": "5 insights/week",
+        "premium": "unlimited"
+      }
+    },
+    "offline": {
+      "db": "IndexedDB",
+      "stores": [
+        "contexts",
+        "gray_zone_entries",
+        "journal_entries",
+        "sync_queue"
+      ]
+    },
+    "backend": {
+      "platform": "Supabase",
+      "features": [
+        "Row Level Security",
+        "Auth with roles",
+        "Data sync and AI insight storage"
+      ]
+    }
+  },
+  "visualIdentity": {
+    "colors": {
+      "light": "#F8F5EC",
+      "dark": "#121212",
+      "accents": {
+        "light": "#607D8B",
+        "dark": "#90A4AE"
+      }
+    },
+    "fonts": {
+      "primary": "Inter",
+      "secondary": "IBM Plex Serif"
+    },
+    "icons": {
+      "formats": [
+        "svg",
+        "png"
+      ],
+      "paths": {
+        "svg": "src/assets/icons/svg/[type].svg",
+        "png": "src/assets/icons/png/[size]/[type].png"
+      },
+      "types": [
+        "uncertainty",
+        "ownership",
+        "over-reliance",
+        "constraints",
+        "dashboard",
+        "score",
+        "journal",
+        "personal",
+        "group",
+        "corporate"
+      ]
+    }
+  },
+  "philosophicalFallback": {
+    "whenLost": "Return to MVP: Scenario \u2192 Context \u2192 Zone \u2192 Reflection \u2192 Score.",
+    "goldenThread": "All interactions flow from: Definition \u2192 Reflection \u2192 Action.",
+    "metaphor": "This app is a cognitive flashlight for the blurry edges of human systems.",
+    "principles": [
+      "Gray zones are not flaws; they are frontiers.",
+      "Awareness leads to resilience.",
+      "AI assists, it does not decide."
+    ]
+  },
+  "copilotInstructions": {
+    "coreContext": "This app operates in dual modes (real-world mapping vs. simulated workshops). Always check the current mode before generating flows or refactoring.",
+    "keyFiles": [
+      "GeminiService.ts",
+      "SupabaseService.ts",
+      "IndexedDBService.ts",
+      "GrayZoneDashboardPage.tsx",
+      "FacilitatorDashboard.tsx"
+    ]
+  },
+  "meta": {
+    "author": "Jose Sanz Breton",
+    "created": "2025-06-10",
+    "filename": "grayzones.project.json",
+    "versionHash": "v1.3-dual-modes"
+  }
+}
