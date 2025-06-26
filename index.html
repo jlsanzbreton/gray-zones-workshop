@@ -35,6 +35,8 @@
     .slide-counter { position: fixed; top: 30px; right: 30px; font-size: 1.2rem; opacity: 0.7; }
     .progress-bar { position: fixed; bottom: 0; left: 0; height: 4px; background: #FBEDD4; transition: width 0.3s ease; z-index: 1000; }
     .navigation-hint { position: fixed; bottom: 20px; right: 30px; font-size: 0.9rem; opacity: 0.5; }
+    .logo-icon { position: fixed; top: 30px; left: 30px; width: 40px; height: 40px; opacity: 0.8; z-index: 1000; transition: opacity 0.3s ease; }
+    .logo-icon:hover { opacity: 1; }
     .gray-zones { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 30px; width: 100%; max-width: 800px; margin: 2rem auto; }
     .zone-card { background: rgba(251, 237, 212, 0.1); border: 2px solid; border-radius: 15px; padding: 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; }
     .zone-card:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
@@ -97,6 +99,7 @@
       <h2>🚨 The Elevator Paradox</h2>
       <p><b>Question:</b> Do you think the elevators in this building are safe?<br>
         <span class="impact">(Most people say "yes")</span></p>
+      <img src="images/lift-hand.png" alt="Elevator safety warning sign" style="max-width: 400px; margin: 1.5rem auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
       <p><b>But then...</b> If the automatic doors pass all industry inspections,<br>
         <span class="highlight">why do we see signs saying "Don't try to stop the doors with your hand"?</span></p>
       <p><b>Over-reliance:</b> We trust systems that "always work"—<br>
@@ -259,6 +262,7 @@
     </div>
   </div>
   <!-- UI Elements -->
+  <img src="images/apple-touch-icon.png" alt="Gray Zones Logo" class="logo-icon">
   <div class="progress-bar" id="progressBar"></div>
   <div class="slide-counter" id="slideCounter">1 / 13</div>
   <div class="navigation-hint">Click or press Space/Arrow keys to advance</div>

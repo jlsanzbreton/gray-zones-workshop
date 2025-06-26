@@ -1,0 +1,347 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2822
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 .SFNS-Semibold;\f1\fnil\fcharset0 .SFNS-Regular;\f2\fnil\fcharset0 .SFNS-RegularItalic;
+\f3\fnil\fcharset0 HelveticaNeue-BoldItalic;\f4\fnil\fcharset0 HelveticaNeue-Bold;\f5\froman\fcharset0 TimesNewRomanPSMT;
+\f6\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;}
+{\colortbl;\red255\green255\blue255;\red14\green14\blue14;}
+{\*\expandedcolortbl;;\cssrgb\c6700\c6700\c6700;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs44 \cf2 Ejercicio de Taller: Caso Colisi\'f3n Hafnia Nile vs Ceres I (An\'e1lisis \'93Gray Zones\'94)
+\f1\b0\fs28 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 Resumen Emocional del Incidente
+\f1\b0\fs28 \
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f2\i \cf2 Figura \'96 Buque petrolero da\'f1ado tras el incendio. El choque entre el 
+\f3\b Hafnia Nile
+\f2\b0  y el 
+\f3\b Ceres I
+\f2\b0  en julio de 2024 desat\'f3 un incendio dram\'e1tico.
+\f1\i0 \
+\
+El 
+\f4\b 19 de julio de 2024
+\f1\b0 , cerca del estrecho de Singapur, dos grandes petroleros \'97el 
+\f2\i Hafnia Nile
+\f1\i0  (bandera de Singapur, con ~300.000 barriles de nafta a bordo) y el 
+\f2\i Ceres I
+\f1\i0  (VLCC de 300.000 TPM, bandera de Santo Tom\'e9 y Pr\'edncipe, sin carga en ese momento)\'97 
+\f4\b colisionaron y prendieron fuego
+\f1\b0  . La escena era ca\'f3tica: columnas de humo negro, llamadas de auxilio al amanecer y una urgente movilizaci\'f3n de rescate. Los 
+\f4\b 22 tripulantes del Hafnia Nile evacuaron en balsas
+\f1\b0  y fueron rescatados por la Armada de Singapur, mientras la tripulaci\'f3n del Ceres I permaneci\'f3 en su buque a la deriva . En medio de la confusi\'f3n inicial circulaban informes contradictorios \'96 incluso se lleg\'f3 a creer que el Ceres I hab\'eda huido tras el accidente al apagar su AIS (sistema de rastreo) . Horas despu\'e9s se aclar\'f3 que el 
+\f4\b Ceres I, con problemas t\'e9cnicos, hab\'eda quedado sin control
+\f1\b0 : su cadena de ancla fue cortada durante la colisi\'f3n, derivando ~30 millas n\'e1uticas hasta ser localizado y asistido por remolcadores . 
+\f4\b Afortunadamente, no hubo v\'edctimas
+\f1\b0  y 
+\f4\b no se detect\'f3 vertido masivo
+\f1\b0  de crudo (solo una ligera mancha de combustible) , pero la tensi\'f3n y la 
+\f4\b incertidumbre
+\f1\b0  en esos primeros momentos fueron enormes. 
+\f2\i Imag\'ednate recibir la llamada a primera hora: \'93Tu buque fletado choc\'f3 y est\'e1 ardiendo cerca de Singapur\'85\'94
+\f1\i0  \'96 El 
+\f4\b p\'e1nico
+\f1\b0 , la 
+\f4\b adrenalina
+\f1\b0  y la avalancha de decisiones cr\'edticas que siguieron sentaron el escenario para nuestro ejercicio.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 Objetivo y Contexto del Ejercicio
+\f1\b0\fs28 \
+\
+El objetivo de este ejercicio es 
+\f4\b revivir el momento inicial de la crisis
+\f1\b0  y analizar c\'f3mo un comit\'e9 interno de crisis (en la empresa fletadora involucrada) 
+\f4\b reacciona bajo presi\'f3n
+\f1\b0 , aplicando el marco de las 
+\f4\b \'93Gray Zones\'94
+\f1\b0 . Los participantes \'97principalmente del \'e1rea de Trading, familiarizados con el caso real\'97 se pondr\'e1n en la piel del comit\'e9 de crisis (operaciones/trading, seguros, legal, HSE, etc.) que gestion\'f3 el siniestro. A trav\'e9s de una 
+\f4\b simulaci\'f3n interactiva
+\f1\b0 , exploraremos 
+\f4\b percepciones y decisiones
+\f1\b0  de ese momento cr\'edtico, usando las cuatro 
+\f4\b Zonas Grises
+\f1\b0  como lentes de an\'e1lisis: 
+\f4\b Incertidumbre (Uncertainty)
+\f1\b0 , 
+\f4\b Responsabilidad Difusa (Ownership)
+\f1\b0 , 
+\f4\b Exceso de Confianza (Over-reliance)
+\f1\b0  y 
+\f4\b Limitaciones Humanas (Constraints)
+\f1\b0 . Este marco nos ayuda a identificar puntos ciegos donde dedicamos \'93poca materia gris\'94 y que afloran en una crisis  . En otras palabras, veremos c\'f3mo la 
+\f4\b confianza necesaria
+\f1\b0  en sistemas y roles rutinarios choca con la 
+\f4\b realidad imperfecta
+\f1\b0  bajo estr\'e9s, generando zonas grises que dificultan la respuesta  .\
+\
+Al final del ejercicio, los participantes habr\'e1n reflexionado sobre 
+\f4\b qu\'e9 sintieron, qu\'e9 sab\'edan o asum\'edan, y c\'f3mo actuaron (o habr\'edan actuado)
+\f1\b0  en aquellos primeros  minutos. El fin es extraer aprendizajes para mejorar la respuesta ante futuras crisis, reduciendo las \'93zonas grises\'94 en la toma de decisiones.\
+\
+
+\f0\b\fs34 Formato Interactivo y Herramienta Tecnol\'f3gica
+\f1\b0\fs28 \
+\
+El taller se desarrollar\'e1 en un formato altamente interactivo, aprovechando los dispositivos m\'f3viles de los asistentes. 
+\f4\b No es necesaria ninguna instalaci\'f3n
+\f1\b0  previa: los participantes simplemente escanear\'e1n un 
+\f4\b c\'f3digo QR
+\f1\b0  con la c\'e1mara de sus m\'f3viles para unirse a la actividad en una p\'e1gina web . Se propone utilizar una herramienta ligera de encuestas en vivo como 
+\f4\b Mentimeter
+\f1\b0  (o alternativas similares como Slido), que permite a la audiencia responder preguntas en tiempo real de forma an\'f3nima. Estas plataformas muestran instant\'e1neamente las respuestas en pantalla de forma agregada y visual. Por ejemplo, Mentimeter ofrece funciones como 
+\f4\b nubes de palabras din\'e1micas
+\f1\b0  y preguntas abiertas con resultados en vivo, lo que facilita la participaci\'f3n de todos de manera atractiva . La anonimidad de las respuestas fomenta que 
+\f2\i todas las voces sean escuchadas
+\f1\i0 , incluso las de quienes suelen ser m\'e1s reservados , creando un espacio seguro para compartir percepciones sinceras sin temor.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f4\b \cf2 Configuraci\'f3n t\'e9cnica:
+\f1\b0  El facilitador proyectar\'e1 la presentaci\'f3n HTML del workshop (que integrar\'e1 este ejercicio). En el momento indicado, mostrar\'e1 en la pantalla una diapositiva con las instrucciones para unirse (por ejemplo, un gran QR y un c\'f3digo corto de acceso). Los participantes enfocan el QR con la c\'e1mara de su smartphone y acceden al instante a la pregunta interactiva . Las respuestas que vayan enviando aparecer\'e1n en la pantalla del taller en tiempo real, para que todos vean el panorama colectivo. Este enfoque garantiza 
+\f4\b m\'e1xima accesibilidad
+\f1\b0  (cualquier smartphone con internet sirve) y cero fricciones tecnol\'f3gicas que distraigan de la actividad principal.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 Estructura y Desarrollo del Ejercicio (25 minutos)
+\f1\b0\fs28 \
+\
+A continuaci\'f3n se detalla la 
+\f4\b secuencia recomendada
+\f1\b0  para llevar a cabo el ejercicio en ~25 minutos, con secciones cronometradas y tipos de interacci\'f3n sugeridos:\
+\pard\tqr\tx260\tx420\li420\fi-420\sl324\slmult1\sb240\partightenfactor0
+
+\f5 \cf2 	1.	
+\f4\b Introducci\'f3n & Ambientaci\'f3n (3 min):
+\f1\b0  El facilitador resume el incidente con un tono 
+\f4\b emocional y v\'edvido
+\f1\b0  (como en la secci\'f3n inicial de este informe). Se invita a los participantes a \'93teletransportarse\'94 mentalmente a la madrugada del accidente, formando parte del comit\'e9 de crisis que acaba de enterarse del choque. Este storytelling debe recalcar la 
+\f4\b incertidumbre
+\f1\b0 , la 
+\f4\b urgencia
+\f1\b0  y la 
+\f4\b presi\'f3n
+\f1\b0  del momento, preparando el terreno emocional. 
+\f2\i (Tip:
+\f1\i0  acompa\'f1ar esta parte con la foto impactante de los buques en llamas o con alarma sonora suave para sumergir a la audiencia).*\
+
+\f5 	2.	
+\f4\b Pregunta de Calentamiento \'96 Emoci\'f3n Inicial (2 min):
+\f1\b0  Para romper el hielo y revivir la tensi\'f3n, se lanza una 
+\f4\b pregunta inicial
+\f1\b0  v\'eda Mentimeter: 
+\f2\i \'93En una palabra, \'bfqu\'e9 sentiste (o habr\'edas sentido) al enterarte del accidente?\'94
+\f1\i0 . Los participantes env\'edan 
+\f4\b una palabra
+\f1\b0  (por ejemplo: \'93shock\'94, \'93miedo\'94, \'93confusi\'f3n\'94, \'93incredulidad\'94). Las respuestas se visualizan en una 
+\f4\b nube de palabras
+\f1\b0  en vivo, donde los t\'e9rminos m\'e1s repetidos aparecen m\'e1s grandes. Esta nube servir\'e1 como espejo del estado emocional colectivo . El facilitador comenta brevemente las palabras destacadas (\'93Veo \'91impotencia\'92 y \'91p\'e1nico\'92 en grande\'85 claramente el susto fue generalizado.\'94), validando esas emociones y conect\'e1ndolas con la realidad de una crisis. Esto ayuda a 
+\f4\b conectar a los participantes
+\f1\b0  y reconocer el impacto humano de la situaci\'f3n antes de entrar al an\'e1lisis t\'e9cnico.\
+
+\f5 	3.	
+\f4\b Preguntas de Reflexi\'f3n por Zonas Grises (15 min):
+\f1\b0  Ahora se presentan 
+\f4\b cuatro preguntas clave
+\f1\b0 , una para cada 
+\f4\b Gray Zone
+\f1\b0 , enfocadas en las funciones del comit\'e9 de crisis (trading, seguros, legal, HSE, etc.). Estas preguntas \'93lofty\'92s\'94 son abiertas y buscan respuestas breves (1-2 frases) que hagan aflorar percepciones y decisiones tomadas bajo cada zona gris. El facilitador ir\'e1 
+\f4\b desplegando las preguntas una a una
+\f1\b0  en Mentimeter/Slido, dando ~3 minutos por pregunta para responder y comentar resultados antes de pasar a la siguiente. Las preguntas propuestas son:\
+\pard\tqr\tx500\tx660\li660\fi-660\sl324\slmult1\sb240\partightenfactor0
+\cf2 	\'95	
+\f4\b \uc0\u55356 \u57131 \u65039  Incertidumbre:
+\f1\b0  
+\f2\i \'93\'bfQu\'e9 informaci\'f3n faltante o poco clara gener\'f3 mayor incertidumbre para el comit\'e9 de crisis en esos primeros momentos?\'94
+\f1\i0  \'96 
+\f2\i (Piensa en cada funci\'f3n: Trading quiz\'e1s dudaba sobre impacto en el mercado y el suministro; HSE sobre posible derrame; Seguros/Legal sobre responsabilidad y costo; Operaciones sobre la seguridad de la tripulaci\'f3n\'85)
+\f1\i0 . Esta pregunta busca que identifiquen las 
+\f4\b lagunas de informaci\'f3n cr\'edticas
+\f1\b0  (los \'93no sabemos\'94 iniciales). Ejemplo de respuesta: \'93No sab\'edamos la magnitud real del incendio ni si hab\'eda fuga de petr\'f3leo, lo cual nos ten\'eda 
+\f2\i a ciegas
+\f1\i0  tomando decisiones\'94.\
+	\'95	
+\f4\b \uc0\u55358 \u56605  Propiedad / Responsabilidades:
+\f1\b0  
+\f2\i \'93Dentro del equipo de crisis, \'bfqu\'e9 tareas o decisiones cayeron en una \'91zona gris\'92 de responsabilidad? \'bfHubo confusi\'f3n sobre 
+\f3\b qui\'e9n deb\'eda hacer qu\'e9
+\f2\b0 ?\'94
+\f1\i0 . Aqu\'ed los participantes reflexionan sobre 
+\f4\b roles difusos
+\f1\b0 : por ejemplo, 
+\f2\i \'bfQui\'e9n informa a las autoridades portuarias, el equipo Legal o el de Operaciones? \'bfQui\'e9n habla con la prensa? \'bfAlg\'fan asunto qued\'f3 desatendido porque todos asumieron que otro lo har\'eda?
+\f1\i0  Esta pregunta ilumina posibles 
+\f4\b vac\'edos de \'93ownership\'94
+\f1\b0  en la respuesta inicial. P.ej.: \'93Asumimos que el armador manejar\'eda la contenci\'f3n del derrame, cuando en realidad 
+\f4\b nadie
+\f1\b0  lo estaba cubriendo al 100% en ese momento\'94.\
+	\'95	
+\f4\b \uc0\u9881 \u65039  Exceso de Confianza:
+\f1\b0  
+\f2\i \'93\'bfHubo algo en lo que el comit\'e9 confi\'f3 excesivamente (over-relied) durante la crisis inicial? (Ej.: un sistema, una persona, un supuesto de que \'91todo est\'e1 bajo control\'92)
+\f1\i0 \'94. Aqu\'ed buscamos revelar 
+\f4\b puntos donde se dio por hecho que \'93nada fallar\'eda\'94
+\f1\b0 . Por ejemplo: 
+\f2\i \'bfConfiaron ciegamente en los primeros reportes de la tripulaci\'f3n sin verificar? \'bfDependieron de que el sistema anti-incendios del buque funcionar\'eda perfectamente? \'bfCreyeron que las autoridades llegar\'edan de inmediato y bajaron la guardia?
+\f1\i0  Respuesta posible: \'93Tuvimos 
+\f4\b exceso de confianza
+\f1\b0  en que el plan de respuesta a emergencias del barco se estaba ejecutando tal cual \'96 tardamos en darnos cuenta de que la situaci\'f3n lo hab\'eda desbordado\'94.\
+	\'95	
+\f4\b \uc0\u9203  Limitaciones / Constraints:
+\f1\b0  
+\f2\i \'93\'bfQu\'e9 
+\f3\b limitaciones humanas o de contexto
+\f2\b0  afectaron la gesti\'f3n de la crisis? (Piensa en fatiga, presi\'f3n de tiempo, informaci\'f3n fragmentada, restricciones externas\'85)\'94
+\f1\i0 . Esta pregunta hace reflexionar sobre los 
+\f4\b factores de estr\'e9s
+\f1\b0  que a veces pasamos por alto. Ejemplos: 
+\f2\i Toma de decisiones a las 3am con el equipo medio dormido; presi\'f3n de la matriz pidiendo respuestas inmediatas; informaci\'f3n confusa por m\'faltiples fuentes; o procedimientos engorrosos que consum\'edan tiempo cr\'edtico
+\f1\i0 . Una respuesta podr\'eda ser: \'93La 
+\f4\b urgencia por dar respuestas a la prensa
+\f1\b0  y a gerencia nos hizo actuar r\'e1pido pero sin coordinar bien, esa presi\'f3n de tiempo jug\'f3 en contra\'94.\
+Cada pregunta aparecer\'e1 en la pantalla con su t\'edtulo/emoji y se leer\'e1 en voz alta para asegurar comprensi\'f3n. Los participantes env\'edan sus reflexiones v\'eda m\'f3vil, que se visualizan en tiempo real (como una lista de frases o burbujas de texto). El facilitador debe 
+\f4\b observar patrones
+\f1\b0  en las respuestas: p. ej., bajo Incertidumbre muchos mencionan \'93falta de datos fiables\'94, bajo Propiedad varios apuntan a \'93no sab\'edamos si nosotros o el armador deb\'edamos contactar al puerto\'94, etc.\
+\pard\tqr\tx260\tx420\li420\fi-420\sl324\slmult1\sb240\partightenfactor0
+
+\f5 \cf2 	4.	
+\f4\b Visualizaci\'f3n de Resultados (integrada en los 15 min):
+\f1\b0  A medida que las respuestas de cada pregunta llegan, la herramienta ir\'e1 mostrando los resultados de forma atractiva. Se sugiere para variedad utilizar 
+\f4\b formatos distintos por pregunta
+\f1\b0 : por ejemplo, para Incertidumbre y Constraints usar visualizaci\'f3n tipo 
+\f4\b \'93word cloud\'94
+\f1\b0  si las respuestas se pueden resumir en 1-2 palabras clave (ej. \'93derrame\'94, \'93causa desconocida\'94, \'93tiempo\'94); para Ownership y Over-reliance, quiz\'e1s mejor mostrar cada respuesta individual (ya que pueden ser frases cortas) en un muro de texto o speech bubbles. Estas visualizaciones permiten identificar r\'e1pidamente 
+\f4\b tendencias o outliers
+\f1\b0 . El uso de 
+\f4\b nubes de palabras
+\f1\b0  resaltar\'e1 las ideas m\'e1s recurrentes de forma gr\'e1fica , mientras que las listas de texto exhibir\'e1n la diversidad de opiniones. El facilitador puede destacar en vivo algunas respuestas intrigantes (\'93Varias respuestas mencionan \'91fatiga\'92 \'96 claramente el factor humano pes\'f3.\'94) e incluso pedir aclaraciones breves a quien escribi\'f3 algo notable, 
+\f4\b sin se\'f1alar nombres
+\f1\b0  (recordemos que es an\'f3nimo, pero el propio participante puede alzar la mano voluntariamente).\
+
+\f5 	5.	
+\f4\b Cierre y Discusi\'f3n Colectiva (5 min):
+\f1\b0  Con todas las zonas grises exploradas, se procede a un 
+\f4\b debrief
+\f1\b0  grupal. El facilitador retroalimenta, conectando las respuestas con las lecciones deseadas. Por ejemplo: 
+\f2\i \'93Notamos mucha 
+\f3\b incertidumbre
+\f2\b0  sobre informaci\'f3n t\'e9cnica al inicio \'96 eso subraya la importancia de protocolos para recabar datos fiables en minutos. Vimos tambi\'e9n 
+\f3\b responsabilidades difusas
+\f2\b0  en comunicaci\'f3n externa \'96 un \'e1rea gris que podemos clarificar en nuestro plan de respuesta.\'94
+\f1\i0  Se pueden usar 
+\f4\b capturas de pantalla
+\f1\b0  de las nubes de palabras o listas de respuestas como apoyos visuales en esta discusi\'f3n final. Para dinamizar, una idea es proyectar una 
+\f4\b nube de palabras final
+\f1\b0  que resuma en conceptos sueltos la experiencia (palabras como \'93aprendizaje\'94, \'93mejora\'94, \'93equipo\'94, etc., podr\'edan emerger si se hace una pregunta final del tipo \'93\'bfCon qu\'e9 palabra clave te quedas tras este ejercicio?\'94). Asimismo, el facilitador puede preparar 
+\f4\b clusterizaciones manuales
+\f1\b0 : por ejemplo, agrupar mentalmente las respuestas de \'93Incertidumbre\'94 en categor\'edas (\'93t\'e9cnica\'94, \'93comunicaci\'f3n\'94, \'93operativa\'94) y plantearlas al grupo: 
+\f2\i \'93La mitad mencion\'f3 incertidumbres t\'e9cnicas, otros la comunicaci\'f3n con autoridades \'96 \'bfc\'f3mo podr\'edamos reducir ambas?\'94
+\f1\i0 . Estas t\'e1cticas ayudan a 
+\f4\b estructurar la conversaci\'f3n
+\f1\b0  y aterrizar aprendizajes accionables. Finalmente, se agradece la participaci\'f3n activa, resaltando c\'f3mo 
+\f4\b todas las contribuciones
+\f1\b0  (incluso las an\'f3nimas) enriquecieron el debate.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 Recomendaciones para Fomentar la Participaci\'f3n
+\f1\b0\fs28 \
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\sb240\partightenfactor0
+\cf2 	\'95	
+\f4\b Ambiente seguro y an\'f3nimo:
+\f1\b0  Recalcar al inicio que 
+\f4\b no hay respuestas correctas o incorrectas
+\f1\b0 , y que la plataforma es an\'f3nima. Esto anima a compartir pensamientos honestos sin miedo al qu\'e9 dir\'e1n . El facilitador puede dar un ejemplo personal sencillo para romper el hielo (ej: \'93Yo admito que sent\'ed 
+\f2\i p\'e1nico
+\f1\i0  cuando le\'ed el email esa ma\'f1ana\'85\'94), modelando vulnerabilidad.\
+	\'95	
+\f4\b Simplicidad en la interacci\'f3n:
+\f1\b0  Usar preguntas breves, lenguaje claro y un flujo de participaci\'f3n 
+\f4\b intuitivo
+\f1\b0  (un QR, una pantalla de votaci\'f3n sencilla). Mentimeter y similares permiten participar con uno o dos clics, lo que mantiene la atenci\'f3n en el contenido y no en la tecnolog\'eda .\
+	\'95	
+\f4\b Variedad y dinamismo:
+\f1\b0  Alternar formatos (palabra \'fanica, frase corta, opci\'f3n m\'faltiple si aplica) para mantener el inter\'e9s. Por ejemplo, podr\'eda incluirse una votaci\'f3n r\'e1pida de opci\'f3n m\'faltiple como complemento: 
+\f2\i \'93\'bfQu\'e9 zona gris crees que fue la 
+\f3\b m\'e1s cr\'edtica
+\f2\b0  en este caso?\'94
+\f1\i0  con las cuatro opciones \'96 esto obliga a priorizar y puede iniciar debate (\'93\'bfPor qu\'e9 la mayor\'eda vot\'f3 Constraints sobre Uncertainty?\'94).\
+	\'95	
+\f4\b Tiempo suficiente para pensar:
+\f1\b0  Aunque el ejercicio es \'e1gil, dar unos segundos de silencio antes de cada pregunta para que los participantes piensen su respuesta. Incluso se puede sugerir que primero la 
+\f4\b escriban en papel
+\f1\b0  o mentalmente y luego la ingresen al tel\'e9fono, para evitar respuestas en blanco o demasiado impulsivas.\
+	\'95	
+\f4\b Facilitaci\'f3n activa pero neutral:
+\f1\b0  El moderador debe moverse por la sala, observar si alguien parece atascado t\'e9cnicamente y ayudarle discretamente. Celebrar cada ola de respuestas (\'93\'a1Ya tenemos 20 respuestas, genial, sigan!\'94) para motivar participaci\'f3n continua. Si alguna pregunta recibe pocas respuestas, reformular ligeramente o dar pistas sin penalizar.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f0\b\fs34 \cf2 Integraci\'f3n Visual en la Presentaci\'f3n del Workshop
+\f1\b0\fs28 \
+\
+Para 
+\f4\b integrar este ejercicio
+\f1\b0  en la narrativa visual de la presentaci\'f3n HTML, se sugiere utilizar el mismo estilo gr\'e1fico y de storytelling ya presente en el workshop. Algunas ideas de integraci\'f3n:\
+\pard\tqr\tx100\tx260\li260\fi-260\sl324\slmult1\sb240\partightenfactor0
+\cf2 	\'95	
+\f4\b Diapositiva de escenario:
+\f1\b0  Incluir una diapositiva dedicada al caso 
+\f2\i Hafnia vs Ceres I
+\f1\i0  justo despu\'e9s de presentar el concepto de Gray Zones (por ejemplo, tras la secci\'f3n te\'f3rica de las cuatro zonas). Esta diapositiva puede tener de fondo la 
+\f4\b imagen impactante
+\f1\b0  del accidente (los buques ardiendo o el Hafnia Nile da\'f1ado) semi-transparente, con un t\'edtulo corto tipo 
+\f2\i \'93Caso Real: Colisi\'f3n en Singapur (2024)\'94
+\f1\i0  y 2-3 frases que resumen la situaci\'f3n emotivamente. El texto podr\'eda aparecer con efecto de m\'e1quina de escribir para a\'f1adir dramatismo mientras se narra el incidente. Esto prepara visualmente a la audiencia y conecta la teor\'eda con la realidad.\
+	\'95	
+\f4\b Slides de preguntas interactivas:
+\f1\b0  Para cada zona gris, la presentaci\'f3n HTML puede mostrar un t\'edtulo grande con el \'edcono correspondiente (\uc0\u55356 \u57131 \u65039 \u55358 \u56605 \u9881 \u65039 \u9203 ) y la pregunta \'93lofty\'94 en texto claro. Debajo, un bot\'f3n o indicaci\'f3n animada del tipo \'93Responde escaneando el QR\'94. Estos slides deben tener un dise\'f1o consistente con el tema (colores oscuros de fondo, texto destacando las palabras clave en color, siguiendo la est\'e9tica ya establecida en las CSS del workshop). Se puede incorporar una peque\'f1a ilustraci\'f3n o icono alusivo (por ej., un s\'edmbolo de signo de interrogaci\'f3n difuso para Incertidumbre, un diagrama de organizaci\'f3n borroso para Ownership, un engranaje confiable para Over-reliance, un reloj de arena para Constraints) para reforzar visualmente cada concepto. Importante: 
+\f4\b no saturar
+\f1\b0  la slide; debe quedar espacio para que, al cambiar a la vista de Mentimeter en la pantalla, los resultados sean legibles.\
+	\'95	
+\f4\b Transici\'f3n a resultados en vivo:
+\f1\b0  Cuando se active cada pregunta en Mentimeter, la pantalla del presentador puede cambiar (por ejemplo, usando una tecla para alternar de la slide HTML al navegador con Mentimeter en modo presentaci\'f3n de resultados). Dado que el ejercicio est\'e1 \'93embebido\'94 en la narrativa, conviene que este cambio sea lo m\'e1s fluido posible. Una opci\'f3n es integrar un iframe o enlace directo en la presentaci\'f3n HTML que, al hacer clic en \'93Mostrar resultados\'94, abra la visualizaci\'f3n en vivo. Otra opci\'f3n es simplemente alternar manualmente de la presentaci\'f3n al browser proyectado. En cualquier caso, 
+\f4\b mantener el estilo
+\f1\b0 : por ejemplo, Mentimeter permite personalizar los colores de fondo \'96 usar el mismo esquema oscuro/dorado (#FBEDD4) para coherencia visual.\
+	\'95	
+\f4\b Elementos visuales para discusi\'f3n:
+\f1\b0  Tras las preguntas, incluir una diapositiva final de 
+\f4\b conclusiones
+\f1\b0  donde se puedan pegar o recrear las nubes de palabras y los mensajes clave surgidos. Por ejemplo, una slide con cuatro cuadrantes, cada uno titulado con una Zona Gris y dentro algunas palabras o frases extra\'eddas de las respuestas del grupo (quiz\'e1 resaltando en otro color las m\'e1s mencionadas). Esto se alinea con la idea de \'93cluster visual\'94: el facilitador puede, despu\'e9s de recopilar mentalmente las tendencias, mostrar un gr\'e1fico simple o lista agrupada. Incluso se pueden generar 
+\f4\b peque\'f1os gr\'e1ficos
+\f1\b0  ad-hoc, como un mini word cloud est\'e1tico por cada pregunta (exportado desde Mentimeter) e insertado en la slide de cierre para documentar lo ocurrido.\
+	\'95	
+\f4\b Narrativa coherente:
+\f1\b0  En toda la integraci\'f3n, asegurarse de que el ejercicio se presenta como 
+\f4\b parte natural de la historia
+\f1\b0 . El facilitador puede usar frases de transici\'f3n en las slides anteriores, tipo: \'93Hemos visto el marco te\'f3rico\'85 ahora 
+\f4\b viv\'e1moslo
+\f1\b0 \'94, o un titular como 
+\f2\i \'93Gray Zones en Acci\'f3n: T\'fa en la crisis Hafnia-Ceres\'94
+\f1\i0 . La paleta de colores, tipograf\'edas y tono debe ser consistente con el resto (por ejemplo, usando la clase 
+\f6 .case-title
+\f1  o 
+\f6 .impact
+\f1  definidas en el CSS para enfatizar fragmentos emocionales o importantes, tal como en otras partes de la presentaci\'f3n).\
+\
+En resumen, este ejercicio de 25 minutos combina 
+\f4\b narrativa emotiva
+\f1\b0  y 
+\f4\b participaci\'f3n interactiva en tiempo real
+\f1\b0  para sumergir a los participantes en una crisis real y examinarla con las lentes de las Zonas Grises. Utilizando herramientas accesibles como Mentimeter y un dise\'f1o visual atractivo integrado en la presentaci\'f3n, logramos que el p\'fablico 
+\f4\b reflexione activamente
+\f1\b0  sobre incertidumbres, roles, suposiciones y limitaciones bajo presi\'f3n. Al finalizar, no solo habr\'e1n revivido la tensi\'f3n del momento, sino que contar\'e1n con una 
+\f4\b comprensi\'f3n m\'e1s profunda
+\f1\b0  de sus propias reacciones y oportunidades de mejora ante crisis \'96 un aporte valioso que enriquecer\'e1 la narrativa visual y conceptual de todo el workshop.\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\sl324\slmult1\pardirnatural\partightenfactor0
+
+\f4\b \cf2 Fuentes:
+\f1\b0  En la preparaci\'f3n de este ejercicio se han referenciado datos del incidente real  , as\'ed como lineamientos de interacci\'f3n an\'f3nima y visualizaci\'f3n en tiempo real de herramientas como Mentimeter   para sustentar las recomendaciones. Estas referencias aseguran fidelidad al caso real y efectividad en la metodolog\'eda propuesta. \'a1Ahora, a dedicar un poco m\'e1s de \'93materia gris\'94 a nuestras zonas grises, aprendiendo del pasado para estar mejor preparados en el futuro! \uc0\u55357 \u56522 \u55357 \u56613 \u55357 \u56421 }
