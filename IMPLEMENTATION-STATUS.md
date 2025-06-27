@@ -37,6 +37,7 @@
 
 - **Tema oscuro** consistente con paleta Gray Zones
 - **Animaciones fluidas** y transiciones profesionales
+- **Tarjetas 3D interactivas** en Slide 5 con efecto flip
 - **Responsive design** para múltiples dispositivos
 - **Logo integrado** con efectos hover
 - **Progress bar** y contador de slides
@@ -132,7 +133,7 @@ El workshop está **100% funcional** y listo para usar. Todas las funcionalidade
 - `images/qr-codes/` - Directorio para QR codes
 
 **Estado del branch**: `feature/workshop-enhancement`
-**Commits**: 7 commits con implementación completa
+**Commits**: 8 commits con implementación completa
 **Total files**: 9 archivos nuevos/modificados
 
 ¡El workshop Gray Zones está listo para hacer impacto! 🧠⚡️

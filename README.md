@@ -28,6 +28,7 @@ open index.html
 ## 🎯 Features
 
 - ✅ **Interactive polling** with Mentimeter integration
+- ✅ **3D flip cards** with stunning visual effects (Slide 5)
 - ✅ **Demo mode** for solo presentations
 - ✅ **Offline fallback** when tech fails
 - ✅ **Professional design** with Gray Zones branding
