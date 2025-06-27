@@ -521,18 +521,42 @@
       qrPlaceholders.forEach(placeholder => {
         const config = mentimeterConfig.presentations[questionType];
         if (config) {
-          placeholder.innerHTML = `
-            <div style="font-size: 1.4rem; margin-bottom: 1rem;">📱 SCAN TO JOIN</div>
-            <div style="font-size: 1rem; opacity: 0.8; margin-bottom: 0.5rem;">
-              Go to: <strong>menti.com</strong>
-            </div>
-            <div style="font-size: 1.3rem; font-weight: bold; color: #ffa726;">
-              Code: ${mentimeterConfig.eventCode}
-            </div>
-            <div style="font-size: 0.9rem; opacity: 0.6; margin-top: 1rem;">
-              Or scan QR code when available
-            </div>
-          `;
+          // Check if QR code image exists
+          const qrImagePath = `images/qr-codes/${questionType}.png`;
+          const qrImage = new Image();
+          
+          qrImage.onload = () => {
+            // QR image exists, show it
+            placeholder.innerHTML = `
+              <div style="font-size: 1.4rem; margin-bottom: 1rem;">📱 SCAN TO JOIN</div>
+              <img src="${qrImagePath}" alt="${questionType} QR Code" style="width: 200px; height: 200px; margin: 1rem 0; border-radius: 8px;">
+              <div style="font-size: 1rem; opacity: 0.8;">
+                Or go to: <strong>menti.com</strong>
+              </div>
+              <div style="font-size: 1.3rem; font-weight: bold; color: #ffa726; margin-top: 0.5rem;">
+                Code: ${config.id}
+              </div>
+            `;
+          };
+          
+          qrImage.onerror = () => {
+            // QR image doesn't exist, show text-based version
+            placeholder.innerHTML = `
+              <div style="font-size: 1.4rem; margin-bottom: 1rem;">📱 JOIN THE POLL</div>
+              <div style="font-size: 1rem; opacity: 0.8; margin-bottom: 0.5rem;">
+                Go to: <strong>menti.com</strong>
+              </div>
+              <div style="font-size: 1.8rem; font-weight: bold; color: #ffa726; background: rgba(255,167,38,0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                ${config.id}
+              </div>
+              <div style="font-size: 0.9rem; opacity: 0.6; margin-top: 1rem;">
+                Enter the code above to join
+              </div>
+            `;
+          };
+          
+          qrImage.src = qrImagePath;
+          
           placeholder.style.background = 'rgba(255,167,38,0.15)';
           placeholder.style.borderColor = '#ffa726';
           placeholder.style.color = '#FBEDD4';
