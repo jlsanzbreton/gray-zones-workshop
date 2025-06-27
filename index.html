@@ -38,8 +38,206 @@
     .logo-icon { position: fixed; top: 30px; left: 30px; width: 40px; height: 40px; opacity: 0.8; z-index: 1000; transition: opacity 0.3s ease; }
     .logo-icon:hover { opacity: 1; }
     .gray-zones { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 30px; width: 100%; max-width: 800px; margin: 2rem auto; }
-    .zone-card { background: rgba(251, 237, 212, 0.1); border: 2px solid; border-radius: 15px; padding: 30px; text-align: center; transition: all 0.3s ease; cursor: pointer; }
-    .zone-card:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    
+    /* 3D Flip Card Styles */
+    .zone-card { 
+      height: 320px; 
+      perspective: 1000px; 
+      cursor: pointer; 
+      margin: 1rem 0;
+      position: relative;
+    }
+    
+    .zone-card::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, transparent, rgba(251, 237, 212, 0.1), transparent);
+      border-radius: 22px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .zone-card:hover::before {
+      opacity: 1;
+    }
+    
+    .zone-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s cubic-bezier(0.23, 1, 0.320, 1);
+      transform-style: preserve-3d;
+    }
+    
+    .zone-card:hover .zone-card-inner,
+    .zone-card.flipped .zone-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .zone-card-front,
+    .zone-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      border: 2px solid;
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .zone-card:hover .zone-card-front,
+    .zone-card:hover .zone-card-back {
+      box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    }
+    
+    .zone-card-front {
+      background: linear-gradient(135deg, rgba(251, 237, 212, 0.15), rgba(251, 237, 212, 0.05));
+    }
+    
+    .zone-card-back {
+      background: linear-gradient(135deg, rgba(251, 237, 212, 0.25), rgba(251, 237, 212, 0.1));
+      transform: rotateY(180deg);
+      padding: 1.5rem;
+    }
+    
+    /* Zone-specific colors */
+    .zone-uncertainty .zone-card-front,
+    .zone-uncertainty .zone-card-back { border-color: #ff6b6b; }
+    .zone-ownership .zone-card-front,
+    .zone-ownership .zone-card-back { border-color: #ffa726; }
+    .zone-overreliance .zone-card-front,
+    .zone-overreliance .zone-card-back { border-color: #42a5f5; }
+    .zone-constraints .zone-card-front,
+    .zone-constraints .zone-card-back { border-color: #ab47bc; }
+    
+    /* Front side styles */
+    .zone-icon-large { 
+      font-size: 4rem; 
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+    
+    .zone-title-large { 
+      font-size: 2.2rem; 
+      font-weight: bold; 
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin: 0;
+      color: #FBEDD4;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+    
+    /* Back side styles */
+    .zone-explanation {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #FBEDD4;
+      text-align: center;
+      margin: 0;
+    }
+    
+    .zone-explanation strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    /* Hover hint */
+    .flip-hint {
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+      font-size: 0.8rem;
+      opacity: 0.6;
+      color: #FBEDD4;
+      transition: opacity 0.3s ease;
+    }
+    
+    .zone-card:hover .flip-hint {
+      opacity: 0;
+    }
+    
+    /* Pulse animation for icons */
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+    
+    .zone-icon-large {
+      animation: iconPulse 3s ease-in-out infinite;
+    }
+    
+    .zone-card:hover .zone-icon-large {
+      animation: none;
+    }
+    
+    /* Responsive design for smaller screens */
+    @media (max-width: 768px) {
+      .gray-zones {
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 20px;
+        max-width: 400px;
+      }
+      
+      .zone-card {
+        height: 280px;
+      }
+      
+      .zone-title-large {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+      }
+      
+      .zone-icon-large {
+        font-size: 3rem;
+      }
+      
+      .zone-explanation {
+        font-size: 1rem;
+      }
+      
+      .flip-hint {
+        bottom: 10px;
+        right: 10px;
+        font-size: 0.7rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .zone-card {
+        height: 250px;
+      }
+      
+      .zone-title-large {
+        font-size: 1.6rem;
+      }
+      
+      .zone-icon-large {
+        font-size: 2.5rem;
+      }
+      
+      .zone-card-front,
+      .zone-card-back {
+        padding: 1.5rem;
+      }
+    }
+    
+    /* Legacy zone styles for backward compatibility */
     .zone-uncertainty { border-color: #ff6b6b; }
     .zone-ownership { border-color: #ffa726; }
     .zone-overreliance { border-color: #42a5f5; }
@@ -188,10 +386,75 @@
     <div class="slide" id="slide5">
       <h2>The Four Gray Zone Areas</h2>
       <div class="gray-zones">
-        <div class="zone-card zone-uncertainty"><div class="zone-icon">🌫️</div><div class="zone-title">Uncertainty</div><p>Areas we don't dare to look at. System boundaries, future evolution, department interactions.</p></div>
-        <div class="zone-card zone-ownership"><div class="zone-icon">🤝</div><div class="zone-title">Ownership</div><p>Areas we think are NOT our responsibility, but are close to our activity and influence it.</p></div>
-        <div class="zone-card zone-overreliance"><div class="zone-icon">⚙️</div><div class="zone-title">Over-reliance</div><p>Things we take for granted. Systems that "always work." What we assume will never fail.</p></div>
-        <div class="zone-card zone-constraints"><div class="zone-icon">⏳</div><div class="zone-title">Constraints</div><p>Human limitations we don't normally account for: time, urgency, fatigue, distractions.</p></div>
+        
+        <!-- Uncertainty Card -->
+        <div class="zone-card zone-uncertainty">
+          <div class="zone-card-inner">
+            <div class="zone-card-front">
+              <div class="zone-icon-large">🌫️</div>
+              <div class="zone-title-large">Uncertainty</div>
+              <div class="flip-hint">hover or click</div>
+            </div>
+            <div class="zone-card-back">
+              <p class="zone-explanation">
+                <strong>Areas we don't dare to look at</strong>
+                System boundaries, future evolution, department interactions. The unknowns that make us uncomfortable to explore.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Ownership Card -->
+        <div class="zone-card zone-ownership">
+          <div class="zone-card-inner">
+            <div class="zone-card-front">
+              <div class="zone-icon-large">🤝</div>
+              <div class="zone-title-large">Ownership</div>
+              <div class="flip-hint">hover or click</div>
+            </div>
+            <div class="zone-card-back">
+              <p class="zone-explanation">
+                <strong>Areas we think are NOT our responsibility</strong>
+                But are close to our activity and influence it. The gaps between departments and shared accountability.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Over-reliance Card -->
+        <div class="zone-card zone-overreliance">
+          <div class="zone-card-inner">
+            <div class="zone-card-front">
+              <div class="zone-icon-large">⚙️</div>
+              <div class="zone-title-large">Over-reliance</div>
+              <div class="flip-hint">hover or click</div>
+            </div>
+            <div class="zone-card-back">
+              <p class="zone-explanation">
+                <strong>Things we take for granted</strong>
+                Systems that "always work." What we assume will never fail. Our blind faith in automated processes.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Constraints Card -->
+        <div class="zone-card zone-constraints">
+          <div class="zone-card-inner">
+            <div class="zone-card-front">
+              <div class="zone-icon-large">⏳</div>
+              <div class="zone-title-large">Constraints</div>
+              <div class="flip-hint">hover or click</div>
+            </div>
+            <div class="zone-card-back">
+              <p class="zone-explanation">
+                <strong>Human limitations we don't account for</strong>
+                Time pressure, urgency, fatigue, distractions. Cognitive overload during crisis moments.
+              </p>
+            </div>
+          </div>
+        </div>
+        
       </div>
       <div class="interactive-button" onclick="nextSlide()">Real Crisis Case →</div>
     </div>
@@ -460,6 +723,15 @@
       }
     });
     document.addEventListener('click', (e) => {
+      // Handle zone card clicks for mobile/touch devices
+      if (e.target.closest('.zone-card')) {
+        const card = e.target.closest('.zone-card');
+        card.classList.toggle('flipped');
+        e.stopPropagation();
+        return;
+      }
+      
+      // Normal slide navigation
       if (!e.target.closest('.interactive-button') && !e.target.closest('.zone-card')) { nextSlide(); }
     });
     function nextSlide() {
@@ -469,6 +741,11 @@
         document.getElementById(`slide${currentSlide}`).classList.add('active');
         updateProgress();
         checkForInteractiveSlide();
+        
+        // Auto-demo flip cards on slide 5
+        if (currentSlide === 5) {
+          setTimeout(autoFlipDemo, 1500);
+        }
       }
     }
     function previousSlide() {
@@ -590,6 +867,19 @@
         12: 'constraints'
       };
       return questionMap[slideNumber];
+    }
+
+    // Auto-flip demo for slide 5
+    function autoFlipDemo() {
+      const cards = document.querySelectorAll('#slide5 .zone-card');
+      cards.forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('flipped');
+          setTimeout(() => {
+            card.classList.remove('flipped');
+          }, 2000);
+        }, index * 800);
+      });
     }
 
     // Enhanced navigation for case study section
