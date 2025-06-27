@@ -65,6 +65,35 @@
     .impact { color: #ff6b6b; font-weight: bold; }
     .highlight { color: #42a5f5; }
     a { color: #FBEDD4; text-decoration: underline; }
+    
+    /* Case Study Interactive Styles */
+    .case-study-intro { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('images/case-study/hafnia-collision.jpg'); background-size: cover; background-position: center; padding: 3rem; border-radius: 20px; margin: 2rem auto; max-width: 900px; position: relative; }
+    .case-study-intro::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)); border-radius: 20px; z-index: -1; }
+    .case-incident-date { color: #ff6b6b; font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; }
+    .case-vessels { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .vessel-card { background: rgba(251,237,212,0.1); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #ffa726; }
+    .vessel-name { font-size: 1.3rem; font-weight: bold; color: #ffa726; margin-bottom: 0.5rem; }
+    .vessel-details { font-size: 1rem; line-height: 1.4; }
+    .crisis-simulation { background: rgba(251,237,212,0.05); border: 2px solid #ff6b6b; border-radius: 15px; padding: 2rem; margin: 2rem auto; max-width: 800px; }
+    .crisis-title { font-size: 1.6rem; color: #ff6b6b; font-weight: bold; margin-bottom: 1rem; }
+    .crisis-scenario { font-size: 1.2rem; line-height: 1.5; margin-bottom: 1.5rem; color: #FBEDD4; }
+    .interactive-poll { background: rgba(251,237,212,0.08); border-radius: 15px; padding: 2rem; margin: 2rem auto; max-width: 700px; text-align: center; }
+    .poll-question { font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; color: #ffa726; }
+    .qr-placeholder { width: 200px; height: 200px; background: rgba(251,237,212,0.2); border: 2px dashed #ffa726; border-radius: 15px; margin: 1rem auto; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #ffa726; }
+    .gray-zone-question { margin: 2rem auto; padding: 2rem; border-radius: 15px; max-width: 800px; }
+    .question-uncertainty { background: rgba(255,107,107,0.1); border-left: 6px solid #ff6b6b; }
+    .question-ownership { background: rgba(255,167,38,0.1); border-left: 6px solid #ffa726; }
+    .question-overreliance { background: rgba(66,165,245,0.1); border-left: 6px solid #42a5f5; }
+    .question-constraints { background: rgba(171,71,188,0.1); border-left: 6px solid #ab47bc; }
+    .question-header { display: flex; align-items: center; margin-bottom: 1.5rem; }
+    .question-icon { font-size: 2.5rem; margin-right: 1rem; }
+    .question-title { font-size: 1.5rem; font-weight: bold; }
+    .question-text { font-size: 1.2rem; line-height: 1.5; margin-bottom: 1rem; }
+    .results-visualization { background: rgba(251,237,212,0.05); border-radius: 15px; padding: 2rem; margin: 2rem auto; max-width: 800px; }
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+    .result-zone { background: rgba(251,237,212,0.1); border-radius: 10px; padding: 1.5rem; }
+    .result-title { font-weight: bold; margin-bottom: 1rem; font-size: 1.2rem; }
+    .result-keywords { font-size: 1rem; line-height: 1.4; }
   </style>
 </head>
 <body>
@@ -129,11 +158,225 @@
         <div class="zone-card zone-overreliance"><div class="zone-icon">⚙️</div><div class="zone-title">Over-reliance</div><p>Things we take for granted. Systems that "always work." What we assume will never fail.</p></div>
         <div class="zone-card zone-constraints"><div class="zone-icon">⏳</div><div class="zone-title">Constraints</div><p>Human limitations we don't normally account for: time, urgency, fatigue, distractions.</p></div>
       </div>
-      <div class="interactive-button" onclick="nextSlide()">See Them in Action →</div>
+      <div class="interactive-button" onclick="nextSlide()">Real Crisis Case →</div>
     </div>
 
-    <!-- Slide 6: Interactive Exercise – Real Case -->
+    <!-- Slide 6: Case Study Introduction - Hafnia Nile vs Ceres I -->
     <div class="slide" id="slide6">
+      <h2>🚢 Real Crisis Case: Singapore Strait Collision</h2>
+      <div class="case-study-intro">
+        <div class="case-incident-date">July 19, 2024 - Singapore Strait</div>
+        <p class="crisis-scenario">Two large tankers collided at dawn, triggering a dramatic fire. 22 crew members evacuated. 
+        Imagine receiving <span class="impact">the emergency call at 3 AM</span>: "Your chartered vessel collided and is burning near Singapore..."</p>
+        
+        <div class="case-vessels">
+          <div class="vessel-card">
+            <div class="vessel-name">Hafnia Nile</div>
+            <div class="vessel-details">
+              🇸🇬 Singapore flag<br>
+              ⛽ ~300,000 barrels of naphtha<br>
+              🔥 <span class="impact">On fire, crew evacuated</span>
+            </div>
+          </div>
+          <div class="vessel-card">
+            <div class="vessel-name">Ceres I</div>
+            <div class="vessel-details">
+              🇸🇹 São Tomé flag<br>
+              📦 No cargo on board<br>
+              ⚓ <span class="impact">Drifting, technical problems</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Placeholder for collision image -->
+        <div style="background: rgba(255,107,107,0.1); border: 2px dashed #ff6b6b; border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; color: #ff6b6b;">
+          🔥 COLLISION IMAGE PLACEHOLDER 🚢<br>
+          <small>Real Hafnia Nile vs Ceres I collision photo will be inserted here</small><br>
+          <small style="opacity: 0.7;">File: images/case-study/hafnia-collision.jpg</small>
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">Enter Crisis Mode →</div>
+    </div>
+
+    <!-- Slide 7: Crisis Committee Simulation Setup -->
+    <div class="slide" id="slide7">
+      <h2>⚡ Crisis Committee Simulation</h2>
+      <div class="crisis-simulation">
+        <div class="crisis-title">🚨 You are the Crisis Committee</div>
+        <div class="crisis-scenario">
+          The call just came in. You're part of the emergency response team:<br><br>
+          <b>📋 Operations • 💼 Trading • 🛡️ Insurance • ⚖️ Legal • 🌍 HSE</b><br><br>
+          <span class="impact">Chaos, uncertainty, adrenaline...</span><br>
+          Conflicting reports, missing information, pressure mounting.
+        </div>
+        
+        <p><b>We'll relive those critical first moments</b> through the lens of the <span class="highlight">Four Gray Zones</span>.</p>
+        
+        <div class="interactive-poll">
+          <div class="poll-question">🔴 Ready to participate interactively?</div>
+          <p>Scan the QR code with your phone to join:</p>
+          <div class="qr-placeholder">
+            📱 QR CODE<br>
+            (Mentimeter/Slido)
+          </div>
+          <p><small>Anonymous responses • Real-time results</small></p>
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">Start Warm-up →</div>
+    </div>
+
+    <!-- Slide 8: Emotional Warm-up Question -->
+    <div class="slide" id="slide8">
+      <h2>💭 Initial Emotional Response</h2>
+      <div class="interactive-poll">
+        <div class="poll-question">In one word, what would you feel upon hearing about this collision?</div>
+        
+        <div class="qr-placeholder">
+          📱 RESPOND NOW<br>
+          (Word cloud generation)
+        </div>
+        
+        <p>Think about that <span class="impact">3 AM phone call</span>...<br>
+        Your chartered vessel is burning in one of the world's busiest straits.</p>
+        
+        <div style="background: rgba(251,237,212,0.05); border-radius: 10px; padding: 1.5rem; margin: 2rem auto; max-width: 600px;">
+          <b>Sample responses:</b> Panic • Shock • Disbelief • Urgency • Confusion • Responsibility...
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">🌫️ Uncertainty →</div>
+    </div>
+
+    <!-- Slide 9: Gray Zone Question 1 - Uncertainty -->
+    <div class="slide" id="slide9">
+      <div class="gray-zone-question question-uncertainty">
+        <div class="question-header">
+          <div class="question-icon">🌫️</div>
+          <div class="question-title">Uncertainty</div>
+        </div>
+        <div class="question-text">
+          <b>What missing information created the most uncertainty for the crisis committee in those first moments?</b>
+        </div>
+        <p>Consider each function: Trading worried about market impact, HSE about spills, 
+        Insurance about liability, Operations about crew safety...</p>
+        
+        <div class="qr-placeholder">
+          📱 RESPOND<br>
+          (Open text responses)
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">🤝 Ownership →</div>
+    </div>
+
+    <!-- Slide 10: Gray Zone Question 2 - Ownership -->
+    <div class="slide" id="slide10">
+      <div class="gray-zone-question question-ownership">
+        <div class="question-header">
+          <div class="question-icon">🤝</div>
+          <div class="question-title">Ownership</div>
+        </div>
+        <div class="question-text">
+          <b>Which responsibilities fell into gray areas? Was there confusion about who should do what?</b>
+        </div>
+        <p>Who contacts port authorities—Legal or Operations? Who handles media? 
+        Did anything fall through the cracks because everyone assumed someone else would handle it?</p>
+        
+        <div class="qr-placeholder">
+          📱 RESPOND<br>
+          (Responsibility gaps)
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">⚙️ Over-reliance →</div>
+    </div>
+
+    <!-- Slide 11: Gray Zone Question 3 - Over-reliance -->
+    <div class="slide" id="slide11">
+      <div class="gray-zone-question question-overreliance">
+        <div class="question-header">
+          <div class="question-icon">⚙️</div>
+          <div class="question-title">Over-reliance</div>
+        </div>
+        <div class="question-text">
+          <b>What did the committee over-rely on during the initial crisis?</b>
+        </div>
+        <p>A system, a person, an assumption that "everything is under control"?<br>
+        Did you trust initial crew reports without verification? Assume fire systems would work perfectly?</p>
+        
+        <div class="qr-placeholder">
+          📱 RESPOND<br>
+          (Assumptions & dependencies)
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">⏳ Constraints →</div>
+    </div>
+
+    <!-- Slide 12: Gray Zone Question 4 - Constraints -->
+    <div class="slide" id="slide12">
+      <div class="gray-zone-question question-constraints">
+        <div class="question-header">
+          <div class="question-icon">⏳</div>
+          <div class="question-title">Constraints</div>
+        </div>
+        <div class="question-text">
+          <b>What human limitations or context constraints affected crisis management?</b>
+        </div>
+        <p>Think: Decision-making at 3 AM with a sleepy team, pressure for immediate answers, 
+        fragmented information from multiple sources, time-consuming procedures...</p>
+        
+        <div class="qr-placeholder">
+          📱 RESPOND<br>
+          (Human factors & pressures)
+        </div>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">📊 Results →</div>
+    </div>
+
+    <!-- Slide 13: Results Visualization & Discussion -->
+    <div class="slide" id="slide13">
+      <h2>📊 Collective Insights</h2>
+      <div class="results-visualization">
+        <p><b>Let's analyze what we discovered together...</b></p>
+        
+        <div class="results-grid">
+          <div class="result-zone">
+            <div class="result-title" style="color: #ff6b6b;">🌫️ Uncertainty</div>
+            <div class="result-keywords">
+              <!-- Live results will appear here -->
+              <i>Real-time responses from Mentimeter...</i>
+            </div>
+          </div>
+          
+          <div class="result-zone">
+            <div class="result-title" style="color: #ffa726;">🤝 Ownership</div>
+            <div class="result-keywords">
+              <!-- Live results will appear here -->
+              <i>Real-time responses from Mentimeter...</i>
+            </div>
+          </div>
+          
+          <div class="result-zone">
+            <div class="result-title" style="color: #42a5f5;">⚙️ Over-reliance</div>
+            <div class="result-keywords">
+              <!-- Live results will appear here -->
+              <i>Real-time responses from Mentimeter...</i>
+            </div>
+          </div>
+          
+          <div class="result-zone">
+            <div class="result-title" style="color: #ab47bc;">⏳ Constraints</div>
+            <div class="result-keywords">
+              <!-- Live results will appear here -->
+              <i>Real-time responses from Mentimeter...</i>
+            </div>
+          </div>
+        </div>
+        
+        <p class="impact">What patterns do we see? Which gray zone was most critical?</p>
+      </div>
+      <div class="interactive-button" onclick="nextSlide()">Key Learnings →</div>
+    </div>
+
+    <!-- Slide 14: Exercise Mapping Your Gray Zones -->
+    <div class="slide" id="slide14">
       <h2>Exercise: Mapping Your Gray Zones</h2>
       <p class="case-title">Think of a process in your daily work</p>
       <div class="exercise">
@@ -147,8 +390,8 @@
       <div class="interactive-button" onclick="nextSlide()">Go Deeper →</div>
     </div>
 
-    <!-- Slide 7: Go Deeper – Multilevel Analysis -->
-    <div class="slide" id="slide7">
+    <!-- Slide 15: Go Deeper – Multilevel Analysis -->
+    <div class="slide" id="slide15">
       <h2>"Go Deeper": Second Layer Questions</h2>
       <div class="go-deeper-panel">
         <b>For each gray zone you identified, ask:</b><br><br>
@@ -161,8 +404,8 @@
       <div class="interactive-button" onclick="nextSlide()">Real Scenario →</div>
     </div>
 
-    <!-- Slide 8: Real Scenario -->
-    <div class="slide" id="slide8">
+    <!-- Slide 16: Real Scenario -->
+    <div class="slide" id="slide16">
       <h2>⚡ Real Scenario: System Integration</h2>
       <p class="case-title">Your team is implementing a new software system. Everything looks good in testing. Launch is tomorrow.</p>
       <div class="exercise">
@@ -175,8 +418,8 @@
       <div class="interactive-button" onclick="nextSlide()">Scientific Context →</div>
     </div>
 
-    <!-- Slide 9: Scientific Foundation -->
-    <div class="slide" id="slide9">
+    <!-- Slide 17: Scientific Foundation -->
+    <div class="slide" id="slide17">
       <h2>🧠 The Science Behind Gray Zones</h2>
       <div class="comparative-framework framework-grid">
         <div class="framework-card">
@@ -203,8 +446,8 @@
       <div class="interactive-button" onclick="nextSlide()">Integration with Other Methods →</div>
     </div>
 
-    <!-- Slide 10: Integration with Other Methods -->
-    <div class="slide" id="slide10">
+    <!-- Slide 18: Integration with Other Methods -->
+    <div class="slide" id="slide18">
       <h2>How Gray Zones Integrates</h2>
       <div class="comparative-framework framework-grid">
         <div class="framework-card">
@@ -227,8 +470,8 @@
       <div class="interactive-button" onclick="nextSlide()">What Makes It Unique? →</div>
     </div>
 
-    <!-- Slide 11: What Makes Gray Zones Unique? -->
-    <div class="slide" id="slide11">
+    <!-- Slide 19: What Makes Gray Zones Unique? -->
+    <div class="slide" id="slide19">
       <h2>Why Gray Zones Works</h2>
       <p>🔸 <b>Cognitive honesty:</b> Accepts that we save mental energy—works with human nature, not against it.<br><br>
          🔸 <b>System realism:</b> Assumes imperfection—focuses on continuous attention, not one-time fixes.<br><br>
@@ -238,8 +481,8 @@
       <div class="interactive-button" onclick="nextSlide()">Personal Challenge →</div>
     </div>
 
-    <!-- Slide 12: Final Challenge -->
-    <div class="slide" id="slide12">
+    <!-- Slide 20: Final Challenge -->
+    <div class="slide" id="slide20">
       <h2>Your Gray Zone Challenge</h2>
       <div class="exercise">
         <div class="exercise-title">This Week's Experiment</div>
@@ -253,8 +496,8 @@
       <div class="interactive-button" onclick="nextSlide()">Thank You →</div>
     </div>
 
-    <!-- Slide 13: Thank You & Contact -->
-    <div class="slide" id="slide13">
+    <!-- Slide 21: Thank You & Contact -->
+    <div class="slide" id="slide21">
       <h1>Thank you! 🧠</h1>
       <p>Start mapping what you're not paying attention to.</p>
       <p>Learn more at <a href="https://grayzonemapper.com" target="_blank">grayzonemapper.com</a></p>
@@ -264,11 +507,11 @@
   <!-- UI Elements -->
   <img src="images/apple-touch-icon.png" alt="Gray Zones Logo" class="logo-icon">
   <div class="progress-bar" id="progressBar"></div>
-  <div class="slide-counter" id="slideCounter">1 / 13</div>
+  <div class="slide-counter" id="slideCounter">1 / 21</div>
   <div class="navigation-hint">Click or press Space/Arrow keys to advance</div>
   <script>
     let currentSlide = 1;
-    const totalSlides = 13;
+    const totalSlides = 21;
     document.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'ArrowRight') { e.preventDefault(); nextSlide(); }
       else if (e.code === 'ArrowLeft') { e.preventDefault(); previousSlide(); }
@@ -282,6 +525,7 @@
         currentSlide++;
         document.getElementById(`slide${currentSlide}`).classList.add('active');
         updateProgress();
+        checkForInteractiveSlide();
       }
     }
     function previousSlide() {
@@ -303,6 +547,53 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
+    
+    // Interactive case study features
+    function showQRCode(platform = 'mentimeter') {
+      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
+      qrPlaceholders.forEach(placeholder => {
+        placeholder.innerHTML = `
+          📱 SCAN TO JOIN<br>
+          <small>Join at: ${platform}.com</small><br>
+          <small>Code: GRAYZONES2025</small>
+        `;
+        placeholder.style.background = 'rgba(255,167,38,0.2)';
+        placeholder.style.borderColor = '#ffa726';
+        placeholder.style.color = '#ffa726';
+      });
+    }
+    
+    function simulateResults(questionType) {
+      // Simulate real-time response collection
+      const resultsArea = document.querySelector('.results-visualization');
+      if (resultsArea) {
+        const sampleResponses = {
+          uncertainty: ['Information gaps', 'Spill extent unknown', 'Crew status unclear', 'Timeline confusion'],
+          ownership: ['Communication overlap', 'Authority confusion', 'Media responsibility unclear'],
+          overreliance: ['AIS tracking system', 'Initial crew reports', 'Emergency protocols'],
+          constraints: ['3AM decision making', 'Time pressure', 'Multiple information sources', 'Language barriers']
+        };
+        
+        if (sampleResponses[questionType]) {
+          setTimeout(() => {
+            alert(`Sample responses for ${questionType}:\n${sampleResponses[questionType].join('\n')}`);
+          }, 2000);
+        }
+      }
+    }
+    
+    // Enhanced navigation for case study section
+    function isCaseStudySlide() {
+      return currentSlide >= 6 && currentSlide <= 13;
+    }
+    
+    // Auto-show QR codes when entering interactive slides
+    function checkForInteractiveSlide() {
+      if (currentSlide >= 8 && currentSlide <= 12) {
+        setTimeout(() => showQRCode('mentimeter'), 1000);
+      }
+    }
+
     updateProgress();
   </script>
 </body>
