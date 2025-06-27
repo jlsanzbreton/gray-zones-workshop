@@ -79,7 +79,42 @@
     .crisis-scenario { font-size: 1.2rem; line-height: 1.5; margin-bottom: 1.5rem; color: #FBEDD4; }
     .interactive-poll { background: rgba(251,237,212,0.08); border-radius: 15px; padding: 2rem; margin: 2rem auto; max-width: 700px; text-align: center; }
     .poll-question { font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; color: #ffa726; }
-    .qr-placeholder { width: 200px; height: 200px; background: rgba(251,237,212,0.2); border: 2px dashed #ffa726; border-radius: 15px; margin: 1rem auto; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: #ffa726; }
+    .qr-placeholder { 
+      width: 280px; 
+      height: 200px; 
+      background: rgba(251,237,212,0.08); 
+      border: 2px dashed #ffa726; 
+      border-radius: 15px; 
+      margin: 1.5rem auto; 
+      display: flex; 
+      flex-direction: column;
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1rem; 
+      color: #ffa726; 
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .qr-placeholder:hover { 
+      background: rgba(255,167,38,0.1); 
+      transform: scale(1.02);
+    }
+    .qr-placeholder::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px; 
+      bottom: -2px;
+      background: linear-gradient(45deg, #ffa726, #42a5f5, #ff6b6b, #ffa726);
+      border-radius: 15px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .qr-placeholder.active::before {
+      opacity: 0.3;
+    }
     .gray-zone-question { margin: 2rem auto; padding: 2rem; border-radius: 15px; max-width: 800px; }
     .question-uncertainty { background: rgba(255,107,107,0.1); border-left: 6px solid #ff6b6b; }
     .question-ownership { background: rgba(255,167,38,0.1); border-left: 6px solid #ffa726; }
@@ -402,13 +437,27 @@
   <img src="images/apple-touch-icon.png" alt="Gray Zones Logo" class="logo-icon">
   <div class="progress-bar" id="progressBar"></div>
   <div class="slide-counter" id="slideCounter">1 / 15</div>
-  <div class="navigation-hint">Click or press Space/Arrow keys to advance</div>
+  <div class="navigation-hint">Click or press Space/Arrow keys • Shift+D: Demo • Shift+M: Toggle Mentimeter</div>
   <script>
     let currentSlide = 1;
     const totalSlides = 15;
     document.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'ArrowRight') { e.preventDefault(); nextSlide(); }
       else if (e.code === 'ArrowLeft') { e.preventDefault(); previousSlide(); }
+      else if (e.code === 'KeyD' && e.shiftKey) { // Shift+D for Demo Mode
+        e.preventDefault();
+        const questionType = getQuestionTypeBySlide(currentSlide);
+        if (questionType) {
+          console.log(`Starting demo mode for: ${questionType}`);
+          startDemoMode(questionType);
+        }
+      }
+      else if (e.code === 'KeyM' && e.shiftKey) { // Shift+M for Mentimeter toggle
+        e.preventDefault();
+        mentimeterConfig.enabled = !mentimeterConfig.enabled;
+        console.log(`Mentimeter ${mentimeterConfig.enabled ? 'enabled' : 'disabled'}`);
+        checkForInteractiveSlide(); // Refresh current slide
+      }
     });
     document.addEventListener('click', (e) => {
       if (!e.target.closest('.interactive-button') && !e.target.closest('.zone-card')) { nextSlide(); }
@@ -442,53 +491,271 @@
       cursor.style.top = e.clientY + 'px';
     });
     
-    // Interactive case study features
+    // Interactive case study features (LEGACY - replaced by enhanced version above)
     function showQRCode(platform = 'mentimeter') {
+      // This function is now replaced by displayQRCode() above
+      console.warn('showQRCode() is deprecated, use displayQRCode() instead');
+    }
+    
+    // Enhanced Mentimeter Integration
+    const mentimeterConfig = {
+      enabled: true,
+      baseUrl: 'https://www.menti.com',
+      eventCode: 'GRAYZONES2025', // This will be updated with real code
+      presentations: {
+        warmup: { id: 'warmup', type: 'wordcloud', question: 'emotional-response' },
+        uncertainty: { id: 'uncertainty', type: 'opentext', question: 'information-gaps' },
+        ownership: { id: 'ownership', type: 'opentext', question: 'responsibility-confusion' },
+        overreliance: { id: 'overreliance', type: 'opentext', question: 'assumptions-dependencies' },
+        constraints: { id: 'constraints', type: 'opentext', question: 'human-limitations' }
+      }
+    };
+
+    function displayQRCode(questionType) {
+      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
+      if (!mentimeterConfig.enabled) {
+        showOfflineMode();
+        return;
+      }
+
+      qrPlaceholders.forEach(placeholder => {
+        const config = mentimeterConfig.presentations[questionType];
+        if (config) {
+          placeholder.innerHTML = `
+            <div style="font-size: 1.4rem; margin-bottom: 1rem;">📱 SCAN TO JOIN</div>
+            <div style="font-size: 1rem; opacity: 0.8; margin-bottom: 0.5rem;">
+              Go to: <strong>menti.com</strong>
+            </div>
+            <div style="font-size: 1.3rem; font-weight: bold; color: #ffa726;">
+              Code: ${mentimeterConfig.eventCode}
+            </div>
+            <div style="font-size: 0.9rem; opacity: 0.6; margin-top: 1rem;">
+              Or scan QR code when available
+            </div>
+          `;
+          placeholder.style.background = 'rgba(255,167,38,0.15)';
+          placeholder.style.borderColor = '#ffa726';
+          placeholder.style.color = '#FBEDD4';
+          placeholder.style.padding = '2rem';
+        }
+      });
+    }
+
+    function showOfflineMode() {
       const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
       qrPlaceholders.forEach(placeholder => {
         placeholder.innerHTML = `
-          📱 SCAN TO JOIN<br>
-          <small>Join at: ${platform}.com</small><br>
-          <small>Code: GRAYZONES2025</small>
+          <div style="font-size: 1.2rem; margin-bottom: 1rem;">💭 REFLECT & DISCUSS</div>
+          <div style="font-size: 1rem; opacity: 0.8;">
+            Think about the question<br>
+            Share insights with the group
+          </div>
         `;
-        placeholder.style.background = 'rgba(255,167,38,0.2)';
-        placeholder.style.borderColor = '#ffa726';
-        placeholder.style.color = '#ffa726';
+        placeholder.style.background = 'rgba(251,237,212,0.1)';
+        placeholder.style.borderColor = '#FBEDD4';
+        placeholder.style.color = '#FBEDD4';
       });
     }
-    
-    function simulateResults(questionType) {
-      // Simulate real-time response collection
-      const resultsArea = document.querySelector('.results-visualization');
-      if (resultsArea) {
-        const sampleResponses = {
-          uncertainty: ['Information gaps', 'Spill extent unknown', 'Crew status unclear', 'Timeline confusion'],
-          ownership: ['Communication overlap', 'Authority confusion', 'Media responsibility unclear'],
-          overreliance: ['AIS tracking system', 'Initial crew reports', 'Emergency protocols'],
-          constraints: ['3AM decision making', 'Time pressure', 'Multiple information sources', 'Language barriers']
-        };
-        
-        if (sampleResponses[questionType]) {
-          setTimeout(() => {
-            alert(`Sample responses for ${questionType}:\n${sampleResponses[questionType].join('\n')}`);
-          }, 2000);
-        }
-      }
+
+    function getQuestionTypeBySlide(slideNumber) {
+      const questionMap = {
+        8: 'warmup',
+        9: 'uncertainty', 
+        10: 'ownership',
+        11: 'overreliance',
+        12: 'constraints'
+      };
+      return questionMap[slideNumber];
     }
-    
+
     // Enhanced navigation for case study section
     function isCaseStudySlide() {
       return currentSlide >= 6 && currentSlide <= 13;
     }
     
-    // Auto-show QR codes when entering interactive slides
+    // Real-time stats overlay
+    function showParticipationStats(questionType, responseCount = 0) {
+      const existingStats = document.getElementById('participation-stats');
+      if (existingStats) existingStats.remove();
+      
+      const statsOverlay = document.createElement('div');
+      statsOverlay.id = 'participation-stats';
+      statsOverlay.style.cssText = `
+        position: fixed;
+        top: 80px;
+        left: 30px;
+        background: rgba(0,0,0,0.8);
+        color: #FBEDD4;
+        padding: 15px 20px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+        z-index: 1000;
+        border-left: 4px solid #ffa726;
+        min-width: 200px;
+      `;
+      
+      const config = mentimeterConfig.presentations[questionType];
+      statsOverlay.innerHTML = `
+        <div style="font-weight: bold; margin-bottom: 8px;">📊 Live Stats</div>
+        <div>Question: ${config ? config.question : questionType}</div>
+        <div>Responses: <span style="color: #ffa726; font-weight: bold;">${responseCount}</span></div>
+        <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 8px;">
+          Shift+D: Start demo • Shift+M: Toggle platform
+        </div>
+      `;
+      
+      document.body.appendChild(statsOverlay);
+      
+      // Auto-hide after question slides
+      if (currentSlide > 12) {
+        setTimeout(() => {
+          if (statsOverlay.parentNode) {
+            statsOverlay.remove();
+          }
+        }, 3000);
+      }
+    }
+
+    // Auto-show QR codes when entering interactive slides  
     function checkForInteractiveSlide() {
-      if (currentSlide >= 8 && currentSlide <= 12) {
-        setTimeout(() => showQRCode('mentimeter'), 1000);
+      const questionType = getQuestionTypeBySlide(currentSlide);
+      if (questionType) {
+        setTimeout(() => {
+          displayQRCode(questionType);
+          showParticipationStats(questionType, 0);
+        }, 1000);
+      } else {
+        // Remove stats when leaving interactive slides
+        const existingStats = document.getElementById('participation-stats');
+        if (existingStats) existingStats.remove();
+      }
+      
+      // Add visual feedback for case study section
+      if (isCaseStudySlide()) {
+        document.body.style.setProperty('--case-study-active', '1');
+      } else {
+        document.body.style.setProperty('--case-study-active', '0');
       }
     }
 
     updateProgress();
+
+    // Demo Mode: Simulate live responses for presentations
+    const demoResponses = {
+      warmup: ['Panic', 'Shock', 'Urgency', 'Confusion', 'Responsibility', 'Overwhelm', 'Focus', 'Adrenaline'],
+      uncertainty: [
+        'Exact spill amount unknown',
+        'Weather conditions unclear', 
+        'Other vessel damage extent',
+        'Port authority response time',
+        'Insurance coverage gaps',
+        'Media attention scope'
+      ],
+      ownership: [
+        'Who contacts coast guard?',
+        'Media spokesperson unclear',
+        'Environmental reporting overlap',
+        'Customer notification responsibility',
+        'Legal liaison confusion'
+      ],
+      overreliance: [
+        'AIS tracking system reliability',
+        'Initial crew damage reports', 
+        'Emergency response protocols',
+        'Communication equipment backup',
+        'Weather forecast accuracy'
+      ],
+      constraints: [
+        '3AM decision fatigue',
+        'Multiple time zones coordination',
+        'Language barriers with crew',
+        'Regulatory deadline pressures',
+        'Limited expert availability'
+      ]
+    };
+
+    function startDemoMode(questionType) {
+      if (!demoResponses[questionType]) return;
+      
+      const responses = demoResponses[questionType];
+      let index = 0;
+      
+      const demoInterval = setInterval(() => {
+        if (index >= responses.length) {
+          clearInterval(demoInterval);
+          return;
+        }
+        
+        // Simulate response appearing
+        console.log(`Demo Response ${index + 1}: ${responses[index]}`);
+        
+        // You could update UI here to show "incoming" responses
+        if (questionType === 'warmup') {
+          showWordCloudUpdate(responses[index]);
+        } else {
+          showTextResponseUpdate(responses[index]);
+        }
+        
+        index++;
+      }, 2000 + Math.random() * 3000); // Random timing between 2-5 seconds
+    }
+
+    function showWordCloudUpdate(word) {
+      // Visual feedback for word cloud updates
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50px;
+        right: 30px;
+        background: rgba(255,167,38,0.9);
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        z-index: 1001;
+        animation: slideInRight 0.3s ease;
+      `;
+      notification.textContent = `"${word}" added`;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 2000);
+    }
+
+    function showTextResponseUpdate(text) {
+      // Visual feedback for text responses
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50px;
+        right: 30px;
+        background: rgba(66,165,245,0.9);
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        z-index: 1001;
+        max-width: 300px;
+        animation: slideInRight 0.3s ease;
+      `;
+      notification.textContent = `New: "${text.substring(0, 40)}..."`;
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    // Add CSS animation for notifications
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
