@@ -854,13 +854,13 @@
     const mentimeterConfig = {
       enabled: true,
       baseUrl: 'https://www.menti.com',
-      eventCode: 'GRAYZONES2025', // This will be updated with real code
+      eventCode: 'altvpk3xsbhg', // Single presentation with multiple slides
       presentations: {
-        warmup: { id: 'warmup', type: 'wordcloud', question: 'emotional-response' },
-        uncertainty: { id: 'uncertainty', type: 'opentext', question: 'information-gaps' },
-        ownership: { id: 'ownership', type: 'opentext', question: 'responsibility-confusion' },
-        overreliance: { id: 'overreliance', type: 'opentext', question: 'assumptions-dependencies' },
-        constraints: { id: 'constraints', type: 'opentext', question: 'human-limitations' }
+        warmup: { id: 'altvpk3xsbhg', type: 'wordcloud', question: 'emotional-response' },
+        uncertainty: { id: 'altvpk3xsbhg', type: 'opentext', question: 'information-gaps' },
+        ownership: { id: 'altvpk3xsbhg', type: 'opentext', question: 'responsibility-confusion' },
+        overreliance: { id: 'altvpk3xsbhg', type: 'opentext', question: 'assumptions-dependencies' },
+        constraints: { id: 'altvpk3xsbhg', type: 'opentext', question: 'human-limitations' }
       }
     };
 
@@ -874,15 +874,15 @@
       qrPlaceholders.forEach(placeholder => {
         const config = mentimeterConfig.presentations[questionType];
         if (config) {
-          // Check if QR code image exists
-          const qrImagePath = `images/qr-codes/${questionType}.png`;
+          // Use single QR code for all questions since it's the same presentation
+          const qrImagePath = `images/qr-codes/mentimeter_qr_code.png`;
           const qrImage = new Image();
           
           qrImage.onload = () => {
             // QR image exists, show it
             placeholder.innerHTML = `
               <div style="font-size: 1.4rem; margin-bottom: 1rem;">📱 SCAN TO JOIN</div>
-              <img src="${qrImagePath}" alt="${questionType} QR Code" style="width: 200px; height: 200px; margin: 1rem 0; border-radius: 8px;">
+              <img src="${qrImagePath}" alt="Mentimeter QR Code" style="width: 200px; height: 200px; margin: 1rem 0; border-radius: 8px;">
               <div style="font-size: 1rem; opacity: 0.8;">
                 Or go to: <strong>menti.com</strong>
               </div>

@@ -21,8 +21,9 @@ open index.html
 **Case Study:** Hafnia Nile vs Ceres I collision
 
 ### Structure
+
 - **Intro (5 min):** Elevator paradox & Gray Zones theory
-- **Interactive Case (15 min):** Real maritime collision analysis  
+- **Interactive Case (15 min):** Real maritime collision analysis
 - **Wrap-up (5 min):** Challenge & conclusions
 
 ## 🎯 Features
@@ -42,11 +43,11 @@ open index.html
 
 ## 🎮 Controls
 
-| Key | Action |
-|-----|--------|
-| Space/Arrows | Navigate slides |
-| Shift + M | Toggle Mentimeter |
-| Shift + D | Demo mode |
+| Key          | Action            |
+| ------------ | ----------------- |
+| Space/Arrows | Navigate slides   |
+| Shift + M    | Toggle Mentimeter |
+| Shift + D    | Demo mode         |
 
 ## 🌟 Ready to Impact!
 
@@ -54,4 +55,4 @@ This workshop is production-ready and designed to reveal cognitive blind spots t
 
 ---
 
-*Built for facilitators who want to make Gray Zones theory unforgettable.*
+_Built for facilitators who want to make Gray Zones theory unforgettable._

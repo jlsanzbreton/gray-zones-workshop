@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gray Zones Framework: Interactive Comparative Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #FBEDD4;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 0;
+            background: rgba(251, 237, 212, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(251, 237, 212, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #FBEDD4, #F5F1E8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 6px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-tab {
+            background: transparent;
+            border: none;
+            color: #FBEDD4;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-tab.active {
+            background: #FBEDD4;
+            color: #0a0a0a;
+            box-shadow: 0 4px 12px rgba(251, 237, 212, 0.3);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: rgba(251, 237, 212, 0.1);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .framework-card {
+            background: rgba(251, 237, 212, 0.05);
+            border: 1px solid rgba(251, 237, 212, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .framework-card:hover {
+            background: rgba(251, 237, 212, 0.08);
+            border-color: rgba(251, 237, 212, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(251, 237, 212, 0.1);
+        }
+
+        .framework-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #FBEDD4, #F5F1E8);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .framework-card:hover::before {
+            opacity: 1;
+        }
+
+        .framework-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #F5F1E8;
+        }
+
+        .framework-domain {
+            font-size: 0.9rem;
+            color: #FBEDD4;
+            opacity: 0.7;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .framework-description {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 16px;
+            opacity: 0.9;
+        }
+
+        .overlap-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .overlap-high {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ecc71;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .overlap-medium {
+            background: rgba(241, 196, 15, 0.2);
+            color: #f1c40f;
+            border: 1px solid rgba(241, 196, 15, 0.3);
+        }
+
+        .overlap-low {
+            background: rgba(231, 76, 60, 0.2);
+            color: #e74c3c;
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .xy-chart-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #F5F1E8;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 500px;
+            border-radius: 8px;
+        }
+
+        .axis-label {
+            font-size: 14px;
+            fill: #FBEDD4;
+            font-weight: 500;
+        }
+
+        .axis-title {
+            font-size: 16px;
+            fill: #F5F1E8;
+            font-weight: 600;
+        }
+
+        .grid-line {
+            stroke: rgba(251, 237, 212, 0.2);
+            stroke-width: 1;
+        }
+
+        .axis-line {
+            stroke: #FBEDD4;
+            stroke-width: 3;
+        }
+
+        .framework-point {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .framework-point:hover {
+            transform: scale(1.2);
+        }
+
+        .gray-zones-point {
+            fill: #FBEDD4;
+            stroke: #F5F1E8;
+            stroke-width: 3;
+            filter: drop-shadow(0 0 8px rgba(251, 237, 212, 0.6));
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.9);
+            color: #FBEDD4;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+            border: 1px solid rgba(251, 237, 212, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .problem-analysis {
+            margin-top: 40px;
+        }
+
+        .problem-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .problem-btn {
+            background: rgba(251, 237, 212, 0.1);
+            border: 1px solid rgba(251, 237, 212, 0.2);
+            color: #FBEDD4;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .problem-btn:hover,
+        .problem-btn.active {
+            background: #FBEDD4;
+            color: #0a0a0a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(251, 237, 212, 0.3);
+        }
+
+        .method-ranking {
+            background: rgba(251, 237, 212, 0.03);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(251, 237, 212, 0.1);
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(251, 237, 212, 0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ranking-item:hover {
+            background: rgba(251, 237, 212, 0.05);
+            border-radius: 8px;
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+
+        .ranking-position {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #FBEDD4;
+            color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 16px;
+        }
+
+        .ranking-method {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .ranking-score {
+            width: 100px;
+            height: 8px;
+            background: rgba(251, 237, 212, 0.2);
+            border-radius: 4px;
+            position: relative;
+            margin-left: 16px;
+        }
+
+        .ranking-score-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #FBEDD4, #F5F1E8);
+            border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        .insights-panel {
+            background: rgba(251, 237, 212, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid rgba(251, 237, 212, 0.1);
+        }
+
+        .insights-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #F5F1E8;
+        }
+
+        .insight-item {
+            margin-bottom: 16px;
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border-left: 3px solid #FBEDD4;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            display: block;
+            padding: 12px 20px;
+            background: rgba(251, 237, 212, 0.1);
+            border: 1px solid rgba(251, 237, 212, 0.2);
+            border-radius: 25px;
+            color: #FBEDD4;
+            font-size: 1rem;
+        }
+
+        .search-box::placeholder {
+            color: rgba(251, 237, 212, 0.5);
+        }
+
+        .ai-analyzer {
+            background: rgba(251, 237, 212, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(251, 237, 212, 0.1);
+        }
+
+        .ai-input {
+            width: 100%;
+            min-height: 120px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(251, 237, 212, 0.2);
+            border-radius: 12px;
+            color: #FBEDD4;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .ai-input::placeholder {
+            color: rgba(251, 237, 212, 0.5);
+        }
+
+        .analyze-btn {
+            background: linear-gradient(45deg, #FBEDD4, #F5F1E8);
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .analyze-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(251, 237, 212, 0.3);
+        }
+
+        .ai-results {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            border-left: 3px solid #FBEDD4;
+        }
+
+        .methodology-details {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .criteria-section {
+            margin-bottom: 20px;
+        }
+
+        .criteria-title {
+            font-weight: 600;
+            color: #F5F1E8;
+            margin-bottom: 10px;
+        }
+
+        .criteria-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .criteria-list li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .criteria-list li::before {
+            content: '•';
+            color: #FBEDD4;
+            position: absolute;
+            left: 0;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .framework-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .legend {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🎯 Gray Zones Framework</h1>
+            <p>Interactive Comparative Analysis of Methodologies for Detecting Cognitive Blind Spots and System Boundaries</p>
+        </header>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-tab="overview">Overview</button>
+            <button class="nav-tab" data-tab="positioning">Positioning</button>
+            <button class="nav-tab" data-tab="analysis">Problem Analysis</button>
+            <button class="nav-tab" data-tab="ai-analyzer">AI Analyzer</button>
+            <button class="nav-tab" data-tab="insights">Key Insights</button>
+        </nav>
+
+        <div id="overview" class="tab-content active">
+            <input type="text" class="search-box" id="search" placeholder="🔍 Search frameworks...">
+            
+            <div class="framework-grid" id="frameworkGrid">
+                <!-- Framework cards will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <div id="positioning" class="tab-content">
+            <div class="xy-chart-container">
+                <h3 class="chart-title">Gray Zones vs. Other Frameworks Positioning</h3>
+                <svg class="chart-svg" id="positionChart">
+                    <!-- Chart will be generated by JavaScript -->
+                </svg>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #FBEDD4;"></div>
+                        <span>Gray Zones</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #2ecc71;"></div>
+                        <span>High Overlap</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f1c40f;"></div>
+                        <span>Medium Overlap</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #e74c3c;"></div>
+                        <span>Low Overlap</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="analysis" class="tab-content">
+            <div class="problem-analysis">
+                <h3 class="chart-title">Which Method is Ideal for Your Problem?</h3>
+                <div class="problem-selector">
+                    <button class="problem-btn active" data-problem="uncertainty">Systemic Uncertainty</button>
+                    <button class="problem-btn" data-problem="ownership">Responsibility Ambiguity</button>
+                    <button class="problem-btn" data-problem="overreliance">Technological Over-dependence</button>
+                    <button class="problem-btn" data-problem="constraints">Organizational Limitations</button>
+                    <button class="problem-btn" data-problem="complexity">Multi-domain Complexity</button>
+                    <button class="problem-btn" data-problem="realtime">Real-time Detection</button>
+                </div>
+                
+                <div class="method-ranking" id="methodRanking">
+                    <!-- Rankings will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div id="ai-analyzer" class="tab-content">
+            <div class="ai-analyzer">
+                <h3 class="chart-title">🤖 AI-Powered Framework Recommendation</h3>
+                <p style="text-align: center; margin-bottom: 30px; opacity: 0.8;">
+                    Describe your problem, situation, or system and get personalized framework recommendations
+                </p>
+                
+                <textarea 
+                    class="ai-input" 
+                    id="problemDescription"
+                    placeholder="Describe your situation, problem, or system in detail. For example: 'We're a software team experiencing frequent bugs in production due to unclear responsibilities between development and operations teams. Our automated testing catches most issues, but edge cases slip through, especially during tight deadlines when teams assume others are handling certain tasks.'"
+                ></textarea>
+                
+                <button class="analyze-btn" onclick="analyzeWithAI()">
+                    Analyze & Recommend Frameworks
+                </button>
+                
+                <div id="aiResults" class="ai-results" style="display: none;">
+                    <!-- AI analysis results will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="insights" class="tab-content">
+            <div class="insights-panel">
+                <h3 class="insights-title">🔍 Strategic Key Insights</h3>
+                <div class="insight-item">
+                    <strong>Gray Zones' Unique Position:</strong> Combines categorical simplicity (4 zones) with systemic depth, offering immediate interventions without requiring extensive training.
+                </div>
+                <div class="insight-item">
+                    <strong>Critical Gap:</strong> No framework exists that integrates real-time blind spot detection with minimal viable interventions at organizational scale.
+                </div>
+                <div class="insight-item">
+                    <strong>Powerful Complementarity:</strong> STAMP + Gray Zones for structural analysis, Cynefin + Gray Zones for contextual categorization, FRAM + Gray Zones for functional variability.
+                </div>
+                <div class="insight-item">
+                    <strong>Market Opportunity:</strong> Existing frameworks are either too technical (STAMP) or too general (Cynefin). Gray Zones occupies the perfect middle ground.
+                </div>
+            </div>
+        </div>
+
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script>
+        // Framework data based on the research
+        const frameworks = [
+            {
+                name: "STAMP",
+                domain: "Systems Safety",
+                description: "Safety as dynamic control problem vs. component failures",
+                overlap: "high",
+                overlapText: "addresses ownership ambiguity, over-reliance on traditional models",
+                sources: "Leveson (2004, 2011); Patriarca et al. (2017)",
+                x: 85, y: 75,
+                problemScores: {
+                    uncertainty: 70, ownership: 85, overreliance: 60, constraints: 80, complexity: 90, realtime: 40
+                },
+                evaluationCriteria: {
+                    uncertainty: "Strong hierarchical analysis of control structures reveals decision points where information may be ambiguous",
+                    ownership: "Excellent at mapping responsibility boundaries across organizational levels and identifying control structure gaps",
+                    overreliance: "Moderate focus on human-automation interaction, primarily through control loop analysis",
+                    constraints: "Strong identification of system constraints through hazard analysis and control structure mapping",
+                    complexity: "Excellent at handling complex socio-technical systems with multiple interacting components",
+                    realtime: "Limited real-time capability due to comprehensive analysis requirements"
+                }
+            },
+            {
+                name: "FRAM",
+                domain: "Socio-technical Systems",
+                description: "Performance variability resonance, work-as-done vs. work-as-imagined",
+                overlap: "high",
+                overlapText: "maps constraints, uncertainty in functional coupling",
+                sources: "Hollnagel (2012); 108+ validation studies",
+                x: 80, y: 65,
+                problemScores: {
+                    uncertainty: 85, ownership: 70, overreliance: 75, constraints: 90, complexity: 85, realtime: 45
+                },
+                evaluationCriteria: {
+                    uncertainty: "Excellent at capturing performance variability and unexpected functional couplings",
+                    ownership: "Good at identifying functional boundaries but less explicit about responsibility assignment",
+                    overreliance: "Strong focus on functional dependencies and potential over-coupling between functions",
+                    constraints: "Excellent at identifying resource, time, and organizational constraints affecting performance",
+                    complexity: "Strong capability for modeling complex adaptive systems with emergent properties",
+                    realtime: "Moderate real-time application due to modeling complexity"
+                }
+            },
+            {
+                name: "AcciMap",
+                domain: "Multi-level Risk Analysis",
+                description: "Systemic causation across organizational levels vs. blame-focused",
+                overlap: "medium",
+                overlapText: "addresses ownership diffusion, constraint identification",
+                sources: "Rasmussen (1997); Waterson et al. (2017)",
+                x: 70, y: 60,
+                problemScores: {
+                    uncertainty: 60, ownership: 80, overreliance: 50, constraints: 70, complexity: 75, realtime: 30
+                },
+                evaluationCriteria: {
+                    uncertainty: "Moderate focus on uncertainty, primarily through retrospective analysis of decision points",
+                    ownership: "Strong multi-level analysis reveals ownership diffusion across organizational hierarchies",
+                    overreliance: "Limited focus on over-reliance patterns, more focused on causal chains",
+                    constraints: "Good identification of constraints at different organizational levels",
+                    complexity: "Strong multi-level analysis but limited handling of dynamic complexity",
+                    realtime: "Low real-time capability, primarily retrospective analysis tool"
+                }
+            },
+            {
+                name: "Cynefin Framework",
+                domain: "Decision-Making",
+                description: "Context-appropriate responses based on situation complexity",
+                overlap: "high",
+                overlapText: "directly addresses uncertainty categorization, constraint recognition",
+                sources: "Snowden & Boone (2007); multiple domains",
+                x: 60, y: 85,
+                problemScores: {
+                    uncertainty: 95, ownership: 65, overreliance: 70, constraints: 80, complexity: 85, realtime: 60
+                },
+                evaluationCriteria: {
+                    uncertainty: "Excellent uncertainty categorization across simple, complicated, complex, and chaotic domains",
+                    ownership: "Moderate focus on ownership, primarily through context-appropriate leadership approaches",
+                    overreliance: "Good recognition of over-reliance on inappropriate decision-making approaches",
+                    constraints: "Strong identification of contextual constraints that limit decision-making approaches",
+                    complexity: "Excellent framework for understanding and navigating different types of complexity",
+                    realtime: "Good real-time applicability through rapid context assessment"
+                }
+            },
+            {
+                name: "Naturalistic Decision Making",
+                domain: "Expert Decision-Making",
+                description: "Real-world expertise vs. laboratory rational choice models",
+                overlap: "medium",
+                overlapText: "handles uncertainty, recognizes cognitive constraints",
+                sources: "Klein (1998); military, emergency services",
+                x: 50, y: 70,
+                problemScores: {
+                    uncertainty: 80, ownership: 60, overreliance: 65, constraints: 70, complexity: 60, realtime: 75
+                },
+                evaluationCriteria: {
+                    uncertainty: "Strong focus on decision-making under uncertainty and time pressure",
+                    ownership: "Moderate focus on individual decision-maker responsibility and expertise",
+                    overreliance: "Good recognition of over-reliance on rules vs. adaptive expertise",
+                    constraints: "Strong identification of cognitive and situational constraints on expert performance",
+                    complexity: "Moderate handling of complexity, focused on individual rather than system complexity",
+                    realtime: "Strong real-time applicability through recognition-primed decision models"
+                }
+            },
+            {
+                name: "Boundary Spanning Theory",
+                domain: "Organizational Coordination",
+                description: "Links between internal networks and external information sources",
+                overlap: "high",
+                overlapText: "addresses ownership ambiguity, ignored zones between units",
+                sources: "Aldrich & Herker (1977); Tushman research",
+                x: 45, y: 75,
+                problemScores: {
+                    uncertainty: 55, ownership: 90, overreliance: 40, constraints: 75, complexity: 70, realtime: 50
+                },
+                evaluationCriteria: {
+                    uncertainty: "Moderate focus on uncertainty, primarily at organizational boundaries",
+                    ownership: "Excellent at identifying ownership ambiguity at organizational interfaces",
+                    overreliance: "Limited focus on over-reliance patterns in boundary spanning roles",
+                    constraints: "Good identification of structural and resource constraints in boundary management",
+                    complexity: "Strong handling of inter-organizational complexity and network effects",
+                    realtime: "Moderate real-time application through boundary spanning role monitoring"
+                }
+            },
+            {
+                name: "Boundary Objects Theory",
+                domain: "Cross-functional Collaboration",
+                description: "Objects robust enough for identity, plastic enough for adaptation",
+                overlap: "medium",
+                overlapText: "handles constraint flexibility, reduces misunderstanding",
+                sources: "Star & Griesemer (1989); knowledge management",
+                x: 40, y: 80,
+                problemScores: {
+                    uncertainty: 50, ownership: 75, overreliance: 45, constraints: 85, complexity: 65, realtime: 35
+                },
+                evaluationCriteria: {
+                    uncertainty: "Moderate focus on uncertainty through interpretive flexibility of boundary objects",
+                    ownership: "Good identification of shared ownership and coordination challenges",
+                    overreliance: "Limited focus on over-reliance, more on appropriate use of boundary objects",
+                    constraints: "Excellent at identifying constraints in cross-functional knowledge sharing",
+                    complexity: "Good handling of knowledge complexity across different communities of practice",
+                    realtime: "Limited real-time capability, more focused on design and implementation"
+                }
+            },
+            {
+                name: "Collaborative Governance",
+                domain: "Multi-stakeholder Systems",
+                description: "Governance across boundaries with multiple accountability relationships",
+                overlap: "high",
+                overlapText: "directly addresses ownership diffusion, governance ambiguity",
+                sources: "Emerson et al. (2012); public-private partnerships",
+                x: 55, y: 70,
+                problemScores: {
+                    uncertainty: 65, ownership: 95, overreliance: 50, constraints: 80, complexity: 75, realtime: 25
+                },
+                evaluationCriteria: {
+                    uncertainty: "Good handling of uncertainty in multi-stakeholder decision-making contexts",
+                    ownership: "Excellent at addressing distributed ownership and accountability in governance systems",
+                    overreliance: "Moderate focus on over-reliance on single stakeholders or governance mechanisms",
+                    constraints: "Strong identification of institutional and resource constraints in governance",
+                    complexity: "Good handling of multi-stakeholder complexity and conflicting interests",
+                    realtime: "Low real-time capability due to deliberative governance requirements"
+                }
+            },
+            {
+                name: "Wicked Problems Framework",
+                domain: "Complex Social Issues",
+                description: "Problems as symptoms of higher-level issues, no definitive solutions",
+                overlap: "high",
+                overlapText: "embraces uncertainty, constraint complexity, ongoing intervention",
+                sources: "Rittel & Webber (1973); policy planning",
+                x: 75, y: 50,
+                problemScores: {
+                    uncertainty: 90, ownership: 70, overreliance: 60, constraints: 85, complexity: 95, realtime: 20
+                },
+                evaluationCriteria: {
+                    uncertainty: "Excellent recognition of fundamental uncertainty and no definitive problem formulation",
+                    ownership: "Good recognition of distributed ownership and stakeholder responsibility",
+                    overreliance: "Moderate focus on over-reliance on traditional problem-solving approaches",
+                    constraints: "Excellent identification of systemic constraints that make problems 'wicked'",
+                    complexity: "Excellent framework for understanding irreducible complexity in social systems",
+                    realtime: "Low real-time capability due to requirement for extensive stakeholder engagement"
+                }
+            },
+            {
+                name: "Sensemaking (Weick)",
+                domain: "Organizational Understanding",
+                description: "Retrospective meaning-making through social interaction",
+                overlap: "high",
+                overlapText: "addresses all four Gray Zones through ongoing interpretation",
+                sources: "Weick research; crisis management",
+                x: 65, y: 80,
+                problemScores: {
+                    uncertainty: 85, ownership: 80, overreliance: 75, constraints: 80, complexity: 80, realtime: 70
+                },
+                evaluationCriteria: {
+                    uncertainty: "Excellent focus on uncertainty and ambiguity in organizational environments",
+                    ownership: "Strong focus on collective ownership of meaning-making and interpretation",
+                    overreliance: "Good recognition of over-reliance on existing mental models and assumptions",
+                    constraints: "Strong identification of cognitive and social constraints on interpretation",
+                    complexity: "Strong handling of interpretive complexity and multiple competing narratives",
+                    realtime: "Good real-time applicability through ongoing sensemaking processes"
+                }
+            },
+            {
+                name: "Reflective Practice",
+                domain: "Professional Development",
+                description: "Reflection-in-action vs. technical rationality",
+                overlap: "medium",
+                overlapText: "questions assumptions, recognizes constraint evolution",
+                sources: "Schön; education, healthcare",
+                x: 35, y: 85,
+                problemScores: {
+                    uncertainty: 70, ownership: 60, overreliance: 80, constraints: 70, complexity: 50, realtime: 40
+                },
+                evaluationCriteria: {
+                    uncertainty: "Good focus on uncertainty and surprise in professional practice",
+                    ownership: "Moderate focus on individual professional responsibility and autonomy",
+                    overreliance: "Excellent recognition of over-reliance on technical knowledge vs. practical wisdom",
+                    constraints: "Good identification of constraints in professional practice contexts",
+                    complexity: "Moderate handling of complexity, primarily at individual practice level",
+                    realtime: "Moderate real-time capability through reflection-in-action processes"
+                }
+            },
+            {
+                name: "Double-Loop Learning",
+                domain: "Organizational Learning",
+                description: "Questioning assumptions vs. just correcting errors",
+                overlap: "high",
+                overlapText: "directly challenges over-reliance, assumption constraints",
+                sources: "Argyris & Schön; organizational development",
+                x: 50, y: 80,
+                problemScores: {
+                    uncertainty: 75, ownership: 70, overreliance: 90, constraints: 85, complexity: 65, realtime: 45
+                },
+                evaluationCriteria: {
+                    uncertainty: "Good focus on uncertainty created by questioning underlying assumptions",
+                    ownership: "Good focus on shared ownership of organizational learning and change",
+                    overreliance: "Excellent recognition of over-reliance on single-loop learning and existing assumptions",
+                    constraints: "Excellent identification of mental models and assumptions that constrain learning",
+                    complexity: "Good handling of learning complexity across individual and organizational levels",
+                    realtime: "Moderate real-time capability through ongoing learning processes"
+                }
+            },
+            {
+                name: "Weak Signal Detection",
+                domain: "Strategic Foresight",
+                description: "Environmental scanning for early change indicators",
+                overlap: "high",
+                overlapText: "identifies ignored zones, handles uncertainty systematically",
+                sources: "Ansoff (1975); corporate strategy",
+                x: 60, y: 65,
+                problemScores: {
+                    uncertainty: 85, ownership: 40, overreliance: 55, constraints: 60, complexity: 70, realtime: 90
+                },
+                evaluationCriteria: {
+                    uncertainty: "Excellent focus on uncertainty and early indicators of change",
+                    ownership: "Limited focus on ownership, more on detection and interpretation of signals",
+                    overreliance: "Moderate focus on over-reliance on existing information sources and scanning methods",
+                    constraints: "Good identification of constraints in environmental scanning and interpretation",
+                    complexity: "Good handling of environmental complexity and multiple weak signals",
+                    realtime: "Excellent real-time capability through continuous environmental scanning"
+                }
+            },
+            {
+                name: "Gray Zones",
+                domain: "Cognitive-Systems Integration",
+                description: "Four-category framework (Uncertainty, Ownership, Over-reliance, Constraints) with lightweight interventions",
+                overlap: "reference",
+                overlapText: "unique synthesis of cognitive and systems approaches",
+                sources: "This research",
+                x: 55, y: 90,
+                problemScores: {
+                    uncertainty: 90, ownership: 90, overreliance: 90, constraints: 90, complexity: 85, realtime: 85
+                },
+                evaluationCriteria: {
+                    uncertainty: "Excellent systematic categorization and intervention for uncertainty management",
+                    ownership: "Excellent explicit focus on ownership ambiguity and responsibility clarification",
+                    overreliance: "Excellent dedicated focus on over-reliance patterns and dependency management",
+                    constraints: "Excellent systematic identification and management of multiple constraint types",
+                    complexity: "Strong integration of cognitive and systems approaches to complexity",
+                    realtime: "Strong real-time capability through lightweight intervention design"
+                }
+            }
+        ];
+
+        const problemDescriptions = {
+            uncertainty: "Situations with incomplete information, multiple possible interpretations, and unpredictable outcomes",
+            ownership: "Diffuse responsibilities, distributed accountability, and inter-organizational coordination",
+            overreliance: "Excessive dependence on automated systems, unique tools, or individual experts",
+            constraints: "Resource, time, regulatory, or cognitive limitations that restrict options",
+            complexity: "Multi-domain systems with multiple stakeholders and emergent interactions",
+            realtime: "Need for immediate detection and response to blind spots and anomalies"
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTabs();
+            populateFrameworkGrid();
+            createPositioningChart();
+            initializeProblemAnalysis();
+            initializeSearch();
+        });
+
+        function initializeTabs() {
+            const tabs = document.querySelectorAll('.nav-tab');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const targetTab = tab.dataset.tab;
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    contents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === targetTab) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        }
+
+        function populateFrameworkGrid() {
+            const grid = document.getElementById('frameworkGrid');
+            
+            frameworks.filter(f => f.name !== 'Gray Zones').forEach(framework => {
+                const card = document.createElement('div');
+                card.className = 'framework-card';
+                card.dataset.framework = framework.name.toLowerCase();
+                
+                card.innerHTML = `
+                    <div class="framework-name">${framework.name}</div>
+                    <div class="framework-domain">${framework.domain}</div>
+                    <div class="overlap-indicator overlap-${framework.overlap}">
+                        Overlap: ${framework.overlap === 'high' ? 'High' : framework.overlap === 'medium' ? 'Medium' : 'Low'}
+                    </div>
+                    <div class="framework-description">${framework.description}</div>
+                    <div style="font-size: 0.85rem; opacity: 0.7; margin-top: 8px;">
+                        <strong>Sources:</strong> ${framework.sources}
+                    </div>
+                `;
+
+                card.addEventListener('click', () => showFrameworkDetails(framework));
+                grid.appendChild(card);
+            });
+        }
+
+        function createPositioningChart() {
+            const svg = document.getElementById('positionChart');
+            const width = 800;
+            const height = 500;
+            const margin = { top: 60, right: 60, bottom: 80, left: 80 };
+            const chartWidth = width - margin.left - margin.right;
+            const chartHeight = height - margin.top - margin.bottom;
+
+            svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+
+            // Create grid
+            for (let i = 0; i <= 10; i++) {
+                const x = margin.left + (i * chartWidth / 10);
+                const y = margin.top + (i * chartHeight / 10);
+                
+                // Vertical grid lines
+                const vLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                vLine.setAttribute('x1', x);
+                vLine.setAttribute('y1', margin.top);
+                vLine.setAttribute('x2', x);
+                vLine.setAttribute('y2', height - margin.bottom);
+                vLine.className = 'grid-line';
+                svg.appendChild(vLine);
+
+                // Horizontal grid lines
+                const hLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                hLine.setAttribute('x1', margin.left);
+                hLine.setAttribute('y1', y);
+                hLine.setAttribute('x2', width - margin.right);
+                hLine.setAttribute('y2', y);
+                hLine.className = 'grid-line';
+                svg.appendChild(hLine);
+            }
+
+            // Add main axes - make them much more visible
+            const xAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            xAxis.setAttribute('x1', margin.left);
+            xAxis.setAttribute('y1', height - margin.bottom);
+            xAxis.setAttribute('x2', width - margin.right);
+            xAxis.setAttribute('y2', height - margin.bottom);
+            xAxis.setAttribute('stroke', '#FBEDD4');
+            xAxis.setAttribute('stroke-width', '3');
+            svg.appendChild(xAxis);
+
+            const yAxis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            yAxis.setAttribute('x1', margin.left);
+            yAxis.setAttribute('y1', margin.top);
+            yAxis.setAttribute('x2', margin.left);
+            yAxis.setAttribute('y2', height - margin.bottom);
+            yAxis.setAttribute('stroke', '#FBEDD4');
+            yAxis.setAttribute('stroke-width', '3');
+            svg.appendChild(yAxis);
+
+            // Add axis labels with values - make them more visible
+            for (let i = 0; i <= 10; i += 2) {
+                // X-axis labels
+                const xLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                xLabel.setAttribute('x', margin.left + (i * chartWidth / 10));
+                xLabel.setAttribute('y', height - margin.bottom + 25);
+                xLabel.setAttribute('text-anchor', 'middle');
+                xLabel.setAttribute('fill', '#FBEDD4');
+                xLabel.setAttribute('font-size', '14px');
+                xLabel.setAttribute('font-weight', '500');
+                xLabel.textContent = i * 10;
+                svg.appendChild(xLabel);
+
+                // X-axis tick marks
+                const xTick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                xTick.setAttribute('x1', margin.left + (i * chartWidth / 10));
+                xTick.setAttribute('y1', height - margin.bottom);
+                xTick.setAttribute('x2', margin.left + (i * chartWidth / 10));
+                xTick.setAttribute('y2', height - margin.bottom + 8);
+                xTick.setAttribute('stroke', '#FBEDD4');
+                xTick.setAttribute('stroke-width', '2');
+                svg.appendChild(xTick);
+
+                // Y-axis labels
+                const yLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                yLabel.setAttribute('x', margin.left - 20);
+                yLabel.setAttribute('y', height - margin.bottom - (i * chartHeight / 10) + 5);
+                yLabel.setAttribute('text-anchor', 'middle');
+                yLabel.setAttribute('fill', '#FBEDD4');
+                yLabel.setAttribute('font-size', '14px');
+                yLabel.setAttribute('font-weight', '500');
+                yLabel.textContent = i * 10;
+                svg.appendChild(yLabel);
+
+                // Y-axis tick marks
+                const yTick = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                yTick.setAttribute('x1', margin.left);
+                yTick.setAttribute('y1', height - margin.bottom - (i * chartHeight / 10));
+                yTick.setAttribute('x2', margin.left - 8);
+                yTick.setAttribute('y2', height - margin.bottom - (i * chartHeight / 10));
+                yTick.setAttribute('stroke', '#FBEDD4');
+                yTick.setAttribute('stroke-width', '2');
+                svg.appendChild(yTick);
+            }
+
+            // X-axis title - make it more prominent
+            const xTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            xTitle.setAttribute('x', width / 2);
+            xTitle.setAttribute('y', height - 10);
+            xTitle.setAttribute('text-anchor', 'middle');
+            xTitle.setAttribute('fill', '#FBEDD4');
+            xTitle.setAttribute('font-size', '18px');
+            xTitle.setAttribute('font-weight', '600');
+            xTitle.textContent = 'Technical Complexity →';
+            svg.appendChild(xTitle);
+
+            // Y-axis title - make it more prominent
+            const yTitle = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            yTitle.setAttribute('x', 15);
+            yTitle.setAttribute('y', height / 2);
+            yTitle.setAttribute('text-anchor', 'middle');
+            yTitle.setAttribute('transform', `rotate(-90, 15, ${height / 2})`);
+            yTitle.setAttribute('fill', '#FBEDD4');
+            yTitle.setAttribute('font-size', '18px');
+            yTitle.setAttribute('font-weight', '600');
+            yTitle.textContent = '← Implementation Ease';
+            svg.appendChild(yTitle);
+
+            // Plot framework points
+            frameworks.forEach(framework => {
+                const x = margin.left + (framework.x / 100) * chartWidth;
+                const y = margin.top + ((100 - framework.y) / 100) * chartHeight;
+
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', x);
+                circle.setAttribute('cy', y);
+                circle.setAttribute('r', framework.name === 'Gray Zones' ? 8 : 6);
+                circle.className = 'framework-point';
+                
+                if (framework.name === 'Gray Zones') {
+                    circle.classList.add('gray-zones-point');
+                } else {
+                    const color = framework.overlap === 'high' ? '#2ecc71' : 
+                                 framework.overlap === 'medium' ? '#f1c40f' : '#e74c3c';
+                    circle.setAttribute('fill', color);
+                    circle.setAttribute('stroke', color);
+                    circle.setAttribute('stroke-width', '2');
+                    circle.setAttribute('fill-opacity', '0.7');
+                }
+
+                circle.addEventListener('mouseenter', (e) => showTooltip(e, framework));
+                circle.addEventListener('mouseleave', hideTooltip);
+                circle.addEventListener('click', () => showFrameworkDetails(framework));
+
+                svg.appendChild(circle);
+
+                // Add label for Gray Zones
+                if (framework.name === 'Gray Zones') {
+                    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                    label.setAttribute('x', x);
+                    label.setAttribute('y', y - 15);
+                    label.setAttribute('text-anchor', 'middle');
+                    label.setAttribute('fill', '#FBEDD4');
+                    label.setAttribute('font-size', '14px');
+                    label.setAttribute('font-weight', '700');
+                    label.textContent = 'Gray Zones';
+                    svg.appendChild(label);
+                }
+            });
+        }
+
+        function initializeProblemAnalysis() {
+            const problemBtns = document.querySelectorAll('.problem-btn');
+            
+            problemBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    problemBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    updateMethodRanking(btn.dataset.problem);
+                });
+            });
+
+            updateMethodRanking('uncertainty');
+        }
+
+        function updateMethodRanking(problemType) {
+            const ranking = document.getElementById('methodRanking');
+            const problemDesc = problemDescriptions[problemType];
+            
+            const sortedFrameworks = [...frameworks]
+                .sort((a, b) => b.problemScores[problemType] - a.problemScores[problemType])
+                .slice(0, 8);
+
+            ranking.innerHTML = `
+                <div style="margin-bottom: 20px; padding: 16px; background: rgba(0,0,0,0.3); border-radius: 8px;">
+                    <strong>Selected Problem:</strong> ${problemDesc}
+                </div>
+            `;
+
+            sortedFrameworks.forEach((framework, index) => {
+                const score = framework.problemScores[problemType];
+                const item = document.createElement('div');
+                item.className = 'ranking-item';
+                
+                item.innerHTML = `
+                    <div class="ranking-position">${index + 1}</div>
+                    <div class="ranking-method">
+                        <div style="font-weight: 600; margin-bottom: 4px;">${framework.name}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.7;">${framework.domain}</div>
+                    </div>
+                    <div class="ranking-score">
+                        <div class="ranking-score-fill" style="width: ${score}%"></div>
+                    </div>
+                    <div style="margin-left: 12px; font-weight: 500; color: #FBEDD4;">
+                        ${score}%
+                    </div>
+                `;
+
+                if (framework.name === 'Gray Zones') {
+                    item.style.background = 'rgba(251, 237, 212, 0.1)';
+                    item.style.border = '1px solid rgba(251, 237, 212, 0.3)';
+                    item.style.borderRadius = '8px';
+                }
+
+                item.addEventListener('click', () => showMethodologyDetails(framework, problemType));
+                ranking.appendChild(item);
+            });
+        }
+
+        function showMethodologyDetails(framework, problemType) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+                border-radius: 20px;
+                padding: 40px;
+                max-width: 700px;
+                width: 100%;
+                color: #FBEDD4;
+                border: 1px solid rgba(251, 237, 212, 0.2);
+                position: relative;
+                max-height: 80vh;
+                overflow-y: auto;
+            `;
+
+            const problemNames = {
+                uncertainty: 'Uncertainty',
+                ownership: 'Ownership',
+                overreliance: 'Over-reliance',
+                constraints: 'Constraints',
+                complexity: 'Complexity',
+                realtime: 'Real-time'
+            };
+
+            const score = framework.problemScores[problemType];
+            const criteria = framework.evaluationCriteria[problemType];
+
+            modalContent.innerHTML = `
+                <button style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: #FBEDD4; font-size: 24px; cursor: pointer; padding: 5px;" onclick="this.closest('.modal-overlay').remove()">×</button>
+                
+                <h2 style="margin-bottom: 8px; color: #F5F1E8; font-size: 1.8rem;">${framework.name}</h2>
+                <div style="color: rgba(251,237,212,0.7); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; font-size: 0.9rem;">${framework.domain}</div>
+                
+                <div style="background: rgba(251,237,212,0.05); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                    <h4 style="margin-bottom: 12px; color: #F5F1E8;">Score for ${problemNames[problemType]}: ${score}%</h4>
+                    <div style="width: 100%; height: 12px; background: rgba(251,237,212,0.2); border-radius: 6px; margin-bottom: 20px;">
+                        <div style="height: 100%; width: ${score}%; background: linear-gradient(90deg, #FBEDD4, #F5F1E8); border-radius: 6px;"></div>
+                    </div>
+                    
+                    <div class="methodology-details">
+                        <div class="criteria-section">
+                            <h4 class="criteria-title">Evaluation Criteria & Reasoning</h4>
+                            <p style="line-height: 1.6; margin-bottom: 15px;">${criteria}</p>
+                        </div>
+                        
+                        <div class="criteria-section">
+                            <h4 class="criteria-title">Framework Description</h4>
+                            <p style="line-height: 1.6; margin-bottom: 15px;">${framework.description}</p>
+                        </div>
+                        
+                        <div class="criteria-section">
+                            <h4 class="criteria-title">Key Sources</h4>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">${framework.sources}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modal.className = 'modal-overlay';
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            document.addEventListener('keydown', function escapeHandler(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', escapeHandler);
+                }
+            });
+        }
+
+        function initializeSearch() {
+            const searchBox = document.getElementById('search');
+            const cards = document.querySelectorAll('.framework-card');
+
+            searchBox.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                
+                cards.forEach(card => {
+                    const text = card.textContent.toLowerCase();
+                    if (text.includes(searchTerm)) {
+                        card.style.display = 'block';
+                        card.style.animation = 'fadeIn 0.3s ease';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        function showTooltip(event, framework) {
+            const tooltip = document.getElementById('tooltip');
+            const rect = event.target.getBoundingClientRect();
+            
+            tooltip.innerHTML = `
+                <div style="font-weight: 600; margin-bottom: 8px;">${framework.name}</div>
+                <div style="margin-bottom: 4px;"><strong>Domain:</strong> ${framework.domain}</div>
+                <div style="margin-bottom: 4px;"><strong>Overlap:</strong> ${framework.overlapText}</div>
+                <div style="font-size: 0.8rem; opacity: 0.8;">Click for more details</div>
+            `;
+            
+            tooltip.style.left = (rect.left + window.scrollX + 10) + 'px';
+            tooltip.style.top = (rect.top + window.scrollY - 10) + 'px';
+            tooltip.style.opacity = '1';
+        }
+
+        function hideTooltip() {
+            const tooltip = document.getElementById('tooltip');
+            tooltip.style.opacity = '0';
+        }
+
+        function showFrameworkDetails(framework) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                backdrop-filter: blur(10px);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+                border-radius: 20px;
+                padding: 40px;
+                max-width: 600px;
+                width: 100%;
+                color: #FBEDD4;
+                border: 1px solid rgba(251, 237, 212, 0.2);
+                position: relative;
+                max-height: 80vh;
+                overflow-y: auto;
+            `;
+
+            const problemScoresHtml = Object.entries(framework.problemScores)
+                .map(([problem, score]) => {
+                    const problemNames = {
+                        uncertainty: 'Uncertainty',
+                        ownership: 'Ownership',
+                        overreliance: 'Over-dependence',
+                        constraints: 'Constraints',
+                        complexity: 'Complexity',
+                        realtime: 'Real-time'
+                    };
+                    
+                    return `
+                        <div style="display: flex; align-items: center; margin-bottom: 12px;">
+                            <div style="width: 120px; font-size: 0.9rem;">${problemNames[problem]}</div>
+                            <div style="flex: 1; height: 8px; background: rgba(251,237,212,0.2); border-radius: 4px; margin: 0 12px;">
+                                <div style="height: 100%; width: ${score}%; background: linear-gradient(90deg, #FBEDD4, #F5F1E8); border-radius: 4px;"></div>
+                            </div>
+                            <div style="width: 40px; text-align: right; font-weight: 500;">${score}%</div>
+                        </div>
+                    `;
+                }).join('');
+
+            modalContent.innerHTML = `
+                <button style="position: absolute; top: 20px; right: 20px; background: none; border: none; color: #FBEDD4; font-size: 24px; cursor: pointer; padding: 5px;" onclick="this.closest('.modal-overlay').remove()">×</button>
+                
+                <h2 style="margin-bottom: 8px; color: #F5F1E8; font-size: 1.8rem;">${framework.name}</h2>
+                <div style="color: rgba(251,237,212,0.7); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 20px; font-size: 0.9rem;">${framework.domain}</div>
+                
+                <div style="background: rgba(251,237,212,0.05); padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                    <h4 style="margin-bottom: 12px; color: #F5F1E8;">Description</h4>
+                    <p style="line-height: 1.6; margin-bottom: 15px;">${framework.description}</p>
+                    
+                    ${framework.name !== 'Gray Zones' ? `
+                        <h4 style="margin-bottom: 8px; color: #F5F1E8;">Overlap with Gray Zones</h4>
+                        <div class="overlap-indicator overlap-${framework.overlap}" style="display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 8px;">
+                            ${framework.overlap === 'high' ? 'High' : framework.overlap === 'medium' ? 'Medium' : 'Low'}
+                        </div>
+                        <p style="font-size: 0.95rem; margin-bottom: 15px;">${framework.overlapText}</p>
+                    ` : ''}
+                    
+                    <h4 style="margin-bottom: 8px; color: #F5F1E8;">Sources</h4>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">${framework.sources}</p>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 12px;">
+                    <h4 style="margin-bottom: 20px; color: #F5F1E8;">Effectiveness by Problem Type</h4>
+                    ${problemScoresHtml}
+                </div>
+            `;
+
+            modal.className = 'modal-overlay';
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.remove();
+                }
+            });
+
+            document.addEventListener('keydown', function escapeHandler(e) {
+                if (e.key === 'Escape') {
+                    modal.remove();
+                    document.removeEventListener('keydown', escapeHandler);
+                }
+            });
+        }
+
+        // AI Analyzer functionality
+        function analyzeWithAI() {
+            const problemDescription = document.getElementById('problemDescription').value.trim();
+            const resultsDiv = document.getElementById('aiResults');
+            
+            if (!problemDescription) {
+                alert('Please describe your problem or situation first.');
+                return;
+            }
+
+            // Show loading state
+            resultsDiv.style.display = 'block';
+            resultsDiv.innerHTML = `
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 1.2rem; margin-bottom: 10px;">🤖 Analyzing your situation...</div>
+                    <div style="opacity: 0.7;">This may take a few seconds</div>
+                </div>
+            `;
+
+            // Simulate AI analysis (in real implementation, this would call your AI service)
+            setTimeout(() => {
+                const analysis = performAIAnalysis(problemDescription);
+                displayAIResults(analysis);
+            }, 2000);
+        }
+
+        function performAIAnalysis(description) {
+            // This is a simplified simulation of AI analysis
+            // In a real implementation, this would send the description to your AI service
+            
+            const keywords = description.toLowerCase();
+            const scores = {};
+            
+            // Analyze for each framework based on keywords and patterns
+            frameworks.forEach(framework => {
+                let score = 0;
+                
+                // Uncertainty indicators
+                if (keywords.includes('uncertain') || keywords.includes('unclear') || keywords.includes('unpredictable') || keywords.includes('ambiguous')) {
+                    score += framework.problemScores.uncertainty * 0.3;
+                }
+                
+                // Ownership indicators
+                if (keywords.includes('responsibility') || keywords.includes('accountability') || keywords.includes('who') || keywords.includes('teams') || keywords.includes('departments')) {
+                    score += framework.problemScores.ownership * 0.3;
+                }
+                
+                // Over-reliance indicators
+                if (keywords.includes('automated') || keywords.includes('system') || keywords.includes('tool') || keywords.includes('depend') || keywords.includes('rely')) {
+                    score += framework.problemScores.overreliance * 0.3;
+                }
+                
+                // Constraints indicators
+                if (keywords.includes('limited') || keywords.includes('constraint') || keywords.includes('deadline') || keywords.includes('resource') || keywords.includes('time')) {
+                    score += framework.problemScores.constraints * 0.3;
+                }
+                
+                // Complexity indicators
+                if (keywords.includes('complex') || keywords.includes('multiple') || keywords.includes('interact') || keywords.includes('system') || keywords.includes('organization')) {
+                    score += framework.problemScores.complexity * 0.3;
+                }
+                
+                // Real-time indicators
+                if (keywords.includes('immediate') || keywords.includes('real-time') || keywords.includes('quickly') || keywords.includes('fast') || keywords.includes('urgent')) {
+                    score += framework.problemScores.realtime * 0.3;
+                }
+                
+                scores[framework.name] = Math.min(100, Math.max(0, score));
+            });
+            
+            return scores;
+        }
+
+        function displayAIResults(analysis) {
+            const resultsDiv = document.getElementById('aiResults');
+            
+            // Sort frameworks by relevance score
+            const sortedResults = Object.entries(analysis)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 5); // Top 5 recommendations
+            
+            const recommendationsHtml = sortedResults.map(([frameworkName, score], index) => {
+                const framework = frameworks.find(f => f.name === frameworkName);
+                if (!framework) return '';
+                
+                const relevanceLevel = score > 70 ? 'High' : score > 40 ? 'Medium' : 'Low';
+                const relevanceColor = score > 70 ? '#2ecc71' : score > 40 ? '#f1c40f' : '#e74c3c';
+                
+                return `
+                    <div style="margin-bottom: 20px; padding: 20px; background: rgba(251, 237, 212, 0.05); border-radius: 12px; border-left: 3px solid ${relevanceColor};">
+                        <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 12px;">
+                            <h4 style="color: #F5F1E8; margin: 0;">${index + 1}. ${frameworkName}</h4>
+                            <span style="background: ${relevanceColor}; color: #000; padding: 4px 12px; border-radius: 15px; font-size: 0.8rem; font-weight: 600;">
+                                ${relevanceLevel} Relevance (${Math.round(score)}%)
+                            </span>
+                        </div>
+                        <p style="opacity: 0.9; margin-bottom: 10px;">${framework.description}</p>
+                        <div style="font-size: 0.9rem; opacity: 0.7;">
+                            <strong>Domain:</strong> ${framework.domain}
+                        </div>
+                        <button onclick="showFrameworkDetails(frameworks.find(f => f.name === '${frameworkName}'))" 
+                                style="margin-top: 10px; background: rgba(251, 237, 212, 0.1); border: 1px solid rgba(251, 237, 212, 0.3); color: #FBEDD4; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 0.9rem;">
+                            Learn More
+                        </button>
+                    </div>
+                `;
+            }).join('');
+            
+            resultsDiv.innerHTML = `
+                <h4 style="color: #F5F1E8; margin-bottom: 20px;">🎯 AI Analysis Results</h4>
+                <div style="margin-bottom: 25px; padding: 15px; background: rgba(0, 0, 0, 0.2); border-radius: 8px;">
+                    <strong>Analysis Summary:</strong> Based on your description, we identified patterns related to 
+                    ${sortedResults.length > 0 ? 'multiple framework approaches' : 'system complexity'}. 
+                    Here are the most relevant frameworks for your situation:
+                </div>
+                ${recommendationsHtml}
+                <div style="margin-top: 25px; padding: 15px; background: rgba(251, 237, 212, 0.05); border-radius: 8px; font-size: 0.9rem; opacity: 0.8;">
+                    💡 <strong>Tip:</strong> Consider combining multiple frameworks for comprehensive analysis. 
+                    Gray Zones framework can serve as an integrative approach alongside domain-specific methods.
+                </div>
+            `;
+        }
+
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+            
+            .modal-overlay {
+                animation: fadeIn 0.3s ease;
+            }
+            
+            .framework-point {
+                transition: all 0.3s ease;
+            }
+            
+            .framework-point:hover {
+                filter: brightness(1.2) drop-shadow(0 0 10px currentColor);
+            }
+            
+            .ranking-score-fill {
+                animation: growBar 0.8s ease-out;
+            }
+            
+            @keyframes growBar {
+                from { width: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
