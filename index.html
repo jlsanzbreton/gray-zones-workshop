@@ -360,7 +360,19 @@
     .question-overreliance { background: rgba(66,165,245,0.1); border-left: 6px solid #42a5f5; }
     .question-constraints { background: rgba(171,71,188,0.1); border-left: 6px solid #ab47bc; }
     .question-header { display: flex; align-items: center; margin-bottom: 1.5rem; }
-    .question-icon { font-size: 2.5rem; margin-right: 1rem; }
+    .question-icon { 
+      font-size: 2.5rem; 
+      margin-right: 1rem; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .question-icon img {
+      width: 4rem;
+      height: 4rem;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
     .question-title { font-size: 1.5rem; font-weight: bold; }
     .question-text { font-size: 1.2rem; line-height: 1.5; margin-bottom: 1rem; }
     .results-visualization { background: rgba(251,237,212,0.05); border-radius: 15px; padding: 2rem; margin: 2rem auto; max-width: 800px; }
@@ -590,14 +602,16 @@
           <b>Sample responses:</b> Panic • Shock • Disbelief • Urgency • Confusion • Responsibility...
         </div>
       </div>
-      <div class="interactive-button" onclick="nextSlide()">🌫️ Uncertainty →</div>
+      <div class="interactive-button" onclick="nextSlide()">Uncertainty →</div>
     </div>
 
     <!-- Slide 9: Gray Zone Question 1 - Uncertainty -->
     <div class="slide" id="slide9">
       <div class="gray-zone-question question-uncertainty">
         <div class="question-header">
-          <div class="question-icon">🌫️</div>
+          <div class="question-icon">
+            <img src="images/uncertainty_cloud.svg" alt="Uncertainty">
+          </div>
           <div class="question-title">Uncertainty</div>
         </div>
         <div class="question-text">
@@ -611,14 +625,16 @@
           (Open text responses)
         </div>
       </div>
-      <div class="interactive-button" onclick="nextSlide()">🤝 Ownership →</div>
+      <div class="interactive-button" onclick="nextSlide()">Ownership →</div>
     </div>
 
     <!-- Slide 10: Gray Zone Question 2 - Ownership -->
     <div class="slide" id="slide10">
       <div class="gray-zone-question question-ownership">
         <div class="question-header">
-          <div class="question-icon">🤝</div>
+          <div class="question-icon">
+            <img src="images/ownership_key.svg" alt="Ownership">
+          </div>
           <div class="question-title">Ownership</div>
         </div>
         <div class="question-text">
@@ -632,14 +648,16 @@
           (Responsibility gaps)
         </div>
       </div>
-      <div class="interactive-button" onclick="nextSlide()">⚙️ Over-reliance →</div>
+      <div class="interactive-button" onclick="nextSlide()">Over-reliance →</div>
     </div>
 
     <!-- Slide 11: Gray Zone Question 3 - Over-reliance -->
     <div class="slide" id="slide11">
       <div class="gray-zone-question question-overreliance">
         <div class="question-header">
-          <div class="question-icon">⚙️</div>
+          <div class="question-icon">
+            <img src="images/overreliance_gears.svg" alt="Over-reliance">
+          </div>
           <div class="question-title">Over-reliance</div>
         </div>
         <div class="question-text">
@@ -653,14 +671,16 @@
           (Assumptions & dependencies)
         </div>
       </div>
-      <div class="interactive-button" onclick="nextSlide()">⏳ Constraints →</div>
+      <div class="interactive-button" onclick="nextSlide()">Constraints →</div>
     </div>
 
     <!-- Slide 12: Gray Zone Question 4 - Constraints -->
     <div class="slide" id="slide12">
       <div class="gray-zone-question question-constraints">
         <div class="question-header">
-          <div class="question-icon">⏳</div>
+          <div class="question-icon">
+            <img src="images/constraints_hourglass.svg" alt="Constraints">
+          </div>
           <div class="question-title">Constraints</div>
         </div>
         <div class="question-text">
@@ -685,7 +705,10 @@
         
         <div class="results-grid">
           <div class="result-zone">
-            <div class="result-title" style="color: #ff6b6b;">🌫️ Uncertainty</div>
+            <div class="result-title" style="color: #ff6b6b; display: flex; align-items: center; gap: 0.5rem;">
+              <img src="images/uncertainty_cloud.svg" alt="Uncertainty" style="width: 2rem; height: 2rem;">
+              Uncertainty
+            </div>
             <div class="result-keywords">
               <!-- Live results will appear here -->
               <i>Real-time responses from Mentimeter...</i>
@@ -693,7 +716,10 @@
           </div>
           
           <div class="result-zone">
-            <div class="result-title" style="color: #ffa726;">🤝 Ownership</div>
+            <div class="result-title" style="color: #ffa726; display: flex; align-items: center; gap: 0.5rem;">
+              <img src="images/ownership_key.svg" alt="Ownership" style="width: 2rem; height: 2rem;">
+              Ownership
+            </div>
             <div class="result-keywords">
               <!-- Live results will appear here -->
               <i>Real-time responses from Mentimeter...</i>
@@ -701,7 +727,10 @@
           </div>
           
           <div class="result-zone">
-            <div class="result-title" style="color: #42a5f5;">⚙️ Over-reliance</div>
+            <div class="result-title" style="color: #42a5f5; display: flex; align-items: center; gap: 0.5rem;">
+              <img src="images/overreliance_gears.svg" alt="Over-reliance" style="width: 2rem; height: 2rem;">
+              Over-reliance
+            </div>
             <div class="result-keywords">
               <!-- Live results will appear here -->
               <i>Real-time responses from Mentimeter...</i>
@@ -709,7 +738,10 @@
           </div>
           
           <div class="result-zone">
-            <div class="result-title" style="color: #ab47bc;">⏳ Constraints</div>
+            <div class="result-title" style="color: #ab47bc; display: flex; align-items: center; gap: 0.5rem;">
+              <img src="images/constraints_hourglass.svg" alt="Constraints" style="width: 2rem; height: 2rem;">
+              Constraints
+            </div>
             <div class="result-keywords">
               <!-- Live results will appear here -->
               <i>Real-time responses from Mentimeter...</i>
