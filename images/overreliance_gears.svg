@@ -1,0 +1,55 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Engranaje grande (izquierdo) -->
+  <!-- Círculo base -->
+  <circle cx="24" cy="32" r="15" fill="#FBEDD4" opacity="0.9"/>
+  
+  <!-- Dientes del engranaje grande (8 dientes prominentes) -->
+  <!-- Diente superior -->
+  <rect x="22" y="12" width="4" height="6" fill="#FBEDD4"/>
+  <!-- Diente superior-derecho -->
+  <rect x="35" y="18" width="6" height="4" fill="#FBEDD4" transform="rotate(45 38 20)"/>
+  <!-- Diente derecho -->
+  <rect x="41" y="30" width="6" height="4" fill="#FBEDD4"/>
+  <!-- Diente inferior-derecho -->
+  <rect x="35" y="42" width="6" height="4" fill="#FBEDD4" transform="rotate(-45 38 44)"/>
+  <!-- Diente inferior -->
+  <rect x="22" y="46" width="4" height="6" fill="#FBEDD4"/>
+  <!-- Diente inferior-izquierdo -->
+  <rect x="7" y="42" width="6" height="4" fill="#FBEDD4" transform="rotate(45 10 44)"/>
+  <!-- Diente izquierdo -->
+  <rect x="3" y="30" width="6" height="4" fill="#FBEDD4"/>
+  <!-- Diente superior-izquierdo -->
+  <rect x="7" y="18" width="6" height="4" fill="#FBEDD4" transform="rotate(-45 10 20)"/>
+  
+  <!-- Centro hueco del engranaje grande -->
+  <circle cx="24" cy="32" r="6" fill="#000206"/>
+  
+  <!-- Engranaje pequeño (derecho, engranado) -->
+  <!-- Círculo base -->
+  <circle cx="44" cy="32" r="10" fill="#FBEDD4" opacity="0.9"/>
+  
+  <!-- Dientes del engranaje pequeño (6 dientes) -->
+  <!-- Diente superior -->
+  <rect x="42" y="18" width="4" height="5" fill="#FBEDD4"/>
+  <!-- Diente superior-derecho -->
+  <rect x="52" y="25" width="5" height="4" fill="#FBEDD4" transform="rotate(60 54.5 27)"/>
+  <!-- Diente inferior-derecho -->
+  <rect x="52" y="35" width="5" height="4" fill="#FBEDD4" transform="rotate(-60 54.5 37)"/>
+  <!-- Diente inferior -->
+  <rect x="42" y="41" width="4" height="5" fill="#FBEDD4"/>
+  <!-- Diente inferior-izquierdo -->
+  <rect x="31" y="35" width="5" height="4" fill="#FBEDD4" transform="rotate(60 33.5 37)"/>
+  <!-- Diente superior-izquierdo -->
+  <rect x="31" y="25" width="5" height="4" fill="#FBEDD4" transform="rotate(-60 33.5 27)"/>
+  
+  <!-- Centro hueco del engranaje pequeño -->
+  <circle cx="44" cy="32" r="4" fill="#000206"/>
+  
+  <!-- Sombras para dar profundidad -->
+  <circle cx="25" cy="33" r="14" fill="#D4C4A0" opacity="0.2"/>
+  <circle cx="45" cy="33" r="9" fill="#D4C4A0" opacity="0.2"/>
+  
+  <!-- Líneas de detalle en los centros -->
+  <circle cx="24" cy="32" r="8" fill="none" stroke="#E6D6B4" stroke-width="1" opacity="0.5"/>
+  <circle cx="44" cy="32" r="6" fill="none" stroke="#E6D6B4" stroke-width="1" opacity="0.5"/>
+</svg>

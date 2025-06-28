@@ -41,21 +41,28 @@
       display: grid; 
       grid-template-columns: 1fr 1fr; 
       grid-template-rows: 1fr 1fr; 
-      gap: 35px; 
+      gap: 60px; 
       width: 100%; 
-      max-width: 950px; 
+      max-width: 1000px; 
       margin: 2rem auto; 
-      padding: 0;
+      padding: 20px;
+      place-items: center;
     }
     
     /* 3D Flip Card Styles */
     .zone-card { 
-      height: 280px; 
-      perspective: 1000px; 
+      height: 250px; 
+      width: 100%;
+      max-width: 420px;
+      perspective: 1200px; 
       cursor: pointer; 
       margin: 0;
       position: relative;
-      width: 100%;
+      transform-style: preserve-3d;
+      overflow: visible;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     
     .zone-card::before {
@@ -79,10 +86,14 @@
     .zone-card-inner {
       position: relative;
       width: 100%;
+      max-width: 420px;
       height: 100%;
       text-align: center;
-      transition: transform 0.6s ease-in-out;
+      transition: transform 0.8s ease-in-out;
       transform-style: preserve-3d;
+      transform-origin: 50% 50%;
+      backface-visibility: hidden;
+      margin: 0 auto;
     }
     
     .zone-card:hover .zone-card-inner,
@@ -90,9 +101,15 @@
       transform: rotateY(180deg);
     }
     
+    .zone-card:hover {
+      z-index: 10;
+    }
+    
     .zone-card-front,
     .zone-card-back {
       position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
@@ -102,9 +119,11 @@
       justify-content: center;
       align-items: center;
       padding: 1.5rem;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
       border: 2px solid;
-      transition: box-shadow 0.3s ease;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      box-sizing: border-box;
     }
     
     .zone-card:hover .zone-card-front,
@@ -138,6 +157,15 @@
       margin-bottom: 0.8rem;
       filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
       color: #FBEDD4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .zone-icon-large img {
+      width: 3.5rem;
+      height: 3.5rem;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
     }
     
     .zone-title-large { 
@@ -187,12 +215,13 @@
       .gray-zones {
         grid-template-columns: 1fr;
         grid-template-rows: repeat(4, 1fr);
-        gap: 30px;
-        max-width: 380px;
+        gap: 40px;
+        max-width: 420px;
+        padding: 20px;
       }
       
       .zone-card {
-        height: 250px;
+        height: 230px;
       }
       
       .zone-title-large {
@@ -202,6 +231,11 @@
       
       .zone-icon-large {
         font-size: 2.8rem;
+      }
+      
+      .zone-icon-large img {
+        width: 2.8rem;
+        height: 2.8rem;
       }
       
       .zone-explanation {
@@ -231,6 +265,11 @@
       
       .zone-icon-large {
         font-size: 2.5rem;
+      }
+      
+      .zone-icon-large img {
+        width: 2.5rem;
+        height: 2.5rem;
       }
       
       .zone-card-front,
@@ -393,7 +432,9 @@
         <div class="zone-card zone-uncertainty">
           <div class="zone-card-inner">
             <div class="zone-card-front">
-              <div class="zone-icon-large">☁️</div>
+              <div class="zone-icon-large">
+                <img src="images/uncertainty_cloud.svg" alt="Uncertainty" style="width: 3.5rem; height: 3.5rem; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));">
+              </div>
               <div class="zone-title-large">Uncertainty</div>
               <div class="flip-hint">hover or click</div>
             </div>
@@ -410,7 +451,9 @@
         <div class="zone-card zone-ownership">
           <div class="zone-card-inner">
             <div class="zone-card-front">
-              <div class="zone-icon-large">🤝</div>
+              <div class="zone-icon-large">
+                <img src="images/ownership_key.svg" alt="Ownership" style="width: 3.5rem; height: 3.5rem; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));">
+              </div>
               <div class="zone-title-large">Ownership</div>
               <div class="flip-hint">hover or click</div>
             </div>
@@ -427,7 +470,9 @@
         <div class="zone-card zone-overreliance">
           <div class="zone-card-inner">
             <div class="zone-card-front">
-              <div class="zone-icon-large">🤖</div>
+              <div class="zone-icon-large">
+                <img src="images/overreliance_gears.svg" alt="Over-reliance" style="width: 3.5rem; height: 3.5rem; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));">
+              </div>
               <div class="zone-title-large">Over-reliance</div>
               <div class="flip-hint">hover or click</div>
             </div>
@@ -444,7 +489,9 @@
         <div class="zone-card zone-constraints">
           <div class="zone-card-inner">
             <div class="zone-card-front">
-              <div class="zone-icon-large">⏱️</div>
+              <div class="zone-icon-large">
+                <img src="images/constraints_hourglass.svg" alt="Constraints" style="width: 3.5rem; height: 3.5rem; filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));">
+              </div>
               <div class="zone-title-large">Constraints</div>
               <div class="flip-hint">hover or click</div>
             </div>
