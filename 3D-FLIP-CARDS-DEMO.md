@@ -8,7 +8,7 @@ Las tarjetas en la Slide 5 ahora tienen un **efecto de volteo 3D espectacular**:
 
 #### **Cara Frontal** (Vista inicial)
 ```
-🌫️
+☁️
 UNCERTAINTY
 [hover or click]
 ```
@@ -28,30 +28,34 @@ that make us uncomfortable to explore.
 
 ### **Animación 3D:**
 - **Rotación horizontal** de 180° con easing suave
-- **Duración**: 0.8 segundos
+- **Duración**: 0.6 segundos
 - **Activación**: Hover o click
 
 ### **Diseño Visual:**
-- **Iconos grandes**: 4rem con animación de pulso
-- **Títulos llamativos**: 2.2rem, uppercase, con sombras
+- **Iconos grandes**: 3.5rem en color camel (#FBEDD4)
+- **Nuevos iconos**: ☁️ Uncertainty, 🤝 Ownership, 🤖 Over-reliance, ⏱️ Constraints
+- **Títulos llamativos**: 1.9rem, uppercase, con sombras
 - **Gradientes**: Fondos translúcidos con bordes de colores
 - **Sombras dinámicas**: Se intensifican en hover
 
-### **Interactividad:**
-- **Hover**: Para desktop/laptop
-- **Click/Tap**: Para móviles y tablets
-- **Auto-demo**: Las tarjetas se voltean secuencialmente al entrar a la slide
+### **Layout Mejorado:**
+- **Grid 2x2** con gap de 35px (elimina superposición)
+- **Altura de tarjetas**: 280px para mejor proporción
+- **Max-width**: 950px para espaciado óptimo
+- **Sin auto-flip**: Eliminado comportamiento automático molesto
 
 ---
 
 ## 📱 **Responsividad**
 
 ### **Desktop (>768px):**
-- Grid 2x2 con tarjetas de 320px altura
+- Grid 2x2 con tarjetas de 280px altura
+- Gap de 35px para evitar superposición
 - Hover para voltear
 
 ### **Tablet (≤768px):**
-- Grid 1x4 con tarjetas de 280px altura
+- Grid 1x4 con tarjetas de 250px altura
+- Gap de 30px, max-width 380px
 - Click para voltear
 
 ### **Mobile (≤480px):**
@@ -63,12 +67,14 @@ that make us uncomfortable to explore.
 ## 🎯 **Impacto en el Workshop**
 
 ### **Antes:**
-- Tarjetas estáticas con todo el texto visible
-- Menos engagement visual
-- Información presentada de forma plana
+- Tarjetas se superponían en ciertos espacios
+- Iconos inconsistentes con el estilo Gray Zones
+- Auto-flip molesto que interrumpía navegación
 
 ### **Ahora:**
-- **Revelación progresiva** de información
+- **Layout perfecto** sin superposiciones
+- **Iconos coherentes** en color camel del branding
+- **Revelación progresiva** de información controlada por usuario
 - **Efecto wow** que captura atención
 - **Interacción intuitiva** que invita a explorar
 - **Memorabilidad aumentada** por el movimiento
@@ -78,14 +84,14 @@ that make us uncomfortable to explore.
 ## 🚀 **Para Probar:**
 
 1. **Navegar a Slide 5**: Press Space 4 veces desde inicio
-2. **Observar auto-demo**: Las tarjetas se voltean solas
-3. **Hover sobre tarjetas**: Efecto 3D inmediato
-4. **Click en móvil**: Funciona perfectamente en touch
+2. **Hover sobre tarjetas**: Efecto 3D inmediato y suave
+3. **Click en móvil**: Funciona perfectamente en touch
+4. **Verificar spacing**: Ya no hay superposición entre tarjetas
 
 ### **Controles especiales:**
-- **Shift+D en Slide 5**: Repetir auto-demo
 - **Click en tarjetas**: No avanza slide (interacción separada)
+- **Iconos mejorados**: ☁️ Uncertainty, 🤝 Ownership, 🤖 Over-reliance, ⏱️ Constraints
 
 ---
 
-¡Las Gray Zones nunca habían sido tan visualmente impactantes! 🧠✨
+¡Las Gray Zones nunca habían sido tan visualmente impactantes y bien organizadas! 🧠✨
