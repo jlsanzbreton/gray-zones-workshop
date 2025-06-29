@@ -319,12 +319,14 @@
     .interactive-poll { background: rgba(251,237,212,0.08); border-radius: 15px; padding: 2rem; margin: 2rem auto; max-width: 700px; text-align: center; }
     .poll-question { font-size: 1.4rem; font-weight: 600; margin-bottom: 1.5rem; color: #ffa726; }
     .qr-placeholder { 
-      width: 280px; 
-      height: 200px; 
+      width: 100%; /* Use full width of parent */
+      height: auto;
+      min-height: auto; /* Remove min-height */
+      max-width: 480px; /* Slightly smaller max-width */
       background: rgba(251,237,212,0.08); 
       border: 2px dashed #ffa726; 
       border-radius: 15px; 
-      margin: 1.5rem auto; 
+      margin: 1rem auto; 
       display: flex; 
       flex-direction: column;
       align-items: center; 
@@ -333,6 +335,7 @@
       color: #ffa726; 
       transition: all 0.3s ease;
       position: relative;
+      padding: 1rem; /* Reduced padding */
     }
     .qr-placeholder:hover { 
       background: rgba(255,167,38,0.1); 
@@ -380,6 +383,56 @@
     .result-zone { background: rgba(251,237,212,0.1); border-radius: 10px; padding: 1.5rem; }
     .result-title { font-weight: bold; margin-bottom: 1rem; font-size: 1.2rem; }
     .result-keywords { font-size: 1rem; line-height: 1.4; }
+    
+    /* Presentation Mode Styles */
+    .mode-indicator {
+      position: fixed;
+      bottom: 20px; /* Changed from top */
+      left: 20px;   /* Changed from 50% */
+      transform: none; /* Removed translateX */
+      background: rgba(0,0,0,0.8);
+      color: #FBEDD4;
+      padding: 10px 20px;
+      border-radius: 10px;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.9rem;
+      border: 2px solid #ffa726;
+      transition: all 0.3s ease;
+    }
+    
+    .mode-label { font-weight: bold; }
+    .mode-hint { font-size: 0.8rem; opacity: 0.7; }
+    
+    /* Mode switch animation */
+    @keyframes modeSwitch {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+      50% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    
+    /* Mode-specific slide styling */
+    .slide.mode-dual .qr-placeholder {
+      border-color: #42a5f5;
+      background: rgba(66,165,245,0.1);
+    }
+    
+    .slide.mode-hybrid .qr-placeholder {
+      border-color: #ffa726;
+      background: rgba(255,167,38,0.1);
+    }
+    
+    .slide.mode-offline .qr-placeholder {
+      border-color: #999;
+      background: rgba(153,153,153,0.1);
+    }
+    
+    /* Enhanced QR placeholder for iframe content */
+    .qr-placeholder iframe {
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -401,7 +454,7 @@
       <h2>What's a Gray Zone?</h2>
       <p>
         <strong>Gray zones</strong> = areas we dedicate <span class="highlight">little gray matter to</span>.<br><br>
-        <span class="impact">But this is normal. Why?</span><br><br>
+        <span class="impact">But this is expected, isn't it?</span><br><br>
         <b>Two working hypotheses:</b><br>
         1️⃣ <b>Systems are imperfect by nature</b><br>
         2️⃣ <b>We're designed to save mental energy</b>
@@ -412,13 +465,12 @@
     <!-- Slide 3: The Elevator Paradox -->
     <div class="slide" id="slide3">
       <h2>🚨 The Elevator Paradox</h2>
-      <p><b>Question:</b> Do you think the elevators in this building are safe?<br>
+      <p style="margin-bottom: 1rem;"><b>Question:</b> Do you think the elevators in this building are safe?<br>
         <span class="impact">(Most people say "yes")</span></p>
-      <img src="images/lift-hand.png" alt="Elevator safety warning sign" style="max-width: 400px; margin: 1.5rem auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
-      <p><b>But then...</b> If the automatic doors pass all industry inspections,<br>
+      <img src="images/lift-hand.png" alt="Elevator safety warning sign" style="max-width: 380px; margin: 0.5rem auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+      <p style="margin-top: 1rem; margin-bottom: 1rem;"><b>But then...</b> If the automatic doors pass all industry inspections,<br>
         <span class="highlight">why do we see signs saying "Don't try to stop the doors with your hand"?</span></p>
-      <p><b>Over-reliance:</b> We trust systems that "always work"—<br>
-        until they don't.</p>
+      <p style="margin-top: 0.5rem;"><b>Over-reliance:</b> We trust systems that "always work" — until they don't.</p>
       <div class="interactive-button" onclick="nextSlide()">Why This Matters →</div>
     </div>
 
@@ -437,7 +489,7 @@
 
     <!-- Slide 5: The Four Gray Zones -->
     <div class="slide" id="slide5">
-      <h2>The Four Gray Zone Areas</h2>
+      <h2 style="margin-top: 3rem; margin-bottom: 0.1rem;">The Four Gray Zones</h2>
       <div class="gray-zones">
         
         <!-- Uncertainty Card -->
@@ -547,12 +599,7 @@
           </div>
         </div>
         
-        <!-- Placeholder for collision image -->
-        <div style="background: rgba(255,107,107,0.1); border: 2px dashed #ff6b6b; border-radius: 10px; padding: 1.5rem; margin: 1.5rem 0; text-align: center; color: #ff6b6b;">
-          🔥 COLLISION IMAGE PLACEHOLDER 🚢<br>
-          <small>Real Hafnia Nile vs Ceres I collision photo will be inserted here</small><br>
-          <small style="opacity: 0.7;">File: images/case-study/hafnia-collision.jpg</small>
-        </div>
+        <!-- Clean background image without placeholder overlay -->
       </div>
       <div class="interactive-button" onclick="nextSlide()">Enter Crisis Mode →</div>
     </div>
@@ -615,7 +662,7 @@
           <div class="question-title">Uncertainty</div>
         </div>
         <div class="question-text">
-          <b>What missing information created the most uncertainty for the crisis committee in those first moments?</b>
+          <b>What missing information created the most uncertainty for you in those first moments?</b>
         </div>
         <p>Consider each function: Trading worried about market impact, HSE about spills, 
         Insurance about liability, Operations about crew safety...</p>
@@ -661,7 +708,7 @@
           <div class="question-title">Over-reliance</div>
         </div>
         <div class="question-text">
-          <b>What did the committee over-rely on during the initial crisis?</b>
+          <b>What did you over-rely on during the initial crisis?</b>
         </div>
         <p>A system, a person, an assumption that "everything is under control"?<br>
         Did you trust initial crew reports without verification? Assume fire systems would work perfectly?</p>
@@ -781,10 +828,49 @@
   <img src="images/apple-touch-icon.png" alt="Gray Zones Logo" class="logo-icon">
   <div class="progress-bar" id="progressBar"></div>
   <div class="slide-counter" id="slideCounter">1 / 15</div>
-  <div class="navigation-hint">Click or press Space/Arrow keys • Shift+D: Demo • Shift+M: Toggle Mentimeter</div>
+  <div class="navigation-hint">Click or press Space/Arrow keys • Shift+D: Demo • Shift+M: Toggle Mentimeter • Shift+1: Dual Mode • Shift+2: Hybrid Mode • Shift+O: Offline</div>
+  
+  <!-- Presentation Mode Indicator -->
+  <div class="mode-indicator" id="modeIndicator">
+    <div class="mode-status">
+      <span class="mode-label">Mode:</span>
+      <span class="mode-name" id="modeName">Hybrid Embed</span>
+      <span class="mode-hint">(Shift+1/2/O to switch)</span>
+    </div>
+  </div>
+
   <script>
     let currentSlide = 1;
     const totalSlides = 15;
+    
+    // Dual Presentation System Configuration
+    const presentationModes = {
+      dual: {
+        name: 'Dual Control',
+        description: 'Separate Mentimeter window + Workshop slides',
+        color: '#42a5f5',
+        enabled: false,
+        instructions: 'Open Mentimeter in separate browser/projector'
+      },
+      hybrid: {
+        name: 'Hybrid Embed', 
+        description: 'Workshop with embedded Mentimeter',
+        color: '#ffa726',
+        enabled: true,
+        instructions: 'QR codes and embeds within slides'
+      },
+      offline: {
+        name: 'Offline Mode',
+        description: 'No Mentimeter integration',
+        color: '#999',
+        enabled: false,
+        instructions: 'Discussion-based without live polling'
+      }
+    };
+    
+    let currentMode = 'hybrid'; // Default mode
+    
+    // Enhanced keyboard navigation with mode switching
     document.addEventListener('keydown', (e) => {
       if (e.code === 'Space' || e.code === 'ArrowRight') { e.preventDefault(); nextSlide(); }
       else if (e.code === 'ArrowLeft') { e.preventDefault(); previousSlide(); }
@@ -796,343 +882,466 @@
           startDemoMode(questionType);
         }
       }
-      else if (e.code === 'KeyM' && e.shiftKey) { // Shift+M for Mentimeter toggle
+      else if (e.code === 'KeyM' && e.shiftKey) { // Shift+M for Mentimeter toggle (legacy)
         e.preventDefault();
-        mentimeterConfig.enabled = !mentimeterConfig.enabled;
-        console.log(`Mentimeter ${mentimeterConfig.enabled ? 'enabled' : 'disabled'}`);
-        checkForInteractiveSlide(); // Refresh current slide
+        toggleMode('hybrid');
+      }
+      else if (e.code === 'Digit1' && e.shiftKey) { // Shift+1 for Dual Mode
+        e.preventDefault();
+        switchPresentationMode('dual');
+      }
+      else if (e.code === 'Digit2' && e.shiftKey) { // Shift+2 for Hybrid Mode
+        e.preventDefault();
+        switchPresentationMode('hybrid');
+      }
+      else if (e.code === 'KeyO' && e.shiftKey) { // Shift+O for Offline Mode
+        e.preventDefault();
+        switchPresentationMode('offline');
       }
     });
-    document.addEventListener('click', (e) => {
-      // Handle zone card clicks for mobile/touch devices
-      if (e.target.closest('.zone-card')) {
-        const card = e.target.closest('.zone-card');
-        card.classList.toggle('flipped');
-        e.stopPropagation();
+    
+    // Switch between presentation modes
+    function switchPresentationMode(mode) {
+      console.log(`Switching from ${currentMode} to ${mode}`);
+      
+      if (!presentationModes[mode]) {
+        console.error(`Mode ${mode} not found`);
         return;
       }
       
-      // Normal slide navigation
-      if (!e.target.closest('.interactive-button') && !e.target.closest('.zone-card')) { nextSlide(); }
-    });
-    function nextSlide() {
-      if (currentSlide < totalSlides) {
-        document.getElementById(`slide${currentSlide}`).classList.remove('active');
-        currentSlide++;
-        document.getElementById(`slide${currentSlide}`).classList.add('active');
-        updateProgress();
-        checkForInteractiveSlide();
+      // Update current mode
+      const previousMode = currentMode;
+      currentMode = mode;
+      
+      // Reset all modes
+      Object.keys(presentationModes).forEach(m => {
+        presentationModes[m].enabled = false;
+      });
+      
+      // Enable selected mode
+      presentationModes[mode].enabled = true;
+      
+      // Update UI indicator
+      updateModeIndicator();
+      
+      // Show mode change notification
+      showModeChangeNotification(previousMode, mode);
+      
+      // Refresh current slide with new mode
+      refreshSlideForMode();
+      
+      // Special handling for dual mode
+      if (mode === 'dual') {
+        openMentimeterWindow();
       }
-    }
-    function previousSlide() {
-      if (currentSlide > 1) {
-        document.getElementById(`slide${currentSlide}`).classList.remove('active');
-        currentSlide--;
-        document.getElementById(`slide${currentSlide}`).classList.add('active');
-        updateProgress();
-      }
-    }
-    function updateProgress() {
-      const progress = (currentSlide / totalSlides) * 100;
-      document.getElementById('progressBar').style.width = progress + '%';
-      document.getElementById('slideCounter').textContent = `${currentSlide} / ${totalSlides}`;
-    }
-    // Custom cursor
-    document.addEventListener('mousemove', (e) => {
-      const cursor = document.getElementById('cursor');
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-    
-    // Interactive case study features (LEGACY - replaced by enhanced version above)
-    function showQRCode(platform = 'mentimeter') {
-      // This function is now replaced by displayQRCode() above
-      console.warn('showQRCode() is deprecated, use displayQRCode() instead');
+      
+      console.log(`Successfully switched to ${presentationModes[mode].name} mode`);
     }
     
-    // Enhanced Mentimeter Integration
-    const mentimeterConfig = {
-      enabled: true,
-      baseUrl: 'https://www.menti.com',
-      eventCode: 'altqtf56uh2zki5xz7pfsov8feiypsjo', // Correct presentation code from embed
-      presentations: {
-        warmup: { id: 'altqtf56uh2zki5xz7pfsov8feiypsjo', type: 'wordcloud', question: 'emotional-response' },
-        uncertainty: { id: 'altqtf56uh2zki5xz7pfsov8feiypsjo', type: 'opentext', question: 'information-gaps' },
-        ownership: { id: 'altqtf56uh2zki5xz7pfsov8feiypsjo', type: 'opentext', question: 'responsibility-confusion' },
-        overreliance: { id: 'altqtf56uh2zki5xz7pfsov8feiypsjo', type: 'opentext', question: 'assumptions-dependencies' },
-        constraints: { id: 'altqtf56uh2zki5xz7pfsov8feiypsjo', type: 'opentext', question: 'human-limitations' }
-      }
-    };
-
-    function displayQRCode(questionType) {
-      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
-      if (!mentimeterConfig.enabled) {
-        showOfflineMode();
-        return;
-      }
-
-      qrPlaceholders.forEach(placeholder => {
-        const config = mentimeterConfig.presentations[questionType];
-        if (config) {
-          // Use single QR code for all questions since it's the same presentation
-          const qrImagePath = `images/qr-codes/mentimeter_qr_code.png`;
-          const qrImage = new Image();
-          
-          qrImage.onload = () => {
-            // QR image exists, show it
-            placeholder.innerHTML = `
-              <div style="font-size: 1.4rem; margin-bottom: 1rem;">📱 SCAN TO JOIN</div>
-              <img src="${qrImagePath}" alt="Mentimeter QR Code" style="width: 200px; height: 200px; margin: 1rem 0; border-radius: 8px;">
-              <div style="font-size: 1rem; opacity: 0.8;">
-                Or go to: <strong>menti.com</strong>
-              </div>
-              <div style="font-size: 1.3rem; font-weight: bold; color: #ffa726; margin-top: 0.5rem;">
-                Code: ${config.id}
-              </div>
-            `;
-          };
-          
-          qrImage.onerror = () => {
-            // QR image doesn't exist, show text-based version
-            placeholder.innerHTML = `
-              <div style="font-size: 1.4rem; margin-bottom: 1rem;">📱 JOIN THE POLL</div>
-              <div style="font-size: 1rem; opacity: 0.8; margin-bottom: 0.5rem;">
-                Go to: <strong>menti.com</strong>
-              </div>
-              <div style="font-size: 1.8rem; font-weight: bold; color: #ffa726; background: rgba(255,167,38,0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-                ${config.id}
-              </div>
-              <div style="font-size: 0.9rem; opacity: 0.6; margin-top: 1rem;">
-                Enter the code above to join
-              </div>
-            `;
-          };
-          
-          qrImage.src = qrImagePath;
-          
-          placeholder.style.background = 'rgba(255,167,38,0.15)';
-          placeholder.style.borderColor = '#ffa726';
-          placeholder.style.color = '#FBEDD4';
-          placeholder.style.padding = '2rem';
-        }
-      });
-    }
-
-    function showOfflineMode() {
-      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
-      qrPlaceholders.forEach(placeholder => {
-        placeholder.innerHTML = `
-          <div style="font-size: 1.2rem; margin-bottom: 1rem;">💭 REFLECT & DISCUSS</div>
-          <div style="font-size: 1rem; opacity: 0.8;">
-            Think about the question<br>
-            Share insights with the group
-          </div>
-        `;
-        placeholder.style.background = 'rgba(251,237,212,0.1)';
-        placeholder.style.borderColor = '#FBEDD4';
-        placeholder.style.color = '#FBEDD4';
-      });
-    }
-
-    function getQuestionTypeBySlide(slideNumber) {
-      const questionMap = {
-        8: 'warmup',
-        9: 'uncertainty', 
-        10: 'ownership',
-        11: 'overreliance',
-        12: 'constraints'
+    function updateModeIndicator() {
+      const indicator = document.getElementById('modeIndicator');
+      const modeName = document.getElementById('modeName');
+      if (!indicator || !modeName) return;
+      
+      const mode = presentationModes[currentMode];
+      
+      modeName.textContent = mode.name;
+      indicator.style.borderColor = mode.color;
+      indicator.style.background = `rgba(0,0,0,0.9)`;
+      
+      // Update color scheme based on mode
+      const colorMap = {
+        'dual': '66,165,245',
+        'hybrid': '255,167,38', 
+        'offline': '153,153,153'
       };
-      return questionMap[slideNumber];
-    }
-
-    // Enhanced navigation for case study section
-    function isCaseStudySlide() {
-      return currentSlide >= 6 && currentSlide <= 13;
+      
+      const rgbColor = colorMap[currentMode];
+      indicator.style.boxShadow = `0 4px 15px rgba(${rgbColor},0.3)`;
+      indicator.style.borderColor = mode.color;
+      
+      // Add mode-specific icon
+      const iconMap = {
+        'dual': '🖥️',
+        'hybrid': '📱',
+        'offline': '💬'
+      };
+      
+      const existingIcon = indicator.querySelector('.mode-icon');
+      if (existingIcon) existingIcon.remove();
+      
+      const icon = document.createElement('span');
+      icon.className = 'mode-icon';
+      icon.textContent = iconMap[currentMode];
+      icon.style.fontSize = '1.2rem';
+      
+      indicator.insertBefore(icon, indicator.firstChild);
+      
+      // Trigger animation
+      indicator.style.animation = 'modeSwitch 0.5s ease';
+      setTimeout(() => {
+        indicator.style.animation = '';
+      }, 500);
     }
     
-    // Real-time stats overlay
-    function showParticipationStats(questionType, responseCount = 0) {
-      const existingStats = document.getElementById('participation-stats');
-      if (existingStats) existingStats.remove();
+    function showModeChangeNotification(fromMode, toMode) {
+      const notification = document.createElement('div');
+      const mode = presentationModes[toMode];
       
-      const statsOverlay = document.createElement('div');
-      statsOverlay.id = 'participation-stats';
-      statsOverlay.style.cssText = `
+      notification.style.cssText = `
         position: fixed;
-        top: 80px;
-        left: 30px;
-        background: rgba(0,0,0,0.8);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.95);
         color: #FBEDD4;
-        padding: 15px 20px;
-        border-radius: 10px;
-        font-size: 0.9rem;
-        z-index: 1000;
-        border-left: 4px solid #ffa726;
-        min-width: 200px;
-      `;
-      
-      const config = mentimeterConfig.presentations[questionType];
-      statsOverlay.innerHTML = `
-        <div style="font-weight: bold; margin-bottom: 8px;">📊 Live Stats</div>
-        <div>Question: ${config ? config.question : questionType}</div>
-        <div>Responses: <span style="color: #ffa726; font-weight: bold;">${responseCount}</span></div>
-        <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 8px;">
-          Shift+D: Start demo • Shift+M: Toggle platform
-        </div>
-      `;
-      
-      document.body.appendChild(statsOverlay);
-      
-      // Auto-hide after question slides
-      if (currentSlide > 12) {
-        setTimeout(() => {
-          if (statsOverlay.parentNode) {
-            statsOverlay.remove();
-          }
-        }, 3000);
-      }
-    }
-
-    // Auto-show QR codes when entering interactive slides  
-    function checkForInteractiveSlide() {
-      const questionType = getQuestionTypeBySlide(currentSlide);
-      if (questionType) {
-        setTimeout(() => {
-          displayQRCode(questionType);
-          showParticipationStats(questionType, 0);
-        }, 1000);
-      } else {
-        // Remove stats when leaving interactive slides
-        const existingStats = document.getElementById('participation-stats');
-        if (existingStats) existingStats.remove();
-      }
-      
-      // Add visual feedback for case study section
-      if (isCaseStudySlide()) {
-        document.body.style.setProperty('--case-study-active', '1');
-      } else {
-        document.body.style.setProperty('--case-study-active', '0');
-      }
-    }
-
-    updateProgress();
-
-    // Demo Mode: Simulate live responses for presentations
-    const demoResponses = {
-      warmup: ['Panic', 'Shock', 'Urgency', 'Confusion', 'Responsibility', 'Overwhelm', 'Focus', 'Adrenaline'],
-      uncertainty: [
-        'Exact spill amount unknown',
-        'Weather conditions unclear', 
-        'Other vessel damage extent',
-        'Port authority response time',
-        'Insurance coverage gaps',
-        'Media attention scope'
-      ],
-      ownership: [
-        'Who contacts coast guard?',
-        'Media spokesperson unclear',
-        'Environmental reporting overlap',
-        'Customer notification responsibility',
-        'Legal liaison confusion'
-      ],
-      overreliance: [
-        'AIS tracking system reliability',
-        'Initial crew damage reports', 
-        'Emergency response protocols',
-        'Communication equipment backup',
-        'Weather forecast accuracy'
-      ],
-      constraints: [
-        '3AM decision fatigue',
-        'Multiple time zones coordination',
-        'Language barriers with crew',
-        'Regulatory deadline pressures',
-        'Limited expert availability'
-      ]
-    };
-
-    function startDemoMode(questionType) {
-      if (!demoResponses[questionType]) return;
-      
-      const responses = demoResponses[questionType];
-      let index = 0;
-      
-      const demoInterval = setInterval(() => {
-        if (index >= responses.length) {
-          clearInterval(demoInterval);
-          return;
-        }
-        
-        // Simulate response appearing
-        console.log(`Demo Response ${index + 1}: ${responses[index]}`);
-        
-        // You could update UI here to show "incoming" responses
-        if (questionType === 'warmup') {
-          showWordCloudUpdate(responses[index]);
-        } else {
-          showTextResponseUpdate(responses[index]);
-        }
-        
-        index++;
-      }, 2000 + Math.random() * 3000); // Random timing between 2-5 seconds
-    }
-
-    function showWordCloudUpdate(word) {
-      // Visual feedback for word cloud updates
-      const notification = document.createElement('div');
-      notification.style.cssText = `
-        position: fixed;
-        top: 50px;
-        right: 30px;
-        background: rgba(255,167,38,0.9);
-        color: #000;
-        padding: 10px 20px;
-        border-radius: 25px;
-        font-weight: bold;
-        z-index: 1001;
-        animation: slideInRight 0.3s ease;
-      `;
-      notification.textContent = `"${word}" added`;
-      document.body.appendChild(notification);
-      
-      setTimeout(() => {
-        notification.remove();
-      }, 2000);
-    }
-
-    function showTextResponseUpdate(text) {
-      // Visual feedback for text responses
-      const notification = document.createElement('div');
-      notification.style.cssText = `
-        position: fixed;
-        top: 50px;
-        right: 30px;
-        background: rgba(66,165,245,0.9);
-        color: #fff;
-        padding: 10px 20px;
+        padding: 2rem 3rem;
         border-radius: 15px;
-        font-size: 0.9rem;
-        z-index: 1001;
-        max-width: 300px;
-        animation: slideInRight 0.3s ease;
+        border: 2px solid ${mode.color};
+        z-index: 10000;
+        text-align: center;
+        font-size: 1.1rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        animation: modeSwitch 0.5s ease;
       `;
-      notification.textContent = `New: "${text.substring(0, 40)}..."`;
+      
+      notification.innerHTML = `
+        <div style="font-size: 1.4rem; font-weight: bold; margin-bottom: 1rem; color: ${mode.color};">
+          📊 ${mode.name}
+        </div>
+        <div style="margin-bottom: 1rem; opacity: 0.9;">
+          ${mode.description}
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.7; font-style: italic;">
+          ${mode.instructions}
+        </div>
+        ${toMode === 'dual' ? '<div style="margin-top: 1rem; color: #42a5f5; font-weight: bold;">↗️ Opening Mentimeter window...</div>' : ''}
+      `;
+      
       document.body.appendChild(notification);
       
       setTimeout(() => {
         notification.remove();
       }, 3000);
     }
-
-    // Add CSS animation for notifications
-    const style = document.createElement('style');
-    style.textContent = `
-      @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+    
+    function refreshSlideForMode() {
+      const questionType = getQuestionTypeBySlide(currentSlide);
+      
+      if (questionType) {
+        // Force refresh of interactive elements
+        setTimeout(() => {
+          refreshInteractiveElements(questionType);
+        }, 100);
       }
-    `;
-    document.head.appendChild(style);
+      
+      // Update any other slide-specific elements
+      updateSlideForCurrentMode();
+    }
+    
+    function updateSlideForCurrentMode() {
+      // Add mode-specific visual changes to current slide
+      const currentSlideElement = document.getElementById(`slide${currentSlide}`);
+      if (!currentSlideElement) return;
+      
+      // Remove any existing mode classes
+      currentSlideElement.classList.remove('mode-dual', 'mode-hybrid', 'mode-offline');
+      
+      // Add current mode class
+      currentSlideElement.classList.add(`mode-${currentMode}`);
+    }
+    
+    // Dual Mode: Open Mentimeter in separate window/tab
+    function openMentimeterWindow() {
+      const mentimeterUrl = `${mentimeterConfig.baseUrl}/${mentimeterConfig.eventCode}`;
+      const mentimeterWindow = window.open(
+        mentimeterUrl, 
+        'MentimeterPresentation',
+        'width=1200,height=800,scrollbars=yes,resizable=yes,toolbar=no,menubar=no'
+      );
+      
+      if (mentimeterWindow) {
+        console.log('Mentimeter window opened successfully');
+        
+        // Focus back to main presentation after 2 seconds
+        setTimeout(() => {
+          window.focus();
+        }, 2000);
+      } else {
+        console.warn('Popup blocked - showing manual instructions');
+        showManualMentimeterInstructions();
+      }
+    }
+    
+    function showManualMentimeterInstructions() {
+      const notification = document.createElement('div');
+      notification.style.cssText = `
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0,0,0,0.95);
+        color: #FBEDD4;
+        padding: 2rem 3rem;
+        border-radius: 15px;
+        border: 2px solid #42a5f5;
+        z-index: 10000;
+        text-align: center;
+        max-width: 500px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      `;
+      
+      notification.innerHTML = `
+        <div style="font-size: 1.4rem; font-weight: bold; margin-bottom: 1rem; color: #42a5f5;">
+          🚀 Dual Mode Setup
+        </div>
+        <div style="margin-bottom: 1rem;">
+          Open this URL in a separate browser/projector:
+        </div>
+        <div style="background: rgba(66,165,245,0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0; font-family: monospace; word-break: break-all;">
+          ${mentimeterConfig.baseUrl}/${mentimeterConfig.eventCode}
+        </div>
+        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 1rem;">
+          Click anywhere to close this message
+        </div>
+      `;
+      
+      notification.addEventListener('click', () => {
+        notification.remove();
+      });
+      
+      document.body.appendChild(notification);
+    }
+    
+    // Dual Mode: Show instructions instead of QR codes
+    function displayDualModeInstructions(questionType) {
+      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
+      const config = mentimeterConfig.presentations[questionType];
+      
+      qrPlaceholders.forEach(placeholder => {
+        placeholder.innerHTML = `
+          <div style="font-size: 1.4rem; margin-bottom: 1rem; color: #42a5f5;">🖥️ DUAL MODE ACTIVE</div>
+          <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 1rem;">
+            Question displayed on separate Mentimeter screen
+          </div>
+          <div style="background: rgba(66,165,245,0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <div style="font-weight: bold; margin-bottom: 0.5rem;">Participants join at:</div>
+            <div style="font-size: 1.2rem; color: #42a5f5;">menti.com</div>
+            <div style="font-size: 1.4rem; font-weight: bold; color: #42a5f5; margin-top: 0.5rem;">
+              Code: ${config.id}
+            </div>
+          </div>
+          <div style="font-size: 0.9rem; opacity: 0.7;">
+            Control timing from Mentimeter presenter view
+          </div>
+        `;
+        
+        placeholder.style.background = 'rgba(66,165,245,0.15)';
+        placeholder.style.borderColor = '#42a5f5';
+        placeholder.style.color = '#FBEDD4';
+      });
+    }
+    
+    // Legacy function compatibility
+    function toggleMode(mode) {
+      switchPresentationMode(mode);
+    }
+    
+    // Enhanced Mentimeter Integration
+    const mentimeterConfig = {
+      enabled: true,
+      baseUrl: 'https://www.menti.com',
+      eventCode: 'altvpk3xsbhg', // Updated to match documentation
+      presentations: {
+        warmup: { id: 'altvpk3xsbhg', type: 'wordcloud', question: 'emotional-response' },
+        uncertainty: { id: 'altvpk3xsbhg', type: 'opentext', question: 'information-gaps' },
+        ownership: { id: 'altvpk3xsbhg', type: 'opentext', question: 'responsibility-confusion' },
+        overreliance: { id: 'altvpk3xsbhg', type: 'opentext', question: 'assumptions-dependencies' },
+        constraints: { id: 'altvpk3xsbhg', type: 'opentext', question: 'human-limitations' }
+      }
+    };
+
+    // Functions for slide navigation and interaction
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        showSlide(currentSlide);
+      }
+    }
+
+    function previousSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        showSlide(currentSlide);
+      }
+    }
+
+    function showSlide(n) {
+      const slides = document.querySelectorAll('.slide');
+      const progressBar = document.getElementById('progressBar');
+      const slideCounter = document.getElementById('slideCounter');
+      
+      // Hide all slides
+      slides.forEach(slide => slide.classList.remove('active'));
+      
+      // Show current slide
+      const currentSlideElement = document.getElementById(`slide${n}`);
+      if (currentSlideElement) {
+        currentSlideElement.classList.add('active');
+      }
+      
+      // Update progress bar
+      const progress = (n / totalSlides) * 100;
+      progressBar.style.width = `${progress}%`;
+      
+      // Update slide counter
+      slideCounter.textContent = `${n} / ${totalSlides}`;
+      
+      // Update slide for current mode
+      updateSlideForCurrentMode();
+      
+      // Handle interactive elements based on current mode
+      handleSlideInteractivity(n);
+      
+      console.log(`Showing slide ${n}, mode: ${currentMode}`);
+    }
+
+    function handleSlideInteractivity(slideNumber) {
+      const questionType = getQuestionTypeBySlide(slideNumber);
+      
+      if (questionType) {
+        setTimeout(() => {
+          refreshInteractiveElements(questionType);
+        }, 300);
+      }
+    }
+    
+    function refreshInteractiveElements(questionType) {
+      // Clear any existing content first
+      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
+      qrPlaceholders.forEach(placeholder => {
+        placeholder.innerHTML = '';
+        placeholder.className = 'qr-placeholder'; // Reset classes
+      });
+      
+      // Apply mode-specific rendering
+      if (currentMode === 'dual') {
+        displayDualModeInstructions(questionType);
+      } else if (currentMode === 'hybrid') {
+        displayQRCode(questionType);
+      } else if (currentMode === 'offline') {
+        showOfflineMode();
+      }
+      
+      console.log(`Refreshed ${questionType} for ${currentMode} mode`);
+    }
+
+    function getQuestionTypeBySlide(slideNumber) {
+      const slideQuestions = {
+        8: 'warmup',
+        9: 'uncertainty', 
+        10: 'ownership',
+        11: 'overreliance',
+        12: 'constraints'
+      };
+      return slideQuestions[slideNumber] || null;
+    }
+
+    function displayQRCode(questionType) {
+      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
+      const config = mentimeterConfig.presentations[questionType];
+      const mentiUrl = `${mentimeterConfig.baseUrl}/${mentimeterConfig.eventCode}`;
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(mentiUrl)}`;
+
+      qrPlaceholders.forEach(placeholder => {
+        placeholder.innerHTML = `
+          <div style="text-transform: uppercase; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem; color: #FBEDD4;">📱 Scan to join live poll</div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; width: 100%; padding: 0.5rem;">
+            <img src="images/qr-codes/mentimeter_qr_code1.png" alt="Mentimeter QR Code" style="width: 140px; height: 140px; border-radius: 8px;">
+            <div style="text-align: left; border-left: 2px solid #ffa726; padding-left: 1.5rem;">
+              <div style="font-size: 0.9rem; color: #FBEDD4; opacity: 0.8;">Alternative Access:</div>
+              <a href="${mentiUrl}" target="_blank" style="font-size: 1.2rem; font-weight: bold; color: white; text-decoration: none; margin: 0.3rem 0;">Go to: menti.com</a>
+              <div style="font-size: 1.1rem; font-weight: bold; letter-spacing: 1px; margin-top: 0.3rem;">Code: ${mentimeterConfig.eventCode}</div>
+              <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">Results appear live on<br>presenter screen</div>
+            </div>
+          </div>
+          <div style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">LIVE NOW - Anonymous responses • Real-time results</div>
+        `;
+        placeholder.classList.add('active');
+      });
+    }
+
+    function showOfflineMode() {
+      const qrPlaceholders = document.querySelectorAll('.qr-placeholder');
+      
+      qrPlaceholders.forEach(placeholder => {
+        placeholder.innerHTML = `
+          <div style="font-size: 1.4rem; margin-bottom: 1rem; color: #999;">💬 OFFLINE MODE</div>
+          <div style="font-size: 1rem; opacity: 0.9; margin-bottom: 1rem;">
+            Discussion-based without live polling
+          </div>
+          <div style="background: rgba(153,153,153,0.2); padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+            <div style="font-weight: bold; margin-bottom: 0.5rem;">Facilitator Instructions:</div>
+            <div style="font-size: 0.9rem; opacity: 0.8;">
+              • Ask question verbally<br>
+              • Collect responses on whiteboard/flipchart<br>
+              • Group similar themes together
+            </div>
+          </div>
+          <div style="font-size: 0.9rem; opacity: 0.7;">
+            More engagement, less technology
+          </div>
+        `;
+        
+        placeholder.style.background = 'rgba(153,153,153,0.15)';
+        placeholder.style.borderColor = '#999';
+        placeholder.style.color = '#FBEDD4';
+      });
+    }
+
+    function showParticipationStats(questionType, responseCount) {
+      // Placeholder for participation tracking
+      console.log(`${questionType}: ${responseCount} responses`);
+    }
+
+    function startDemoMode(questionType) {
+      console.log(`Demo mode activated for ${questionType}`);
+      // Simulate some demo responses
+      setTimeout(() => {
+        showParticipationStats(questionType, Math.floor(Math.random() * 20) + 5);
+      }, 1000);
+    }
+
+    // Mouse cursor effect
+    document.addEventListener('mousemove', (e) => {
+      const cursor = document.getElementById('cursor');
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Click navigation
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.interactive-button') && !e.target.closest('.zone-card')) {
+        nextSlide();
+      }
+    });
+
+    // Initialize mode indicator on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('Initializing Gray Zones Workshop...');
+      console.log('Current mode:', currentMode);
+      
+      updateModeIndicator();
+      showSlide(currentSlide);
+      
+      // Initialize current slide interactivity
+      const questionType = getQuestionTypeBySlide(currentSlide);
+      if (questionType) {
+        refreshInteractiveElements(questionType);
+      }
+      
+      console.log('Workshop initialized successfully');
+    });
   </script>
 </body>
 </html>

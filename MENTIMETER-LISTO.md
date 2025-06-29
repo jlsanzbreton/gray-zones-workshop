@@ -3,6 +3,7 @@
 ## ✅ **CONFIGURACIÓN ACTUAL - FUNCIONA AL 100%**
 
 ### **Tu Setup Optimizado:**
+
 - **Una sola presentación** de Mentimeter con 5 slides
 - **Un solo código:** `altvpk3xsbhg`
 - **Un solo QR code:** Ya configurado en el workshop
@@ -10,12 +11,14 @@
 
 ### **Cómo Funciona en tu Workshop:**
 
-**Slide 8 (Word Cloud):** 
+**Slide 8 (Word Cloud):**
+
 - Participantes escanean QR → Se unen a Mentimeter
 - Tú avanzas al slide 1 de Word Cloud
 - Responden emociones → Ves resultados en tiempo real
 
 **Slides 9-12 (Preguntas Gray Zones):**
+
 - **Mismo código, mismo QR** → No confusion
 - Tú avanzas slides manualmente en Mentimeter
 - Controlas timing perfecto con la narrativa
@@ -23,11 +26,13 @@
 ### **Instrucciones de Uso:**
 
 **Antes del Workshop:**
+
 1. Abrir [mentimeter.com](https://www.menti.com)
-2. Ir a tu presentación `altvpk3xsbhg` 
+2. Ir a tu presentación `altvpk3xsbhg`
 3. Modo "Present" → Tener la vista del facilitador lista
 
 **Durante el Workshop:**
+
 1. **Slide 8** → Avanzar a slide 1 en Mentimeter (Word Cloud)
 2. **Slide 9** → Avanzar a slide 2 en Mentimeter (Uncertainty)
 3. **Slide 10** → Avanzar a slide 3 en Mentimeter (Ownership)
@@ -50,6 +55,7 @@
 ```
 
 ### **Backup Plan:**
+
 - **Shift+M** → Modo offline (discusión grupal)
 - **Shift+D** → Modo demo (simula respuestas)
 

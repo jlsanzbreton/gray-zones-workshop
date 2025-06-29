@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Modes - Gray Zones Workshop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1a1a;
+            color: #FBEDD4;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .test-section {
+            background: rgba(251,237,212,0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 2px solid #ffa726;
+        }
+        .button {
+            background: #ffa726;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            margin: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .button:hover { background: #ff9800; }
+        .result {
+            background: rgba(0,0,0,0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-family: monospace;
+        }
+        .qr-test {
+            width: 300px;
+            height: 200px;
+            border: 2px dashed #ffa726;
+            border-radius: 10px;
+            margin: 1rem 0;
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Gray Zones Workshop - Mode Testing</h1>
+    
+    <div class="test-section">
+        <h2>1. QR Code Generation Test</h2>
+        <p>Testing QR code generation with current Mentimeter config:</p>
+        <button class="button" onclick="testQRGeneration()">Test QR Code</button>
+        <div id="qr-result" class="qr-test">
+            <span>Click button to test QR generation</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Mentimeter Embed Test</h2>
+        <p>Testing iframe embed with current code:</p>
+        <button class="button" onclick="testEmbed()">Test Mentimeter Embed</button>
+        <div id="embed-result" class="qr-test">
+            <span>Click button to test embed</span>
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Mode System Test</h2>
+        <p>Testing mode switching functionality:</p>
+        <button class="button" onclick="testModeSwitch('dual')">Test Dual Mode</button>
+        <button class="button" onclick="testModeSwitch('hybrid')">Test Hybrid Mode</button>
+        <button class="button" onclick="testModeSwitch('offline')">Test Offline Mode</button>
+        <div id="mode-result" class="result">Current mode: Not tested</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Config Check</h2>
+        <div id="config-result" class="result">
+            <div><strong>Mentimeter Code:</strong> <span id="menti-code">Loading...</span></div>
+            <div><strong>Base URL:</strong> <span id="menti-url">Loading...</span></div>
+            <div><strong>Full URL:</strong> <span id="full-url">Loading...</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration from main workshop
+        const mentimeterConfig = {
+            enabled: true,
+            baseUrl: 'https://www.menti.com',
+            eventCode: 'altvpk3xsbhg',
+            presentations: {
+                warmup: { id: 'altvpk3xsbhg', type: 'wordcloud', question: 'emotional-response' },
+                uncertainty: { id: 'altvpk3xsbhg', type: 'opentext', question: 'information-gaps' },
+                ownership: { id: 'altvpk3xsbhg', type: 'opentext', question: 'responsibility-confusion' },
+                overreliance: { id: 'altvpk3xsbhg', type: 'opentext', question: 'assumptions-dependencies' },
+                constraints: { id: 'altvpk3xsbhg', type: 'opentext', question: 'human-limitations' }
+            }
+        };
+
+        let currentMode = 'hybrid';
+
+        function testQRGeneration() {
+            const config = mentimeterConfig.presentations.warmup;
+            const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://www.menti.com/app/presentation/${config.id}`;
+            
+            document.getElementById('qr-result').innerHTML = `
+                <div style="color: #ffa726; margin-bottom: 1rem;">✅ QR Code Generated</div>
+                <img src="${qrCodeUrl}" alt="QR Code" style="width: 160px; height: 160px; background: white; padding: 10px; border-radius: 8px;">
+                <div style="margin-top: 1rem; font-size: 0.9rem;">Code: ${config.id}</div>
+            `;
+        }
+
+        function testEmbed() {
+            const config = mentimeterConfig.presentations.warmup;
+            
+            document.getElementById('embed-result').innerHTML = `
+                <div style="color: #ffa726; margin-bottom: 1rem;">✅ Embed iframe</div>
+                <div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden; background: #fff; border-radius: 8px;'>
+                    <iframe sandbox='allow-scripts allow-same-origin allow-presentation' 
+                            allowfullscreen='true' 
+                            allowtransparency='true' 
+                            frameborder='0' 
+                            height='315' 
+                            src='https://www.mentimeter.com/app/presentation/${config.id}/embed' 
+                            style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;' 
+                            width='420'>
+                    </iframe>
+                </div>
+            `;
+        }
+
+        function testModeSwitch(mode) {
+            currentMode = mode;
+            const modeNames = {
+                'dual': 'Dual Control',
+                'hybrid': 'Hybrid Embed',
+                'offline': 'Offline Mode'
+            };
+            
+            document.getElementById('mode-result').innerHTML = `
+                Current mode: <strong style="color: #ffa726;">${modeNames[mode]}</strong><br>
+                ✅ Mode switch successful<br>
+                <small>In real workshop: Press Shift+${mode === 'dual' ? '1' : mode === 'hybrid' ? '2' : 'O'}</small>
+            `;
+        }
+
+        // Initialize config display
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('menti-code').textContent = mentimeterConfig.eventCode;
+            document.getElementById('menti-url').textContent = mentimeterConfig.baseUrl;
+            document.getElementById('full-url').textContent = `${mentimeterConfig.baseUrl}/${mentimeterConfig.eventCode}`;
+        });
+    </script>
+</body>
+</html>

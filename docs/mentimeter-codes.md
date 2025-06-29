@@ -7,6 +7,7 @@
 ### Setup Rápido (5 minutos)
 
 1. **Crear UNA presentación en Mentimeter** con 5 slides:
+
    - Slide 1: Word Cloud - "In one word, what would you feel upon hearing about this collision?"
    - Slide 2: Open Text - "What missing information created the most uncertainty?"
    - Slide 3: Open Text - "Which responsibilities fell into gray areas?"
@@ -20,7 +21,7 @@
 ### Configuración Actual
 
 - **Code**: altvpk3xsbhg
-- **URL**: https://www.menti.com/altvpk3xsbhg  
+- **URL**: https://www.menti.com/altvpk3xsbhg
 - **QR Image**: images/qr-codes/mentimeter_qr_code.png ✅
 
 ### Ventajas de Esta Configuración
